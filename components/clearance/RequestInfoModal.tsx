@@ -1,4 +1,5 @@
 'use client';
+import { track } from '@/lib/meta-pixel';
 
 import { useEffect, useRef, useState } from 'react';
 import type { Listing, StoreInfo } from '@/lib/clearance';
@@ -44,6 +45,7 @@ export default function RequestInfoModal({ listing: l, store, onClose }: {
       setPhase('done');
       // Analytics (GTM is already on the site):
       (window as unknown as { dataLayer?: object[] }).dataLayer?.push({ event: 'clearance_request_submit', listing_id: l.id, hold: payload.hold_request === 'yes' });
+      track('Lead'); // Meta Pixel (lib/meta-pixel.ts): only once the API has accepted the request
     } catch {
       setPhase('error');
     }

@@ -6,6 +6,7 @@ import { AnnouncementTicker } from '@/components/AnnouncementTicker';
 import { SiteFooter } from '@/components/SiteFooter';
 import { PageLoader } from '@/components/PageLoader';
 import { TrackingHead, TrackingBody } from '@/components/Tracking';
+import MetaPixel from '@/components/MetaPixel';
 import { ChatWidget } from '@/components/ChatWidget';
 import { GHL_SHIM } from '@/lib/ghl-shim';
 import { BODY_GUARD } from '@/lib/body-guard';
@@ -47,6 +48,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <TrackingBody />
+        {/* Meta Pixel 1856673485357683 on every page: base code, noscript image and events (components/MetaPixel.tsx) */}
+        <MetaPixel />
         {/* Everything React renders in <body> sits in this one element (display: contents, so it adds no box and changes no
             layout). Tags fired by Google Tag Manager append elements to <body> while a long page is still streaming;
             with this wrapper they land after it, at the end of <body>, where React's hydration ignores them, instead of

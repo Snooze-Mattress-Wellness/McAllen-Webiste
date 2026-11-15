@@ -1,4 +1,5 @@
 'use client';
+import { track } from '@/lib/meta-pixel';
 
 import { useState } from 'react';
 import type { StoreInfo } from '@/lib/clearance';
@@ -19,7 +20,7 @@ export default function NotifyForm({ store }: { store: StoreInfo }) {
       body: JSON.stringify({ ...Object.fromEntries(fd.entries()), type: 'alerts', page_url: `${window.location.origin}/clearance` }),
     }).catch(() => null);
     setBusy(false);
-    if (res?.ok) setDone(true);
+    if (res?.ok) { setDone(true); track('Lead'); } // Meta Pixel Lead only on a 2xx from the API
   }
 
   return (

@@ -516,6 +516,7 @@ async function sendLead(){
   if(!url || url.includes("REPLACE")){ console.warn("[Sleep Fit Quiz] No GHL webhook configured — payload would be:", payload); return; }
   const body = new URLSearchParams(payload); // form-encoded = no CORS preflight
   const post = fetch(url,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/x-www-form-urlencoded"},body,keepalive:true}).catch(err=>console.warn("Lead post failed",err));
+  post.then(function(r){ if (r && window.snzMeta) window.snzMeta.track('Lead'); }); // Meta Pixel Lead once the lead has been sent (components/MetaPixel.tsx sets window.snzMeta); the catch above resolves undefined on failure
   await Promise.race([post, new Promise(r=>setTimeout(r,2500))]);
 }
 
