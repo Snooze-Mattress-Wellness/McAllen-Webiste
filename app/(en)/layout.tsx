@@ -48,7 +48,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <TrackingBody />
-        {/* Meta Pixel 1856673485357683 on every page: base code, noscript image and events (components/MetaPixel.tsx) */}
+        {/* Meta Pixel (the one id in lib/meta-pixel.ts) on every page: base code, noscript image and events (components/MetaPixel.tsx) */}
         <MetaPixel />
         {/* Everything React renders in <body> sits in this one element (display: contents, so it adds no box and changes no
             layout). Tags fired by Google Tag Manager append elements to <body> while a long page is still streaming;

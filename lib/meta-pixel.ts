@@ -1,13 +1,15 @@
-/* Meta Pixel "Snooze RGV North McAllen" (November 16, 2026): the id, the base code and the small event helper used by
+/* Meta Pixel — dataset "Snooze RGV – North McAllen Website", id 1451635126439330 (November 16, 2026): the id, the base
+   code and the small event helper used by
    components/MetaPixel.tsx (every page, both root layouts), the clearance forms and public/sleep-fit-quiz.js.
    The id is public (it is in every page's HTML), so it lives here in code.
 
-   A second Meta pixel (1520990292407257) already runs on the site through the GTM container. Both pixels share the one
-   window.fbq, and fbq('track', …) broadcasts to EVERY initialised pixel, so everything here uses
-   fbq('trackSingle', META_PIXEL_ID, …): our PageView and events reach only this pixel and the GTM pixel's data does
-   not change. (The reverse is not in our hands: fbq('track', …) calls made by GTM tags after this pixel has
-   initialised reach it too.) */
-export const META_PIXEL_ID = '1856673485357683';
+   This must be the site's ONLY pixel. The GTM container (GTM-TVPN94M, components/Tracking.tsx) has been seen to load a
+   pixel of its own; that cannot be removed from this repo and is handled in GTM. While any other pixel shares the one
+   window.fbq, fbq('track', …) broadcasts to EVERY initialised pixel, so everything here uses
+   fbq('trackSingle', META_PIXEL_ID, …): our PageView and events reach only this pixel. (The reverse is not in our
+   hands: broadcast fbq('track', …) calls made by GTM tags after this pixel has initialised reach it too, which
+   double-counts PageView until GTM is cleaned up.) */
+export const META_PIXEL_ID = '1451635126439330';
 
 export type MetaEvent = 'PageView' | 'Contact' | 'FindLocation' | 'Lead' | 'Schedule';
 

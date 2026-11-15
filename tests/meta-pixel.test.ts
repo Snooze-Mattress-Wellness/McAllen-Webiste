@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { META_PIXEL_ID, META_PIXEL_NOSCRIPT, META_PIXEL_SNIPPET, conversionForPath, isDirectionsHref, isTelHref, track } from '../lib/meta-pixel.ts';
 
 test('base code: loads fbevents.js, inits the pixel and scopes its PageView to it; the noscript image carries the id', () => {
-  assert.equal(META_PIXEL_ID, '1856673485357683');
+  assert.equal(META_PIXEL_ID, '1451635126439330');
   assert.ok(META_PIXEL_SNIPPET.includes("'https://connect.facebook.net/en_US/fbevents.js'"));
   assert.ok(META_PIXEL_SNIPPET.includes(`fbq('init','${META_PIXEL_ID}')`));
   assert.ok(META_PIXEL_SNIPPET.includes(`fbq('trackSingle','${META_PIXEL_ID}','PageView')`), 'PageView must not broadcast to the GTM pixel');

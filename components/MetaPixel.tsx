@@ -1,5 +1,5 @@
 'use client';
-/* Meta Pixel "Snooze RGV North McAllen" on every page. Both root layouts (and the converter's layout template) render
+/* Meta Pixel ("Snooze RGV – North McAllen Website", the id in lib/meta-pixel.ts) on every page. Both root layouts (and the converter's layout template) render
    it right after <TrackingBody />, before the #snz-app wrapper:
      - the base code through next/script with strategy="afterInteractive" (Next injects it once the page is
        interactive, so it never lands in <body> while a long page is still streaming — the hydration hazard the layouts
