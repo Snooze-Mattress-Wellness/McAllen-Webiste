@@ -1,7 +1,7 @@
 // Meta Pixel helpers (lib/meta-pixel.ts). Node's built-in test runner: `npm test`.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { META_PIXEL_ID, META_PIXEL_NOSCRIPT, META_PIXEL_SNIPPET, conversionForPath, isDirectionsHref, isTelHref, track } from '../lib/meta-pixel.ts';
+import { META_PIXEL_ID, META_PIXEL_NOSCRIPT, META_PIXEL_SNIPPET, conversionForPath, conversionParams, isDirectionsHref, isTelHref, track } from '../lib/meta-pixel.ts';
 
 test('base code: loads fbevents.js, inits the pixel and scopes its PageView to it; the noscript image carries the id', () => {
   assert.equal(META_PIXEL_ID, '1451635126439330');
@@ -36,12 +36,12 @@ test('isDirectionsHref: Google Maps (place links, query links, short links), App
   for (const no of ['https://www.google.com/search?q=maps', 'https://www.facebook.com/p/x', '/mattress-store-edinburg', 'tel:9565865646', '', undefined]) assert.equal(isDirectionsHref(no), false, String(no));
 });
 
-test('conversionForPath: the contact opt-in confirmation page is a Lead; the booking confirmation page is not mapped', () => {
-  assert.equal(conversionForPath('/thank/you'), 'Lead');
-  assert.equal(conversionForPath('/es/thank/you/'), 'Lead');
-  assert.equal(conversionForPath('/dream/map/thank/you'), null, 'Schedule is reserved for a booking-iframe submit message');
-  assert.equal(conversionForPath('/'), null);
-  assert.equal(conversionForPath('/clearance'), null);
+test('conversionForPath: booking confirmation → Schedule, opt-in confirmation → Lead, everything else null', () => {
+  for (const p of ['/dream/map/thank/you', '/dream/map/thank/you/', '/es/dream/map/thank/you']) assert.equal(conversionForPath(p), 'Schedule', p);
+  for (const p of ['/thank/you', '/es/thank/you', '/es/thank/you/']) assert.equal(conversionForPath(p), 'Lead', p);
+  for (const p of ['/booking', '/es/booking', '/', '/clearance', '/dream/map', '/thank/you/again', '/dream/map/thank/you/x']) assert.equal(conversionForPath(p), null, p);
+  assert.deepEqual(conversionParams('Schedule'), { content_name: 'Dream Mapping McAllen' });
+  assert.equal(conversionParams('Lead'), undefined);
 });
 
 test('track(): no-op without window.fbq; otherwise trackSingle with this pixel id', () => {

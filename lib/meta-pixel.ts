@@ -49,11 +49,19 @@ export const isDirectionsHref = (href: string | null | undefined): boolean => MA
 
 /* Conversions that can only be reached by completing a form that lives in a LeadConnector iframe, whose submit we
    cannot see: the iframe redirects the top window to a site page once the form has gone through.
-     /thank/you (and /es/…) — the contact opt-in form's confirmation page → Lead
-   The booking widget's confirmation page (/dream/map/thank/you) is deliberately NOT mapped: Schedule is reserved for a
-   submit message from the booking iframe, and the widget sends none (components/MetaPixel.tsx). */
+     /dream/map/thank/you (and /es/…) — the Dream Mapping calendar's confirmation page → Schedule. Both /booking and
+                                        /es/booking embed the same calendar (components/BookingPage.tsx), and its
+                                        post-booking redirect lands here. The widget itself posts no submit message.
+     /thank/you (and /es/…)           — the contact opt-in form's confirmation page → Lead
+   components/MetaPixel.tsx sends the event once per page load. */
 export function conversionForPath(pathname: string): MetaEvent | null {
-  const p = pathname.replace(/\/+$/, '') || '/';
-  if (/^(\/es)?\/thank\/you$/.test(p)) return 'Lead';
+  const path = pathname.replace(/\/+$/, '') || '/';
+  if (/^(\/es)?\/dream\/map\/thank\/you$/.test(path)) return 'Schedule';
+  if (/^(\/es)?\/thank\/you$/.test(path)) return 'Lead';
   return null;
+}
+
+/** Standard-event parameters for a confirmation-page conversion. */
+export function conversionParams(ev: MetaEvent): Record<string, unknown> | undefined {
+  return ev === 'Schedule' ? { content_name: 'Dream Mapping McAllen' } : undefined;
 }

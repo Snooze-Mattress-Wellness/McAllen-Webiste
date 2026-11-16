@@ -12,20 +12,25 @@
                        footer, CTAs and the generated pages are covered, English and Spanish;
          FindLocation  any directions / Google Maps link click (address links, Get Directions, Open in Maps);
          Lead          the contact opt-in form's confirmation page (/thank/you, /es/thank/you: the form is a
-                       LeadConnector iframe, its redirect is the hook; once per session). The clearance forms and the
-                       Sleep Fit Quiz call track('Lead') themselves after a successful submit;
-         Schedule      NOT fired. The booking widget (link.snoozesleep.com iframe) sends no postMessage on submit —
-                       only iframe-resizer height messages, "highlevel.setHeight" and "set-sticky-contacts" cookie
-                       syncs, which also fire at load for returning visitors — so there is nothing honest to key off;
+                       LeadConnector iframe, its redirect is the hook; once per page load). The clearance forms and
+                       the Sleep Fit Quiz call track('Lead') themselves after a successful submit;
+         Schedule      the Dream Mapping calendar's confirmation page (/dream/map/thank/you, /es/…), with
+                       content_name "Dream Mapping McAllen", once per page load. The booking widget itself sends no
+                       postMessage on submit (only iframe-resizer heights, "highlevel.setHeight" and
+                       "set-sticky-contacts" cookie syncs), so its post-booking redirect to that page is the hook;
      - window.snzMeta.track for the plain scripts in /public (the Sleep Fit Quiz). */
 import { useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import Script from 'next/script';
-import { META_PIXEL_NOSCRIPT, META_PIXEL_SNIPPET, conversionForPath, isDirectionsHref, isTelHref, track } from '@/lib/meta-pixel';
+import { META_PIXEL_NOSCRIPT, META_PIXEL_SNIPPET, conversionForPath, conversionParams, isDirectionsHref, isTelHref, track } from '@/lib/meta-pixel';
 
 declare global {
   interface Window { snzMeta?: { track: typeof track } }
 }
+
+/* Confirmation-page conversions already sent during this page's lifetime (event:path). Module-level, like PageView's
+   guard: survives re-renders, Strict Mode's double effect and client-side navigation; a full reload starts fresh. */
+const fired = new Set<string>();
 
 export default function MetaPixel() {
   const pathname = usePathname() || '/';
@@ -39,16 +44,18 @@ export default function MetaPixel() {
     track('PageView');
   }, [pathname]);
 
-  /* Confirmation pages reached by a LeadConnector form's redirect. The base code may not have run yet when this
-     effect does, so retry briefly until window.fbq exists; once per session so a reload does not count twice. */
+  /* Confirmation pages reached by a LeadConnector form's redirect: Schedule on the booking confirmation page, Lead on
+     the opt-in one (lib/meta-pixel.ts). Exactly once per page load, guarded like PageView (the `fired` record above).
+     The base code may not have run yet when this effect does, so retry briefly until window.fbq exists. */
   useEffect(() => {
     const ev = conversionForPath(pathname);
     if (!ev) return;
-    const key = `snzMeta:${ev}:${pathname}`;
-    try { if (sessionStorage.getItem(key)) return; } catch { /* storage unavailable: fire anyway */ }
+    const key = `${ev}:${pathname}`;
+    if (fired.has(key)) return;
     let tries = 0; let timer: ReturnType<typeof setTimeout> | undefined;
     const fire = () => {
-      if (track(ev)) { try { sessionStorage.setItem(key, '1'); } catch { /* ignore */ } return; }
+      if (fired.has(key)) return;
+      if (track(ev, conversionParams(ev))) { fired.add(key); return; }
       if (++tries < 100) timer = setTimeout(fire, 100);
     };
     fire();
