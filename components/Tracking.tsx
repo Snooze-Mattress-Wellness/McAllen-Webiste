@@ -6,7 +6,9 @@
      3. Simpli.fi (async)
      4. Google tag (gtag.js) G-TS1RXQVPYT + its config
    plus the GTM noscript iframe as the first element we render in <body> (Next.js itself emits an empty
-   <div hidden> before it). Both GA4 properties are intentional: never merge or dedupe them. Nothing waits for an
+   <div hidden> before it) and, next to it, the Google Ads booking conversion (BookingConversion below). The first
+   gtag block also configures the Google Ads account (AW-17532275127, lib/google-tag.ts), so the Google tag carries
+   the three ids. Both GA4 properties are intentional: never merge or dedupe them. Nothing waits for an
    interaction, the load event or consent (a previous performance pass deferred the tags until the first
    interaction and GA4 stopped recording visitors who bounced). Site events (phone_click, directions_click,
    booking_confirmation, optin_submit, quiz events) go to the same dataLayer from public/snz-events.js.
@@ -19,6 +21,9 @@
    Hydration safety: tags fired by the GTM container (CallRail number swapping and others) insert elements into
    <body> while a long page is still streaming. components/GhlPage.tsx keeps the server-rendered page markup and puts
    it back if React ever has to re-render the tree after such an insertion, so the page never comes back blank. */
+import { useEffect } from 'react';
+import { usePathname } from 'next/navigation';
+import { ADS_ID, BOOKING_CONVERSION, isBookingConfirmation } from '@/lib/google-tag';
 
 const keep = () => {};
 
@@ -28,6 +33,7 @@ const GTAG_PRIMARY_CONFIG = `
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-9R1JGVBRBR');
+  gtag('config', '${ADS_ID}');
 `;
 const GTM_SNIPPET = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -61,7 +67,33 @@ export function TrackingHead() {
   );
 }
 
-/** Google Tag Manager (noscript), immediately after <body>. */
+/** Google Tag Manager (noscript), immediately after <body>, and the Google Ads booking conversion. */
 export function TrackingBody() {
-  return <noscript dangerouslySetInnerHTML={{ __html: GTM_NOSCRIPT }} />;
+  return (
+    <>
+      <noscript dangerouslySetInnerHTML={{ __html: GTM_NOSCRIPT }} />
+      <BookingConversion />
+    </>
+  );
+}
+
+/* Conversions already sent during this page's lifetime (send_to:path). Module-level, the same guard as the Meta
+   Schedule event (components/MetaPixel.tsx): survives re-renders, Strict Mode's double effect and client-side
+   navigation back to the page; a full reload starts fresh. */
+const fired = new Set<string>();
+
+/** Google Ads conversion for a booked Dream Mapping appointment: once per load of the booking confirmation page
+    (/dream/map/thank/you, /es/…), queued after the Google tag's config calls (gtag() is defined inline in <head> at
+    parse time, so the event always lands in the dataLayer behind the configs). */
+function BookingConversion() {
+  const pathname = usePathname() || '/';
+  useEffect(() => {
+    if (!isBookingConfirmation(pathname)) return;
+    const key = `${BOOKING_CONVERSION.send_to}:${pathname}`;
+    if (fired.has(key)) return;
+    fired.add(key);
+    const gtag = (window as Window & { gtag?: (...args: unknown[]) => void }).gtag;
+    if (gtag) gtag('event', 'conversion', BOOKING_CONVERSION);
+  }, [pathname]);
+  return null;
 }
