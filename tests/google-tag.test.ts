@@ -1,7 +1,8 @@
 // Google tag helpers (lib/google-tag.ts). Node's built-in test runner: `npm test`.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { ADS_ID, BOOKING_CONVERSION, GA4_PRIMARY_ID, GA4_SECONDARY_ID, isBookingConfirmation } from '../lib/google-tag.ts';
+import { ADS_ID, BOOKING_CONVERSION, CALL_CONVERSION, GA4_PRIMARY_ID, GA4_SECONDARY_ID, isBookingConfirmation } from '../lib/google-tag.ts';
+import { LOCATION } from '../lib/location.ts';
 
 test('ids: the two GA4 properties and the Google Ads account', () => {
   assert.equal(GA4_PRIMARY_ID, 'G-9R1JGVBRBR');
@@ -11,6 +12,11 @@ test('ids: the two GA4 properties and the Google Ads account', () => {
 
 test('BOOKING_CONVERSION: the exact send_to, value and currency of the Dream Mapping booking conversion', () => {
   assert.deepEqual(BOOKING_CONVERSION, { send_to: 'AW-17532275127/LVkqCI324J8cELeThahB', value: 100.0, currency: 'USD' });
+});
+
+test('CALL_CONVERSION: the call-tracking config with the exact visible store number', () => {
+  assert.deepEqual(CALL_CONVERSION, { send_to: 'AW-17532275127/pDDQCNjqipgbELeThahB', phone_conversion_number: '(956) 586-5646' });
+  assert.equal(CALL_CONVERSION.phone_conversion_number, LOCATION.phone, 'must match the number the header, footer and pages show');
 });
 
 test('isBookingConfirmation: the booking confirmation page in both languages, with or without a trailing slash', () => {

@@ -8,7 +8,8 @@
    plus the GTM noscript iframe as the first element we render in <body> (Next.js itself emits an empty
    <div hidden> before it) and, next to it, the Google Ads booking conversion (BookingConversion below). The first
    gtag block also configures the Google Ads account (AW-17532275127, lib/google-tag.ts), so the Google tag carries
-   the three ids. Both GA4 properties are intentional: never merge or dedupe them. Nothing waits for an
+   the three ids, and then website call tracking (gtag config with phone_conversion_number: Google swaps the visible
+   store number for a forwarding number for visitors from ads). Both GA4 properties are intentional: never merge or dedupe them. Nothing waits for an
    interaction, the load event or consent (a previous performance pass deferred the tags until the first
    interaction and GA4 stopped recording visitors who bounced). Site events (phone_click, directions_click,
    booking_confirmation, optin_submit, quiz events) go to the same dataLayer from public/snz-events.js.
@@ -23,7 +24,7 @@
    it back if React ever has to re-render the tree after such an insertion, so the page never comes back blank. */
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import { ADS_ID, BOOKING_CONVERSION, isBookingConfirmation } from '@/lib/google-tag';
+import { ADS_ID, BOOKING_CONVERSION, CALL_CONVERSION, isBookingConfirmation } from '@/lib/google-tag';
 
 const keep = () => {};
 
@@ -34,6 +35,7 @@ const GTAG_PRIMARY_CONFIG = `
   gtag('js', new Date());
   gtag('config', 'G-9R1JGVBRBR');
   gtag('config', '${ADS_ID}');
+  gtag('config', '${CALL_CONVERSION.send_to}', ${JSON.stringify({ phone_conversion_number: CALL_CONVERSION.phone_conversion_number })});
 `;
 const GTM_SNIPPET = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
