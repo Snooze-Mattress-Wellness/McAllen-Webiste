@@ -1,7 +1,7 @@
 // Google tag helpers (lib/google-tag.ts). Node's built-in test runner: `npm test`.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { ADS_ID, BOOKING_CONVERSION, CALL_CONVERSION, GA4_PRIMARY_ID, GA4_SECONDARY_ID, isBookingConfirmation } from '../lib/google-tag.ts';
+import { ADS_ID, BOOKING_CONVERSION, CALL_CONVERSION, GA4_PRIMARY_ID, GA4_SECONDARY_ID, contentGroup, ga4PageParams, isBookingConfirmation, pageLanguage } from '../lib/google-tag.ts';
 import { LOCATION } from '../lib/location.ts';
 
 test('ids: the two GA4 properties and the Google Ads account', () => {
@@ -17,6 +17,30 @@ test('BOOKING_CONVERSION: the exact send_to, value and currency of the Dream Map
 test('CALL_CONVERSION: the call-tracking config with the exact visible store number', () => {
   assert.deepEqual(CALL_CONVERSION, { send_to: 'AW-17532275127/pDDQCNjqipgbELeThahB', phone_conversion_number: '(956) 586-5646' });
   assert.equal(CALL_CONVERSION.phone_conversion_number, LOCATION.phone, 'must match the number the header, footer and pages show');
+});
+
+test('contentGroup: every route of the site maps to one of the ten groups, Spanish copies the same as English', () => {
+  const cases: Record<string, string[]> = {
+    home: ['/', '/es', '/es/'],
+    product: ['/mattresses', '/es/mattresses', '/queen-mattresses', '/king-mattresses', '/full-twin-mattresses', '/cooling-mattresses', '/memory-foam-mattresses', '/mattresses-for-back-pain', '/adjustable-mattress-bases', '/massage-chairs', '/sleep-recliner', '/pillows', '/premium-sheets', '/mattress-protectors', '/at-home-sleep-test-kit-by-sleepcorner', '/mattress-sales', '/es/mattress-sales/'],
+    booking: ['/booking', '/es/booking', '/dream-mapping', '/es/dream-mapping', '/dream/map/thank/you', '/es/dream/map/thank/you/'],
+    quiz: ['/sleep-quiz', '/es/sleep-quiz'],
+    clearance: ['/clearance'],
+    location: ['/mattress-store-edinburg', '/mattress-store-mission', '/es/mattress-store-pharr'],
+    blog: ['/blog', '/blog/pressure-mapping-for-sleep', '/es/blog', '/es/blog/custom-mattresses-improving-health/'],
+    financing: ['/mattress-financing', '/es/mattress-financing'],
+    contact: ['/contact-us', '/es/contact-us', '/thank/you', '/es/thank/you'],
+    other: ['/about-us', '/faq', '/how-to-choose-a-mattress', '/privacy-policy-page', '/es/terms-conditions-page', '/something-new', '/es/something-new'],
+  };
+  for (const [group, paths] of Object.entries(cases)) for (const p of paths) assert.equal(contentGroup(p), group, p);
+});
+
+test('pageLanguage + ga4PageParams: /es and everything under it is es, the rest en', () => {
+  for (const p of ['/es', '/es/', '/es/booking', '/es/blog/x']) assert.equal(pageLanguage(p), 'es', p);
+  for (const p of ['/', '/booking', '/espanol', '/blog/es']) assert.equal(pageLanguage(p), 'en', p);
+  assert.deepEqual(ga4PageParams('/'), { content_group: 'home', page_language: 'en' });
+  assert.deepEqual(ga4PageParams('/es/booking'), { content_group: 'booking', page_language: 'es' });
+  assert.equal(JSON.stringify(ga4PageParams('/es/clearance')), '{"content_group":"clearance","page_language":"es"}');
 });
 
 test('isBookingConfirmation: the booking confirmation page in both languages, with or without a trailing slash', () => {
