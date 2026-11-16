@@ -12,10 +12,36 @@
                                          since this module stays import-free for Node's test runner).
      contentGroup / pageLanguage         GA4 config parameters derived from the pathname: content_group (home, product,
                                          booking, quiz, clearance, location, blog, financing, contact, other) and
-                                         page_language (en | es) ride on every event of the page. */
+                                         page_language (en | es) ride on every event of the page.
+     PRODUCTION_HOST / googleTagBlock    the site's own Google tag loads on the production host only: each inline
+                                         block defines dataLayer and gtag() for everyone and, only there, injects
+                                         its gtag.js loader and runs its config calls. Previews and localhost send
+                                         nothing from the site's own tag (GTM is separate and unchanged). */
 export const GA4_PRIMARY_ID = 'G-9R1JGVBRBR';
 export const GA4_SECONDARY_ID = 'G-TS1RXQVPYT';
 export const ADS_ID = 'AW-17532275127';
+
+/** The only hostname where the hard-coded Google tag (both GA4 configs, the Ads config, call tracking, the booking
+    conversion) runs. Vercel preview deployments and localhost get the inline dataLayer / gtag() definitions and nothing else. */
+export const PRODUCTION_HOST = 'mcallen.snoozemattresscompany.com';
+export const isProductionHost = (hostname: string | null | undefined): boolean => (hostname || '').toLowerCase() === PRODUCTION_HOST;
+
+/** One inline gtag block for <head> (components/Tracking.tsx): dataLayer + gtag() for everyone; on the production host
+    only, the gtag.js loader for `id` (async, appended to <head> while the block runs, so it starts at parse time
+    like the static loader it replaces) and then the given config calls, in order. */
+export function googleTagBlock(id: string, configCalls: readonly string[]): string {
+  return [
+    '',
+    '  window.dataLayer = window.dataLayer || [];',
+    '  function gtag(){dataLayer.push(arguments);}',
+    `  if (location.hostname === '${PRODUCTION_HOST}') {`,
+    `    document.head.appendChild(Object.assign(document.createElement('script'), { async: true, src: 'https://www.googletagmanager.com/gtag/js?id=${id}' }));`,
+    "    gtag('js', new Date());",
+    ...configCalls.map((call) => '    ' + call),
+    '  }',
+    '',
+  ].join('\n');
+}
 
 /** gtag('event', 'conversion', BOOKING_CONVERSION): the Google Ads conversion for a booked Dream Mapping appointment. */
 export const BOOKING_CONVERSION = { send_to: `${ADS_ID}/LVkqCI324J8cELeThahB`, value: 100.0, currency: 'USD' } as const;

@@ -1,7 +1,7 @@
 // Google tag helpers (lib/google-tag.ts). Node's built-in test runner: `npm test`.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { ADS_ID, BOOKING_CONVERSION, CALL_CONVERSION, GA4_PRIMARY_ID, GA4_SECONDARY_ID, contentGroup, ga4PageParams, isBookingConfirmation, pageLanguage } from '../lib/google-tag.ts';
+import { ADS_ID, BOOKING_CONVERSION, CALL_CONVERSION, GA4_PRIMARY_ID, GA4_SECONDARY_ID, PRODUCTION_HOST, contentGroup, ga4PageParams, googleTagBlock, isBookingConfirmation, isProductionHost, pageLanguage } from '../lib/google-tag.ts';
 import { LOCATION } from '../lib/location.ts';
 
 test('ids: the two GA4 properties and the Google Ads account', () => {
@@ -41,6 +41,22 @@ test('pageLanguage + ga4PageParams: /es and everything under it is es, the rest 
   assert.deepEqual(ga4PageParams('/'), { content_group: 'home', page_language: 'en' });
   assert.deepEqual(ga4PageParams('/es/booking'), { content_group: 'booking', page_language: 'es' });
   assert.equal(JSON.stringify(ga4PageParams('/es/clearance')), '{"content_group":"clearance","page_language":"es"}');
+});
+
+test('isProductionHost: the production custom domain only; previews, per-deployment URLs and localhost are not', () => {
+  assert.equal(PRODUCTION_HOST, 'mcallen.snoozemattresscompany.com');
+  assert.equal(isProductionHost('mcallen.snoozemattresscompany.com'), true);
+  assert.equal(isProductionHost('MCALLEN.snoozemattresscompany.com'), true);
+  for (const h of ['mc-allen-webiste-e1s1h7j3d-snooze-mattress.vercel.app', 'mc-allen-webiste.vercel.app', 'localhost', '127.0.0.1', 'snoozemattresscompany.com', 'www.mcallen.snoozemattresscompany.com', '', null, undefined]) assert.equal(isProductionHost(h), false, String(h));
+});
+
+test('googleTagBlock: dataLayer and gtag() for everyone, then the loader and the config calls inside the production-host check', () => {
+  const block = googleTagBlock('G-TEST', ["gtag('config', 'G-TEST', {\"content_group\":\"home\"});", "gtag('config', 'AW-1');"]);
+  const order = ['window.dataLayer = window.dataLayer || [];', 'function gtag(){dataLayer.push(arguments);}', "if (location.hostname === 'mcallen.snoozemattresscompany.com') {", "src: 'https://www.googletagmanager.com/gtag/js?id=G-TEST'", "gtag('js', new Date());", "gtag('config', 'G-TEST', {\"content_group\":\"home\"});", "gtag('config', 'AW-1');", '}'];
+  let at = -1;
+  for (const part of order) { const i = block.indexOf(part, at + 1); assert.ok(i > at, `expected in order: ${part}`); at = i; }
+  assert.equal(block.split('if (location.hostname').length - 1, 1, 'one gate');
+  assert.ok(block.includes('async: true'), 'the loader is async');
 });
 
 test('isBookingConfirmation: the booking confirmation page in both languages, with or without a trailing slash', () => {
