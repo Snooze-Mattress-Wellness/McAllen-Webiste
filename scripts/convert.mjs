@@ -1019,6 +1019,7 @@ import MetaPixel from '@/components/MetaPixel';
 import { ChatWidget } from '@/components/ChatWidget';
 import { GHL_SHIM } from '@/lib/ghl-shim';
 import { BODY_GUARD } from '@/lib/body-guard';
+import { CRM_PARAMS } from '@/lib/crm-params';
 import { Poppins } from 'next/font/google';
 import '../../overrides/global.css';
 
@@ -1054,6 +1055,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             and the message filter must register before the vendor's listener. Inlined (lib/ghl-shim.ts, generated
             with public/ghl-offline-shim.js) so it costs no extra request on the critical path. */}
         <script dangerouslySetInnerHTML={{ __html: GHL_SHIM }} />
+        {/* hidden CRM fields for the LeadConnector widgets: keeps a gclid for 90 days and appends ga_client_id + gclid to the
+            booking calendar's and the contact form's iframe src before they load (lib/crm-params.ts) */}
+        <script dangerouslySetInnerHTML={{ __html: CRM_PARAMS }} />
       </head>
       <body>
         <TrackingBody />

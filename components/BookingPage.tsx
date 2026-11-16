@@ -1,4 +1,5 @@
 import Script from 'next/script';
+import { BOOKING_CALENDAR_ID, crmFrameSrcScript } from '@/lib/crm-params';
 import { SITE } from './site-config';
 import { PageSchema } from './PageSchema';
 import { Icon, type IconName } from './icons';
@@ -12,6 +13,8 @@ import styles from './BookingPage.module.css';
 
 /* The Dream Mapping booking page, hand-written (not generated from the GoHighLevel export).
    The calendar is the client's exact embed placed directly in the page body: no wrapper, no container, no card.
+   The iframe is rendered with data-snz-src instead of src: the inline script right after it sets the src at parse
+   time with the hidden CRM parameters (ga_client_id, gclid: lib/crm-params.ts), so the frame loads once, with them.
    form_embed.js loads after the iframe exists and resizes the iframe to the widget's content at every step; the page
    scrolls, the iframe never does. CALENDAR_HEIGHT_GUARD below corrects the one height the widget gets wrong. */
 
@@ -57,8 +60,8 @@ const COPY = {
 /* one icon per step: the sensor bed, the five minutes, the Sleep Coach, free with no obligation, couples */
 const VISIT_ICONS: IconName[] = ['sensor-bed', 'clock', 'user', 'badge-check', 'people'];
 
-/* McAllen Dream Mapping calendar (the client's embed: id = `<calendarId>_<timestamp>`) */
-export const BOOKING_CALENDAR_ID = 'lrAns7Z8j3vEJW3DC0Yr';
+/* McAllen Dream Mapping calendar (the client's embed: id = `<calendarId>_<timestamp>`; the calendar id lives in lib/crm-params.ts) */
+const BOOKING_SRC = `https://link.snoozesleep.com/widget/booking/${BOOKING_CALENDAR_ID}`;
 const BOOKING_EMBED_ID = `${BOOKING_CALENDAR_ID}_1788459899479`;
 
 /* Height guard for the calendar iframe (October 27, 2026; made deterministic October 28, 2026).
@@ -118,7 +121,8 @@ export function BookingPage({ locale = 'en' }: { locale?: Locale }) {
 
       <iframe
         className={styles.calendar}
-        src={`https://link.snoozesleep.com/widget/booking/${BOOKING_CALENDAR_ID}`}
+        data-snz-src={BOOKING_SRC}
+        suppressHydrationWarning
         title={locale === 'es' ? 'Calendario de citas de Dream Mapping' : 'Dream Mapping booking calendar'}
         allow="payment"
         style={{ width: '100%', border: 'none', overflow: 'hidden' }}
@@ -126,6 +130,8 @@ export function BookingPage({ locale = 'en' }: { locale?: Locale }) {
         id={BOOKING_EMBED_ID}
         data-snz-resizer="form_embed"
       />
+      {/* src = data-snz-src + the hidden CRM parameters, set at parse time (lib/crm-params.ts) */}
+      <script dangerouslySetInnerHTML={{ __html: crmFrameSrcScript(BOOKING_EMBED_ID) }} />
       <script dangerouslySetInnerHTML={{ __html: CALENDAR_HEIGHT_GUARD }} />
 
       <section className={styles.visit} aria-labelledby="visit-title">
