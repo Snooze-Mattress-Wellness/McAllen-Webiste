@@ -37,7 +37,8 @@
     "alts": "node scripts/image-alts.mjs",
     "hero:mark": "node scripts/hero-mark.mjs",
     "logo:synchrony": "node scripts/synchrony-logo.mjs",
-    "brand:brooklyn": "node scripts/brand-brooklyn.mjs"
+    "brand:brooklyn": "node scripts/brand-brooklyn.mjs",
+    "privacy:ad-measurement": "node scripts/privacy-ad-measurement.mjs"
   },
   "dependencies": {
     "next": "15.5.25",
