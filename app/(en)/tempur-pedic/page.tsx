@@ -7,8 +7,21 @@
 // location data (lib/location.ts via lib/tempur-pedic.ts), not from the package's copy of them.
 import { Fragment } from 'react';
 import type { Metadata } from 'next';
+import { Montserrat } from 'next/font/google';
 import { LOCATION } from '@/lib/location';
 import { addressLines, faqItems, nearbyTowns, townSegments, type Segment } from '@/lib/tempur-pedic';
+
+/* The vendor sections are set in Montserrat ("montserrat", helvetica, arial in the vendor CSS). The site loads it nowhere
+   else, so it is added here the way the layouts add Poppins: next/font/google, self-hosted, font-display: swap. next/font
+   names the face "Montserrat", which the vendor's lowercase "montserrat" matches (font-family names are case-insensitive).
+   One variable file covers every weight the CSS uses (300–700). Not preloaded: a font preload in <head> holds rendering
+   on this site (the Lighthouse slow-mode stall). */
+const montserrat = Montserrat({ subsets: ['latin'], display: 'swap', preload: false, variable: '--font-montserrat' });
+
+/* The page's stylesheets, in the package's order, on this route only (React puts them in <head>). Every selector in them
+   is scoped to .tempur-wrapper: swiper-bundle.min.css was prefixed for this site, the other two came scoped. */
+const CSS = '/brands/tempur-pedic/css';
+const STYLESHEETS = [`${CSS}/swiper-bundle.min.css`, `${CSS}/tempur-pedic.scoped.css`, `${CSS}/snooze-tempur-overrides.css`];
 
 /** Text with links in it (lib/tempur-pedic.ts Segment[]). */
 function Segments({ items }: { items: Segment[] }) {
@@ -27,7 +40,12 @@ export default function TempurPedicPage() {
   const [street, cityLine] = addressLines(L);
   const faq = faqItems(L);
   return (
-    <div className="tempur-wrapper">
+    <>
+    {STYLESHEETS.map((href) => <link key={href} rel="stylesheet" href={href} precedence="tempur-pedic" />)}
+    {/* the hero background (CSS) for each layout, fetched early as in the package's <head> */}
+    <link rel="preload" as="image" href="/brands/tempur-pedic/img/bg_header.webp" media="(min-width: 1024px)" />
+    <link rel="preload" as="image" href="/brands/tempur-pedic/img/bg_mobile_header.webp" media="(max-width: 1023px)" />
+    <div className={`tempur-wrapper ${montserrat.variable}`}>
       <section className="header">
         <div className="header__inner">
           <div className="header__content-container">
@@ -394,5 +412,6 @@ export default function TempurPedicPage() {
         </div>
       </section>
     </div>
+    </>
   );
 }

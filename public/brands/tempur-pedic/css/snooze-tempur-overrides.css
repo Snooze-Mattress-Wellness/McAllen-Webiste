@@ -174,3 +174,26 @@
   .tempur-wrapper .snz-tiles { grid-template-columns: minmax(0, 1fr); }
   .tempur-wrapper .snz-btns .snz-btn { flex: 1 1 100%; text-align: center; }
 }
+
+/* =====================================================================
+   6. McAllen site integration (Snooze site, November 2026)
+   Additions made when the page went into the site; nothing above is
+   changed. Still scoped to .tempur-wrapper.
+   ===================================================================== */
+
+/* 6a. Body text at least 16px: the store card (15px) and the offer tiles
+   (15px). Fine print keeps its size. */
+.tempur-wrapper .snz-store { font-size: 16px; }
+.tempur-wrapper .snz-tile p:not(.snz-fine) { font-size: 16px; }
+
+/* 6b. Tap targets at least 44px tall: the vendor .btn was 43px below
+   1024px (15px type, line-height 1, 14px padding). 16px line boxes make it
+   44px at every width, text still centred. */
+.tempur-wrapper .btn { line-height: 16px; }
+
+/* 6c. Phones and tablets: every button takes the full width of its row,
+   as the vendor's product buttons already do below 1024px. */
+@media (max-width: 1023px) {
+  .tempur-wrapper .header .header__inner .header__content-container a.btn { display: block; }
+  .tempur-wrapper .snz-btns .snz-btn { flex: 1 1 100%; text-align: center; }
+}
