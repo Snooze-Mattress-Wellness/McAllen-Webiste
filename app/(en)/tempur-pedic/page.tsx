@@ -9,7 +9,9 @@ import { Fragment } from 'react';
 import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
 import { LOCATION } from '@/lib/location';
-import { DREAM_MAPPING_PATH, addressLines, faqItems, isPromoLive, nearbyTowns, townSegments, type Segment } from '@/lib/tempur-pedic';
+import { DREAM_MAPPING_PATH, addressLines, faqItems, isPromoLive, nearbyTowns, plainText, townSegments, type Segment } from '@/lib/tempur-pedic';
+import { ORG_ID, SITE_URL, WEBSITE_ID } from '@/lib/schema';
+import { PageSchema } from '@/components/PageSchema';
 import TempurCarousels from '@/components/tempur-pedic/TempurCarousels';
 
 /* The page is static, regenerated at most hourly (ISR), so the dated promotion block drops off on its own within about an
@@ -33,12 +35,65 @@ function Segments({ items }: { items: Segment[] }) {
   return <>{items.map((x, i) => (typeof x === 'string' ? <Fragment key={i}>{x}</Fragment> : <a key={i} href={x.href}>{x.text}</a>))}</>;
 }
 
+/* SEO: the package's head tags (mcallen.html), with absolute URLs from the site's hard-coded origin (lib/schema.ts
+   SITE_URL, never the deployment URL). English only: no hreflang alternates (/es/tempur-pedic 308s here). */
+const PAGE_URL = `${SITE_URL}/tempur-pedic`;
+const TITLE = 'Tempur-Pedic Mattresses in McAllen, TX | Snooze Mattress';
+const DESCRIPTION = 'Try Tempur-Pedic Adapt, Breeze and smart adjustable bases at Snooze Mattress in McAllen. Get a free Dream Mapping fitting to find the right fit for your body.';
+
 export const metadata: Metadata = {
-  title: 'Tempur-Pedic Mattresses in McAllen, TX | Snooze Mattress',
-  description: 'Try Tempur-Pedic Adapt, Breeze and smart adjustable bases at Snooze Mattress in McAllen. Get a free Dream Mapping fitting to find the right fit for your body.',
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PAGE_URL },
+  robots: { index: true, follow: true, 'max-image-preview': 'large' },
+  openGraph: {
+    type: 'website',
+    siteName: 'Snooze Mattress + Wellness McAllen',
+    title: TITLE,
+    description: 'Try Tempur-Pedic in McAllen and get a free Dream Mapping fitting to find the right fit for your body.',
+    url: PAGE_URL,
+    images: [{ url: `${SITE_URL}/brands/tempur-pedic/img/og-image.jpg`, width: 1200, height: 630 }],
+  },
+  twitter: { card: 'summary_large_image' },
   // the site's tab icon (the converted pages carry it in their head; without it the browser asks for /favicon.ico, a 404)
   icons: { icon: '/assets/filesafe/qR8peonBlnjGI3ZuLHQP/media/695b9e7d17768458ae206a19.png' },
 };
+
+/* Structured data: the package's @graph (WebPage, BreadcrumbList, FAQPage) in the page's one graph with the site nodes
+   (components/PageSchema.tsx: #organization, #store, #website). The publisher is the site's #organization, as in the
+   package. isPartOf #website is added (the site's validator requires it of every WebPage). The FAQPage is built from the
+   same list as the visible accordion, so the two cannot drift. No Review / AggregateRating: the testimonials are
+   Tempur-Pedic's, not the store's. */
+function structuredData(faq: ReturnType<typeof faqItems>) {
+  return [
+    {
+      '@type': 'WebPage',
+      '@id': `${PAGE_URL}#webpage`,
+      url: PAGE_URL,
+      name: TITLE,
+      description: DESCRIPTION,
+      inLanguage: 'en-US',
+      isPartOf: { '@id': WEBSITE_ID },
+      about: { '@type': 'Brand', name: 'Tempur-Pedic' },
+      publisher: { '@id': ORG_ID },
+      breadcrumb: { '@id': `${PAGE_URL}#breadcrumb` },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${PAGE_URL}#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+        { '@type': 'ListItem', position: 2, name: 'Mattresses', item: `${SITE_URL}/mattresses` },
+        { '@type': 'ListItem', position: 3, name: 'Tempur-Pedic', item: PAGE_URL },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${PAGE_URL}#faq`,
+      mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: plainText(f.a) } })),
+    },
+  ];
+}
 
 export default function TempurPedicPage() {
   const L = LOCATION;
@@ -47,6 +102,8 @@ export default function TempurPedicPage() {
   const faq = faqItems(L);
   return (
     <>
+    {/* the page's one JSON-LD graph (site nodes + WebPage, BreadcrumbList, FAQPage) */}
+    <PageSchema items={structuredData(faq)} locale="en" />
     {STYLESHEETS.map((href) => <link key={href} rel="stylesheet" href={href} precedence="tempur-pedic" />)}
     {/* the hero background (CSS) for each layout, fetched early as in the package's <head> */}
     <link rel="preload" as="image" href="/brands/tempur-pedic/img/bg_header.webp" media="(min-width: 1024px)" />
