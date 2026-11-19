@@ -197,3 +197,12 @@
   .tempur-wrapper .header .header__inner .header__content-container a.btn { display: block; }
   .tempur-wrapper .snz-btns .snz-btn { flex: 1 1 100%; text-align: center; }
 }
+
+/* 6d. Hero: "Learn About Dream Mapping" beside "Try Tempur-Pedic in McAllen".
+   The two vendor buttons sit in one wrapping row; below 1024px they stack
+   full width (6c). */
+.tempur-wrapper .header .header__inner .header__content-container .snz-hero-btns { display: flex; flex-wrap: wrap; gap: 12px; margin: 32px 0 0 0; }
+.tempur-wrapper .header .header__inner .header__content-container .snz-hero-btns a.btn { margin: 0; }
+@media (max-width: 1023px) {
+  .tempur-wrapper .header .header__inner .header__content-container .snz-hero-btns a.btn { flex: 1 1 100%; }
+}

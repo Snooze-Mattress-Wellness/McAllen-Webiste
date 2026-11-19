@@ -3,6 +3,9 @@
    footer and structured data. Import-free on purpose (the page passes LOCATION in), so Node's test runner can load it:
    tests/tempur-pedic.test.ts checks every string against the package's mcallen.html. */
 
+/** The site's Dream Mapping page (the "Learn About Dream Mapping" buttons and the FAQ link). Booking stays /booking. */
+export const DREAM_MAPPING_PATH = '/dream-mapping';
+
 /** The parts of lib/location.ts LOCATION this page uses. */
 export type StoreFacts = {
   city: string;
@@ -67,7 +70,7 @@ export function faqItems(s: StoreFacts): FaqItem[] {
     },
     {
       q: 'Which Tempur-Pedic mattress is right for me?',
-      a: ['It depends on your body and how you sleep. ', { text: 'Dream Mapping', href: '/dream-mapping' }, ', our pressure mapping technology, shows where your body needs support. Then your Sleep Coach helps you compare models, like the Breeze collection if you sleep hot or the Adapt collection for pressure relief.'],
+      a: ['It depends on your body and how you sleep. ', { text: 'Dream Mapping', href: DREAM_MAPPING_PATH }, ', our pressure mapping technology, shows where your body needs support. Then your Sleep Coach helps you compare models, like the Breeze collection if you sleep hot or the Adapt collection for pressure relief.'],
     },
     { q: 'Is Dream Mapping free?', a: ['Yes. Dream Mapping is always free and no purchase is needed. Every guest gets the same fitting, whatever they plan to spend.'] },
     { q: 'Do you offer financing on Tempur-Pedic mattresses?', a: ['Yes. Special financing is available: 0% interest for up to 60 months with no down payment, with approved credit. No credit check options are also available. See store for details.'] },

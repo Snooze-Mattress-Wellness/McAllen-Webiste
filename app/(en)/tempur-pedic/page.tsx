@@ -9,7 +9,7 @@ import { Fragment } from 'react';
 import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
 import { LOCATION } from '@/lib/location';
-import { addressLines, faqItems, isPromoLive, nearbyTowns, townSegments, type Segment } from '@/lib/tempur-pedic';
+import { DREAM_MAPPING_PATH, addressLines, faqItems, isPromoLive, nearbyTowns, townSegments, type Segment } from '@/lib/tempur-pedic';
 import TempurCarousels from '@/components/tempur-pedic/TempurCarousels';
 
 /* The page is static, regenerated at most hourly (ISR), so the dated promotion block drops off on its own within about an
@@ -59,7 +59,11 @@ export default function TempurPedicPage() {
             <h1 className="snz-h1">Tempur-Pedic Mattresses in McAllen, TX</h1>
             <h2 className="header__headline">Searching for better sleep?</h2>
             <p>Tempur-Pedic<sup>®</sup> earns its unmatched reputation and accolades with a single goal in mind—create a sleep experience like no other. If something keeps you from enjoying your best sleep, Tempur-Pedic<sup>®</sup> has a solution.</p>
-            <a href="#visit" className="btn btn--gray">Try Tempur-Pedic<sup>®</sup> in McAllen</a>
+            {/* the package's hero button, and the site's Dream Mapping page beside it (same vendor button style) */}
+            <div className="snz-hero-btns">
+              <a href="#visit" className="btn btn--gray">Try Tempur-Pedic<sup>®</sup> in McAllen</a>
+              <a href={DREAM_MAPPING_PATH} className="btn btn--gray">Learn About Dream Mapping</a>
+            </div>
           </div>
         </div>
       </section>
@@ -72,6 +76,7 @@ export default function TempurPedicPage() {
             <p>Dream Mapping, our pressure mapping technology, shows where your body needs support. Your Sleep Coach then helps you find the Tempur-Pedic that fits how you sleep, whether that's the cooling Breeze collection or the pressure-relieving Adapt collection.</p>
             <div className="snz-btns">
               <a className="snz-btn snz-btn--orange" href="/booking">Book Free Dream Mapping</a>
+              <a className="snz-btn snz-btn--line" href={DREAM_MAPPING_PATH}>Learn About Dream Mapping</a>
               <a className="snz-btn snz-btn--line" href={L.mapLink} rel="noopener">Get Directions</a>
             </div>
           </div>
