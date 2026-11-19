@@ -3,7 +3,17 @@
 // route group, so it renders inside the English header, ticker and footer. The markup is the package's
 // <div class="tempur-wrapper"> ported to JSX, text verbatim; the images, stylesheets and slider script live in
 // public/brands/tempur-pedic/. English only.
+// Store facts (address, hours, phone, the tel: and Google Maps links, the nearby towns) and the FAQ come from the site's
+// location data (lib/location.ts via lib/tempur-pedic.ts), not from the package's copy of them.
+import { Fragment } from 'react';
 import type { Metadata } from 'next';
+import { LOCATION } from '@/lib/location';
+import { addressLines, faqItems, nearbyTowns, townSegments, type Segment } from '@/lib/tempur-pedic';
+
+/** Text with links in it (lib/tempur-pedic.ts Segment[]). */
+function Segments({ items }: { items: Segment[] }) {
+  return <>{items.map((x, i) => (typeof x === 'string' ? <Fragment key={i}>{x}</Fragment> : <a key={i} href={x.href}>{x.text}</a>))}</>;
+}
 
 export const metadata: Metadata = {
   title: 'Tempur-Pedic Mattresses in McAllen, TX | Snooze Mattress',
@@ -13,6 +23,9 @@ export const metadata: Metadata = {
 };
 
 export default function TempurPedicPage() {
+  const L = LOCATION;
+  const [street, cityLine] = addressLines(L);
+  const faq = faqItems(L);
   return (
     <div className="tempur-wrapper">
       <section className="header">
@@ -35,21 +48,25 @@ export default function TempurPedicPage() {
             <p>Dream Mapping, our pressure mapping technology, shows where your body needs support. Your Sleep Coach then helps you find the Tempur-Pedic that fits how you sleep, whether that's the cooling Breeze collection or the pressure-relieving Adapt collection.</p>
             <div className="snz-btns">
               <a className="snz-btn snz-btn--orange" href="/booking">Book Free Dream Mapping</a>
-              <a className="snz-btn snz-btn--line" href="https://www.google.com/maps/place/?q=place_id:ChIJBYBxOXChZYYR48f71GAS7YY" rel="noopener">Get Directions</a>
+              <a className="snz-btn snz-btn--line" href={L.mapLink} rel="noopener">Get Directions</a>
             </div>
           </div>
           <div className="snz-store">
             <dl>
               <dt>Visit</dt>
-              <dd>7913 N 10th St, Suite 130<br />McAllen, TX 78504</dd>
+              <dd>{street}<br />{cityLine}</dd>
               <dt>Hours</dt>
-              <dd>Mon–Sat 10 AM–7 PM<br />Sun 12–6 PM</dd>
+              <dd>{L.hours.en.map((line, i) => <Fragment key={line}>{i > 0 && <br />}{line}</Fragment>)}</dd>
               <dt>Call</dt>
               <dd>
-                <a className="tel" href="tel:+19565865646">(956) 586-5646</a>
+                <a className="tel" href={L.phoneHref}>{L.phone}</a>
               </dd>
-              <dt>Serving</dt>
-              <dd><a href="/mattress-store-edinburg">Edinburg</a>, <a href="/mattress-store-mission">Mission</a> and <a href="/mattress-store-pharr">Pharr</a></dd>
+              {nearbyTowns(L).length > 0 && (
+                <>
+                  <dt>Serving</dt>
+                  <dd><Segments items={townSegments(L)} /></dd>
+                </>
+              )}
             </dl>
             <p className="snz-fine">Floor models vary. Call ahead to check which Tempur-Pedic models are on display.</p>
           </div>
@@ -360,30 +377,13 @@ export default function TempurPedicPage() {
       <section className="snz-local snz-faq">
         <div className="snz-inner">
           <h2>Tempur-Pedic in McAllen: Common Questions</h2>
-          <details open>
-            <summary>Where can I try a Tempur-Pedic mattress in McAllen?</summary>
-            <p>At Snooze Mattress, 7913 N 10th St, Suite 130, McAllen, TX 78504. We're open Monday to Saturday 10 AM to 7 PM and Sunday 12 to 6 PM. Floor models vary, so call <a href="tel:+19565865646">(956) 586-5646</a> to check which Tempur-Pedic models are on display.</p>
-          </details>
-          <details>
-            <summary>Which Tempur-Pedic mattress is right for me?</summary>
-            <p>It depends on your body and how you sleep. <a href="/dream-mapping">Dream Mapping</a>, our pressure mapping technology, shows where your body needs support. Then your Sleep Coach helps you compare models, like the Breeze collection if you sleep hot or the Adapt collection for pressure relief.</p>
-          </details>
-          <details>
-            <summary>Is Dream Mapping free?</summary>
-            <p>Yes. Dream Mapping is always free and no purchase is needed. Every guest gets the same fitting, whatever they plan to spend.</p>
-          </details>
-          <details>
-            <summary>Do you offer financing on Tempur-Pedic mattresses?</summary>
-            <p>Yes. Special financing is available: 0% interest for up to 60 months with no down payment, with approved credit. No credit check options are also available. See store for details.</p>
-          </details>
-          <details>
-            <summary>Can I use my HSA or FSA?</summary>
-            <p>Snooze Mattress accepts HSA and FSA payments on eligible purchases. Eligibility depends on your plan.</p>
-          </details>
-          <details>
-            <summary>Do you serve Edinburg, Mission and Pharr?</summary>
-            <p>Yes. Our McAllen store also serves shoppers from <a href="/mattress-store-edinburg">Edinburg</a>, <a href="/mattress-store-mission">Mission</a> and <a href="/mattress-store-pharr">Pharr</a>.</p>
-          </details>
+          {/* lib/tempur-pedic.ts faqItems: the same list the FAQPage JSON-LD is built from; the first answer starts open */}
+          {faq.map((f, i) => (
+            <details key={f.q} open={i === 0}>
+              <summary>{f.q}</summary>
+              <p><Segments items={f.a} /></p>
+            </details>
+          ))}
         </div>
       </section>
       <section className="disclaimers">
