@@ -1,0 +1,176 @@
+/* =====================================================================
+   Snooze Mattress – Tempur-Pedic brand page: fixes + local sections
+   Load AFTER tempur-pedic.scoped.css. Everything is scoped to
+   .tempur-wrapper so nothing here can touch the site header/footer.
+   ===================================================================== */
+
+/* ---------- 1. Real <img> tags instead of CSS background images ----------
+   The vendor drew every product/slide picture as a CSS background with the
+   alt text pushed off-screen (text-indent:-9999px). Google can't index those
+   images and screen readers get nothing useful. The HTML now has real <img>
+   tags; these rules switch the old backgrounds off and make the <img> fill
+   the same box, so the layout looks identical. */
+.tempur-wrapper .rtbs .swiper-slide .image,
+.tempur-wrapper .adapt__image,
+.tempur-wrapper .breeze__image,
+.tempur-wrapper .split-king__image,
+.tempur-wrapper .bases__image,
+.tempur-wrapper .flat-foundations__image,
+.tempur-wrapper .pillows__image {
+  background: none !important;
+  text-indent: 0 !important;
+  position: relative;
+}
+.tempur-wrapper .rtbs .swiper-slide .image > img,
+.tempur-wrapper .product-container [class$="__image"] > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.tempur-wrapper .product-container [class$="__image"] > img { object-fit: contain; }
+.tempur-wrapper .rtbs .swiper-slide .image > img { object-fit: cover; object-position: center center; }
+.tempur-wrapper .rtbs .swiper-slide.hot .image > img,
+.tempur-wrapper .rtbs .swiper-slide.restlessness .image > img { object-position: top center; }
+
+/* ---------- 2. ActiveBreeze image fix ----------
+   The vendor's final CSS has no rule for the ActiveBreeze image, so the
+   section showed the words "TEMPUR-ActiveBreeze mattresses" instead of a
+   picture. Rules below come from the vendor's own /testing stylesheet. */
+.tempur-wrapper .active-breeze .breeze__image {
+  height: 52vw;
+  margin: 25px 0 50px;
+}
+@media all and (min-width: 1024px) {
+  .tempur-wrapper .active-breeze .breeze__image {
+    flex: 0 0 50%;
+    height: auto;
+    margin: 0 100px 0 0;
+  }
+}
+
+/* ---------- 3. Vendor CSS typos ---------- */
+.tempur-wrapper .rtbs .swiper-slide .content-container h3 { font-size: 1.111em; } /* vendor wrote "1.111" with no unit */
+
+/* ---------- 4. SEO H1 above the vendor headline ----------
+   The vendor's H1 ("Searching for better sleep?") says nothing about the
+   brand or the city. A short, visible H1 now names both; the vendor headline
+   keeps its exact look as an H2. */
+.tempur-wrapper .header .header__inner .header__content-container h1.snz-h1 {
+  color: #D5DFE3;
+  font-family: "montserrat", helvetica, arial, sans-serif;
+  font-size: 0.833em;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+  margin: 18px 0 0 0;
+  text-transform: uppercase;
+}
+.tempur-wrapper .header .header__inner .header__content-container h2.header__headline {
+  font-family: "montserrat", helvetica, arial, sans-serif;
+  font-size: 1.6666666667em;
+  font-weight: 300;
+  line-height: 1.2667;
+  margin: 14px 0 25px 0;
+  color: #fff;
+}
+@media all and (min-width: 1024px) {
+  .tempur-wrapper .header .header__inner .header__content-container h2.header__headline { margin: 20px 0 25px 0; }
+}
+@media all and (min-width: 1280px) {
+  .tempur-wrapper .header .header__inner .header__content-container h2.header__headline { font-size: 2.222em; }
+}
+
+/* =====================================================================
+   5. Snooze local sections (.snz-local)
+   ===================================================================== */
+.tempur-wrapper .snz-local {
+  --snz-navy: #001489;
+  --snz-ink: #1e223c;
+  --snz-orange: #F07B2E;
+  --snz-soft: #e9edff;
+  font-family: Poppins, -apple-system, "Segoe UI", sans-serif;
+  color: var(--snz-ink);
+  font-size: 16px;
+  line-height: 1.6;
+}
+.tempur-wrapper .snz-local h2 {
+  color: var(--snz-navy);
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 14px;
+}
+.tempur-wrapper .snz-local h3 { color: var(--snz-navy); font-size: 18px; font-weight: 600; line-height: 1.3; margin: 0 0 6px; }
+.tempur-wrapper .snz-local p { margin: 0 0 14px; }
+.tempur-wrapper .snz-local a { color: var(--snz-navy); }
+.tempur-wrapper .snz-inner { max-width: 1240px; margin: 0 auto; padding: clamp(36px, 5vw, 64px) 20px; }
+.tempur-wrapper .snz-btn {
+  display: inline-block;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1;
+  padding: 15px 26px;
+  text-decoration: none;
+  transition: transform 100ms ease-in-out;
+}
+.tempur-wrapper .snz-btn:hover { transform: scale(1.04); }
+.tempur-wrapper .snz-btn--orange { background: var(--snz-orange); color: #fff !important; }
+.tempur-wrapper .snz-btn--line { border: 2px solid var(--snz-navy); color: var(--snz-navy) !important; padding: 13px 24px; }
+.tempur-wrapper .snz-btns { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+.tempur-wrapper .snz-fine { font-size: 13px; color: #5b6690; margin: 12px 0 0; }
+
+/* 5a. Try it in McAllen (under the hero) */
+.tempur-wrapper .snz-visit { background: #fff; border-bottom: 1px solid #e6e9f5; }
+.tempur-wrapper .snz-visit .snz-inner { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 40px; align-items: center; }
+.tempur-wrapper .snz-store {
+  background: var(--snz-soft);
+  border-radius: 18px;
+  padding: 26px 28px;
+  font-size: 15px;
+}
+.tempur-wrapper .snz-store dl { margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px 18px; }
+.tempur-wrapper .snz-store dt { font-weight: 600; color: var(--snz-navy); }
+.tempur-wrapper .snz-store dd { margin: 0; }
+.tempur-wrapper .snz-store .tel { font-weight: 700; white-space: nowrap; }
+
+/* 5b. Dated vendor promotion slot */
+.tempur-wrapper .snz-promo { background: var(--snz-navy); color: #fff; }
+.tempur-wrapper .snz-promo[hidden] { display: none; }
+.tempur-wrapper .snz-promo .snz-inner { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 32px; align-items: center; padding-top: 40px; padding-bottom: 40px; }
+.tempur-wrapper .snz-promo .snz-event { color: #ffb98a; font-weight: 600; font-size: 14px; margin: 0 0 6px; }
+.tempur-wrapper .snz-promo h2 { color: #fff; }
+.tempur-wrapper .snz-promo ul { margin: 0 0 6px; padding-left: 20px; }
+.tempur-wrapper .snz-promo li { margin: 4px 0; }
+.tempur-wrapper .snz-promo .snz-fine { color: #c9d0f5; }
+.tempur-wrapper .snz-promo img { width: 100%; height: auto; display: block; }
+
+/* 5c. Why buy at Snooze Mattress in McAllen */
+.tempur-wrapper .snz-why { background: #fff; }
+.tempur-wrapper .snz-why .lead { max-width: 720px; }
+.tempur-wrapper .snz-why .snz-btns { margin-top: 22px; }
+.tempur-wrapper .snz-tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; margin: 26px 0 8px; }
+.tempur-wrapper .snz-tile { background: var(--snz-soft); border-radius: 16px; padding: 22px; }
+.tempur-wrapper .snz-tile p { font-size: 15px; margin: 0; }
+.tempur-wrapper .snz-tile .snz-fine { margin-top: 8px; }
+
+/* 5d. Local FAQ */
+.tempur-wrapper .snz-faq { background: #f6f7fc; }
+.tempur-wrapper .snz-faq details { background: #fff; border-radius: 14px; margin: 0 0 12px; padding: 0 22px; border: 1px solid #e6e9f5; }
+.tempur-wrapper .snz-faq summary { cursor: pointer; font-weight: 600; color: var(--snz-navy); padding: 18px 0; list-style: none; position: relative; padding-right: 30px; }
+.tempur-wrapper .snz-faq summary::-webkit-details-marker { display: none; }
+.tempur-wrapper .snz-faq summary::after { content: "+"; position: absolute; right: 0; top: 14px; font-size: 24px; color: var(--snz-orange); }
+.tempur-wrapper .snz-faq details[open] summary::after { content: "–"; }
+.tempur-wrapper .snz-faq details p { padding-bottom: 6px; }
+
+@media (max-width: 1023px) {
+  .tempur-wrapper .snz-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .tempur-wrapper .snz-visit .snz-inner,
+  .tempur-wrapper .snz-promo .snz-inner { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .tempur-wrapper .snz-tiles { grid-template-columns: minmax(0, 1fr); }
+  .tempur-wrapper .snz-btns .snz-btn { flex: 1 1 100%; text-align: center; }
+}
