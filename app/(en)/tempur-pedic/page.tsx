@@ -10,6 +10,7 @@ import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
 import { LOCATION } from '@/lib/location';
 import { addressLines, faqItems, nearbyTowns, townSegments, type Segment } from '@/lib/tempur-pedic';
+import TempurCarousels from '@/components/tempur-pedic/TempurCarousels';
 
 /* The vendor sections are set in Montserrat ("montserrat", helvetica, arial in the vendor CSS). The site loads it nowhere
    else, so it is added here the way the layouts add Poppins: next/font/google, self-hosted, font-display: swap. next/font
@@ -412,6 +413,8 @@ export default function TempurPedicPage() {
         </div>
       </section>
     </div>
+    {/* the two sliders (the package's js/scripts.js, ported) */}
+    <TempurCarousels />
     </>
   );
 }
