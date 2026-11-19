@@ -78,5 +78,11 @@ export function faqItems(s: StoreFacts): FaqItem[] {
   ];
 }
 
+/** The dated vendor promotion (the package's Black Friday block, "Through December 1"): shown through December 1, 2026,
+    23:59:59 America/Chicago, then never again. December is CST (UTC−6), so the cut-off is 2026-12-02 00:00 −06:00. The
+    page checks it on the server and regenerates hourly (app/(en)/tempur-pedic/page.tsx, revalidate 3600). */
+export const PROMO_END = Date.parse('2026-12-02T00:00:00-06:00');
+export const isPromoLive = (now: number) => now < PROMO_END;
+
 /** An answer as plain text (the JSON-LD acceptedAnswer). */
 export const plainText = (a: Segment[]) => a.map((x) => (typeof x === 'string' ? x : x.text)).join('');

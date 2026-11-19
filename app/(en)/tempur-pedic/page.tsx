@@ -9,8 +9,12 @@ import { Fragment } from 'react';
 import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
 import { LOCATION } from '@/lib/location';
-import { addressLines, faqItems, nearbyTowns, townSegments, type Segment } from '@/lib/tempur-pedic';
+import { addressLines, faqItems, isPromoLive, nearbyTowns, townSegments, type Segment } from '@/lib/tempur-pedic';
 import TempurCarousels from '@/components/tempur-pedic/TempurCarousels';
+
+/* The page is static, regenerated at most hourly (ISR), so the dated promotion block drops off on its own within about an
+   hour of its end (lib/tempur-pedic.ts PROMO_END) without a redeploy. */
+export const revalidate = 3600;
 
 /* The vendor sections are set in Montserrat ("montserrat", helvetica, arial in the vendor CSS). The site loads it nowhere
    else, so it is added here the way the layouts add Poppins: next/font/google, self-hosted, font-display: swap. next/font
@@ -38,6 +42,7 @@ export const metadata: Metadata = {
 
 export default function TempurPedicPage() {
   const L = LOCATION;
+  const promoLive = isPromoLive(Date.now());
   const [street, cityLine] = addressLines(L);
   const faq = faqItems(L);
   return (
@@ -91,30 +96,33 @@ export default function TempurPedicPage() {
           </div>
         </div>
       </section>
-      {/* ===== PROMO SLOT: the dated vendor promotion (offers only), rendered statically ===== */}
-      <div className="snz-promo-slot">
-        <section className="snz-local snz-promo" aria-label="Tempur-Pedic Black Friday Sale offers">
-          <div className="snz-inner">
-            <div>
-              <p className="snz-event">Black Friday Sale · Through December 1</p>
-              <h2>Save Up to $500 on Tempur-Pedic Smart Base Sets</h2>
-              <ul>
-                <li>$300 off Tempur-LuxeAdapt, ProBreeze, LuxeBreeze and ActiveBreeze</li>
-                <li>$600 off Tempur-LuxeBreeze Split Head King</li>
-                <li>$200 off Tempur-Adapt and ProAdapt</li>
-                <li>$200 off Tempur-Pedic smart bases (TEMPUR-Ergo Smart and ProSmart)</li>
-                <li>$100 off TEMPUR-Ergo</li>
-                <li>$25 off Tempur-Adapt and Breeze pillows</li>
-              </ul>
-              <div className="snz-btns">
-                <a className="snz-btn snz-btn--orange" href="/booking">Book Free Dream Mapping</a>
+      {/* ===== PROMO SLOT: the dated vendor promotion (offers only), verbatim from the package, shown through December 1,
+          2026 23:59 America/Chicago (checked on the server); after that the slot renders nothing ===== */}
+      {promoLive && (
+        <div className="snz-promo-slot">
+          <section className="snz-local snz-promo" aria-label="Tempur-Pedic Black Friday Sale offers">
+            <div className="snz-inner">
+              <div>
+                <p className="snz-event">Black Friday Sale · Through December 1</p>
+                <h2>Save Up to $500 on Tempur-Pedic Smart Base Sets</h2>
+                <ul>
+                  <li>$300 off Tempur-LuxeAdapt, ProBreeze, LuxeBreeze and ActiveBreeze</li>
+                  <li>$600 off Tempur-LuxeBreeze Split Head King</li>
+                  <li>$200 off Tempur-Adapt and ProAdapt</li>
+                  <li>$200 off Tempur-Pedic smart bases (TEMPUR-Ergo Smart and ProSmart)</li>
+                  <li>$100 off TEMPUR-Ergo</li>
+                  <li>$25 off Tempur-Adapt and Breeze pillows</li>
+                </ul>
+                <div className="snz-btns">
+                  <a className="snz-btn snz-btn--orange" href="/booking">Book Free Dream Mapping</a>
+                </div>
+                <p className="snz-fine">Offers valid November 3 – December 1, 2026 on the models named. See store for details.</p>
               </div>
-              <p className="snz-fine">Offers valid November 3 – December 1, 2026 on the models named. See store for details.</p>
+              <img src="/brands/tempur-pedic/img/base.webp" width="1592" height="948" loading="lazy" alt="TEMPUR-Ergo ProSmart adjustable base" />
             </div>
-            <img src="/brands/tempur-pedic/img/base.webp" width="1592" height="948" loading="lazy" alt="TEMPUR-Ergo ProSmart adjustable base" />
-          </div>
-        </section>
-      </div>
+          </section>
+        </div>
+      )}
       <div className="gradient-container">
         <section className="rtbs">
           <div className="rtbs__inner">

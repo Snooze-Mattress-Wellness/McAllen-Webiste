@@ -3,7 +3,20 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { LOCATION } from '../lib/location.ts';
-import { addressLines, addressOneLine, faqItems, hoursSentence, listAnd, nearbyTowns, plainText } from '../lib/tempur-pedic.ts';
+import { PROMO_END, addressLines, addressOneLine, faqItems, hoursSentence, isPromoLive, listAnd, nearbyTowns, plainText } from '../lib/tempur-pedic.ts';
+
+test('promo block: live through December 1, 2026 23:59:59 America/Chicago, gone from midnight', () => {
+  // the cut-off is midnight starting December 2 on Chicago's wall clock
+  const chicago = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23' }).format(new Date(PROMO_END));
+  assert.equal(chicago, '12/02/2026, 00:00:00');
+  assert.equal(isPromoLive(Date.parse('2026-11-20T12:00:00-06:00')), true);
+  assert.equal(isPromoLive(Date.parse('2026-12-01T23:59:00-06:00')), true, '23:59 Chicago');
+  assert.equal(isPromoLive(Date.parse('2026-12-01T23:59:59.999-06:00')), true);
+  assert.equal(isPromoLive(Date.parse('2026-12-02T00:00:00-06:00')), false, 'midnight Chicago');
+  assert.equal(isPromoLive(Date.parse('2026-12-02T05:59:59Z')), true, 'still December 1 in Chicago');
+  assert.equal(isPromoLive(Date.parse('2026-12-02T06:00:00Z')), false);
+  assert.equal(isPromoLive(Date.parse('2027-01-15T12:00:00Z')), false);
+});
 
 test('store facts from lib/location.ts are the values the package HTML was written with', () => {
   assert.deepEqual(addressLines(LOCATION), ['7913 N 10th St, Suite 130', 'McAllen, TX 78504']);
