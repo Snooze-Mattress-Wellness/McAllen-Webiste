@@ -9,7 +9,11 @@ import { alternateHref, localizeHref, splitLocale, ui, PRODUCT_KEYS, type Locale
 
 type MenuKey = 'products' | 'blog';
 type NavItem = { label: string; href: string; match?: string[]; menu?: MenuKey; noLocale?: boolean }; // noLocale: one URL for both languages (no /es twin)
-type MenuLink = { label: string; href: string; desc: string; icon: keyof typeof ICONS };
+type MenuLink = { label: string; href: string; desc: string; icon: keyof typeof ICONS; noLocale?: boolean }; // noLocale: English page linked from both languages
+
+/* The Tempur-Pedic brand page (app/(en)/tempur-pedic): last item of the Products group, desktop panel and mobile menu.
+   English only, so the Spanish menu links the same URL (/es/tempur-pedic 308s there). */
+const TEMPUR_HREF = '/tempur-pedic';
 
 const PRODUCT_HREFS: Record<(typeof PRODUCT_KEYS)[number], { href: string; icon: keyof typeof ICONS }> = {
   mattresses: { href: '/mattresses', icon: 'bed' },
@@ -37,7 +41,7 @@ function navTables(locale: Locale) {
   ];
   const item = (key: (typeof PRODUCT_KEYS)[number]): MenuLink => ({ label: t.products[key].label, desc: t.products[key].desc, href: PRODUCT_HREFS[key].href, icon: PRODUCT_HREFS[key].icon });
   const PRODUCT_GROUPS: { title: string; items: MenuLink[] }[] = [
-    { title: t.menu.products, items: (['mattresses', 'bases', 'chairs', 'pillows'] as const).map(item) },
+    { title: t.menu.products, items: [...(['mattresses', 'bases', 'chairs', 'pillows'] as const).map(item), { label: t.products.tempur.label, desc: t.products.tempur.desc, href: TEMPUR_HREF, icon: 'bed', noLocale: true }] },
     { title: t.menu.accessories, items: (['protectors', 'sheets', 'recliner', 'kit'] as const).map(item) },
   ];
   const BLOG_GROUP: { title: string; items: MenuLink[] } = {
@@ -104,7 +108,7 @@ const Close = () => (
 );
 
 const normalize = (p: string) => (p.length > 1 ? p.replace(/\/+$/, '') : p);
-const PRODUCT_PATHS = Object.values(PRODUCT_HREFS).map((i) => i.href);
+const PRODUCT_PATHS = [...Object.values(PRODUCT_HREFS).map((i) => i.href), TEMPUR_HREF];
 const menuActive = (key: MenuKey, pathname: string) => (key === 'products' ? PRODUCT_PATHS.includes(pathname) : pathname === BLOG_INDEX.href || pathname.startsWith(`${BLOG_INDEX.href}/`));
 
 export function SiteHeader({ locale = 'en' }: { locale?: Locale }) {
@@ -262,7 +266,7 @@ export function SiteHeader({ locale = 'en' }: { locale?: Locale }) {
       <ul className={styles.groupList}>
         {group.items.map((p) => (
           <li key={p.href}>
-            <a href={L(p.href)} className={`${styles.menuLink} ${pathname === p.href ? styles.activeMenuLink : ''}`} aria-current={pathname === p.href ? 'page' : undefined}>
+            <a href={p.noLocale ? p.href : L(p.href)} className={`${styles.menuLink} ${pathname === p.href ? styles.activeMenuLink : ''}`} aria-current={pathname === p.href ? 'page' : undefined}>
               <span className={styles.menuIcon}><Icon name={p.icon} /></span>
               <span className={styles.menuText}>
                 <span className={styles.menuLabel}>{p.label}</span>
@@ -277,7 +281,7 @@ export function SiteHeader({ locale = 'en' }: { locale?: Locale }) {
 
   const renderMobileLinks = (items: MenuLink[]) =>
     items.map((p) => (
-      <a key={p.href} href={L(p.href)} className={`${styles.mSubLink} ${pathname === p.href ? styles.mActive : ''}`} aria-current={pathname === p.href ? 'page' : undefined} onClick={closeMobile}>
+      <a key={p.href} href={p.noLocale ? p.href : L(p.href)} className={`${styles.mSubLink} ${pathname === p.href ? styles.mActive : ''}`} aria-current={pathname === p.href ? 'page' : undefined} onClick={closeMobile}>
         <Icon name={p.icon} />
         {p.label}
       </a>
