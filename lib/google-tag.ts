@@ -18,7 +18,7 @@
                                          block defines dataLayer and gtag() for everyone and, only there, injects
                                          its gtag.js loader and runs its config calls. Previews and localhost send
                                          nothing from the site's own tag (GTM is separate and unchanged). */
-import { BRAND_PAGE_PATHS } from './brand-pages/keys.ts';
+import { BRAND_PAGE_PATHS } from './brand-pages/brand-list.ts';
 
 export const GA4_PRIMARY_ID = 'G-9R1JGVBRBR';
 export const GA4_SECONDARY_ID = 'G-TS1RXQVPYT';
@@ -91,7 +91,7 @@ export function contentGroup(pathname: string): ContentGroup {
   if (seg === 'blog') return 'blog';
   if (seg === 'mattress-financing') return 'financing';
   if (seg === 'contact-us' || path === '/thank/you') return 'contact';
-  if (BRAND_PAGE_PATHS.includes(`/${seg}`)) return 'brand'; // the brand pages (lib/brand-pages/keys.ts: /tempur-pedic)
+  if (BRAND_PAGE_PATHS.includes(`/${seg}`)) return 'brand'; // the brand pages (the live ones in lib/brand-pages/brand-list.ts: /tempur-pedic)
   if (PRODUCT_PAGES.has(seg)) return 'product';
   return 'other';
 }

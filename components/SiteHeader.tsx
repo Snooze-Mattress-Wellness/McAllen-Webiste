@@ -5,15 +5,13 @@ import { usePathname } from 'next/navigation';
 import styles from './SiteHeader.module.css';
 import { SITE } from './site-config';
 import { BLOG_INDEX, blogNav } from '@/lib/blog-nav';
+import { BRAND_PAGE_PATHS, LIVE_BRANDS } from '@/lib/brand-pages/brand-list';
 import { alternateHref, localizeHref, splitLocale, ui, PRODUCT_KEYS, type Locale } from '@/lib/i18n';
 
 type MenuKey = 'products' | 'blog';
 type NavItem = { label: string; href: string; match?: string[]; menu?: MenuKey; noLocale?: boolean }; // noLocale: one URL for both languages (no /es twin)
 type MenuLink = { label: string; href: string; desc: string; icon: keyof typeof ICONS; noLocale?: boolean }; // noLocale: English page linked from both languages
 
-/* The Tempur-Pedic brand page (app/(en)/tempur-pedic): last item of the Products group, desktop panel and mobile menu.
-   English only, so the Spanish menu links the same URL (/es/tempur-pedic 308s there). */
-const TEMPUR_HREF = '/tempur-pedic';
 
 const PRODUCT_HREFS: Record<(typeof PRODUCT_KEYS)[number], { href: string; icon: keyof typeof ICONS }> = {
   mattresses: { href: '/mattresses', icon: 'bed' },
@@ -41,19 +39,26 @@ function navTables(locale: Locale) {
   ];
   const item = (key: (typeof PRODUCT_KEYS)[number]): MenuLink => ({ label: t.products[key].label, desc: t.products[key].desc, href: PRODUCT_HREFS[key].href, icon: PRODUCT_HREFS[key].icon });
   const PRODUCT_GROUPS: { title: string; items: MenuLink[] }[] = [
-    { title: t.menu.products, items: [...(['mattresses', 'bases', 'chairs', 'pillows'] as const).map(item), { label: t.products.tempur.label, desc: t.products.tempur.desc, href: TEMPUR_HREF, icon: 'bed', noLocale: true }] },
+    { title: t.menu.products, items: (['mattresses', 'bases', 'chairs', 'pillows'] as const).map(item) },
     { title: t.menu.accessories, items: (['protectors', 'sheets', 'recliner', 'kit'] as const).map(item) },
   ];
   const BLOG_GROUP: { title: string; items: MenuLink[] } = {
     title: t.menu.latest,
     items: blogNav(locale).map((p) => ({ label: p.label, href: p.href, desc: p.blurb, icon: 'article' as const })),
   };
+  /* Our Brands: the live brand pages (lib/brand-pages/brand-list.ts), in their order, built like the size group below;
+     the pages are English only, so both languages link the same URL (noLocale; /es/<brand> 308s there). No live brand =
+     no group. */
+  const BRAND_GROUP: { title: string; items: MenuLink[] } = {
+    title: t.menu.brands,
+    items: LIVE_BRANDS.map((b) => ({ label: b.name, href: b.path, desc: '', icon: 'bed' as const, noLocale: true })),
+  };
   /* Mattresses by size & type: the size/type pages (section E) as a compact row under the product groups */
   const SIZE_GROUP: { title: string; items: MenuLink[] } = {
     title: t.menu.sizes,
     items: t.menu.sizeLinks.map(([label, href]) => ({ label, href, desc: '', icon: 'bed' as const })),
   };
-  return { t, PRIMARY, PRODUCT_GROUPS, SIZE_GROUP, BLOG_GROUP, blogIndex: { label: t.nav.allArticles, href: BLOG_INDEX.href } };
+  return { t, PRIMARY, PRODUCT_GROUPS, BRAND_GROUP, SIZE_GROUP, BLOG_GROUP, blogIndex: { label: t.nav.allArticles, href: BLOG_INDEX.href } };
 }
 
 /* Minimal line icons (24px grid, stroke inherits currentColor) */
@@ -108,13 +113,13 @@ const Close = () => (
 );
 
 const normalize = (p: string) => (p.length > 1 ? p.replace(/\/+$/, '') : p);
-const PRODUCT_PATHS = [...Object.values(PRODUCT_HREFS).map((i) => i.href), TEMPUR_HREF];
+const PRODUCT_PATHS = [...Object.values(PRODUCT_HREFS).map((i) => i.href), ...BRAND_PAGE_PATHS];
 const menuActive = (key: MenuKey, pathname: string) => (key === 'products' ? PRODUCT_PATHS.includes(pathname) : pathname === BLOG_INDEX.href || pathname.startsWith(`${BLOG_INDEX.href}/`));
 
 export function SiteHeader({ locale = 'en' }: { locale?: Locale }) {
   const rawPath = normalize(usePathname() || '/');
   const pathname = splitLocale(rawPath).path; // English path used for the active states
-  const { t, PRIMARY, PRODUCT_GROUPS, SIZE_GROUP, BLOG_GROUP, blogIndex } = navTables(locale);
+  const { t, PRIMARY, PRODUCT_GROUPS, BRAND_GROUP, SIZE_GROUP, BLOG_GROUP, blogIndex } = navTables(locale);
   const L = (href: string) => localizeHref(href, locale);
   const hrefOf = (item: NavItem) => (item.noLocale ? item.href : L(item.href));
   const langSwitch = (cls: string) => (
@@ -337,6 +342,15 @@ export function SiteHeader({ locale = 'en' }: { locale?: Locale }) {
                           <span className={styles.featureTitle}>{t.feature.title}</span>
                           <span className={styles.featureCta}>{t.feature.cta} <Arrow /></span>
                         </a>
+                        {/* Our Brands (live brand pages, English URLs in both languages): the same link row as the sizes */}
+                        {BRAND_GROUP.items.length > 0 && (
+                          <div className={styles.sizeRow} aria-label={BRAND_GROUP.title}>
+                            <span className={styles.sizeRowLabel}>{BRAND_GROUP.title}</span>
+                            {BRAND_GROUP.items.map((p) => (
+                              <a key={p.href} href={p.href} className={`${styles.sizeChip} ${pathname === p.href ? styles.sizeChipActive : ''}`} aria-current={pathname === p.href ? 'page' : undefined}>{p.label}</a>
+                            ))}
+                          </div>
+                        )}
                         {/* Mattresses by size & type (section E pages): compact link row across the panel */}
                         <div className={styles.sizeRow} aria-label={SIZE_GROUP.title}>
                           <span className={styles.sizeRowLabel}>{SIZE_GROUP.title}</span>
@@ -439,6 +453,12 @@ export function SiteHeader({ locale = 'en' }: { locale?: Locale }) {
                               {renderMobileLinks(group.items)}
                             </div>
                           ))}
+                          {BRAND_GROUP.items.length > 0 && (
+                            <div>
+                              <p className={styles.mGroupTitle}>{BRAND_GROUP.title}</p>
+                              {renderMobileLinks(BRAND_GROUP.items)}
+                            </div>
+                          )}
                           <div>
                             <p className={styles.mGroupTitle}>{SIZE_GROUP.title}</p>
                             {renderMobileLinks(SIZE_GROUP.items)}

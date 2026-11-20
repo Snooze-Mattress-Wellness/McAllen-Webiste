@@ -8,4 +8,4 @@ export const BRANDS: Readonly<Record<BrandKey, BrandConfig>> = {
   'tempur-pedic': TEMPUR_PEDIC,
 };
 
-export { BRAND_KEYS, BRAND_PAGE_PATHS } from './keys.ts';
+export { BRAND_KEYS, BRAND_PAGE_PATHS, LIVE_BRANDS } from './brand-list.ts';

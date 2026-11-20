@@ -4,9 +4,11 @@
    Only brand-page paths can be refreshed (else 400). The secret is compared in constant time and never logged.
    Next-free, so Node's test runner can drive it; app/api/revalidate/route.ts passes in revalidatePath(). */
 import { createHash, timingSafeEqual } from 'node:crypto';
+import { ALL_BRAND_PATHS } from './brand-list.ts';
 
-/** The brand pages (now and planned) a refresh may target: the path itself or anything under it. */
-export const REVALIDATE_ROOTS = ['/tempur-pedic', '/sealy', '/stearns-foster'] as const;
+/** The brand pages (live and planned: brand-list.ts, /tempur-pedic, /sealy, /stearns-foster) a refresh may target:
+    the path itself or anything under it. */
+export const REVALIDATE_ROOTS = ALL_BRAND_PATHS;
 
 export function isRevalidatablePath(path: unknown): path is string {
   if (typeof path !== 'string' || path.length > 200) return false;

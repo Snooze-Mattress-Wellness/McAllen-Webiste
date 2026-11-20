@@ -118,8 +118,8 @@ test('local FAQ (one array in the location config): the package questions and an
 });
 
 test('every brand key has a page at /<key> in the location config (the language switch and GA4 rely on it)', async () => {
-  const { BRAND_PAGE_PATHS } = await import('../lib/brand-pages/keys.ts');
-  for (const key of BRAND_KEYS) assert.equal(BRAND_PAGE_LOCATION.brand_pages[key]?.page_path, `/${key}`, key);
+  const { BRAND_PAGE_PATHS, LIVE_BRANDS } = await import('../lib/brand-pages/brand-list.ts');
+  for (const b of LIVE_BRANDS) assert.equal(BRAND_PAGE_LOCATION.brand_pages[b.key]?.page_path, b.path, b.key);
   assert.deepEqual(BRAND_PAGE_PATHS, ['/tempur-pedic']);
 });
 
@@ -138,4 +138,14 @@ test('llms.txt: the hand-written guide plus a "Brand pages" section from the reg
   // a store with no brand page: no section, no stray blank lines
   const none = buildLlmsTxt(base, { ...LOC, brand_pages: {} });
   assert.ok(!none.includes('Brand pages') && !none.includes('\n\n\n'));
+});
+
+test('brand list (lib/brand-pages/brand-list.ts): name, path, order, live; only live brands are linked, in order', async () => {
+  const { BRAND_LIST, LIVE_BRANDS, ALL_BRAND_PATHS } = await import('../lib/brand-pages/brand-list.ts');
+  assert.deepEqual(BRAND_LIST.map((b) => [b.name, b.path, b.order, b.live]), [['Tempur-Pedic', '/tempur-pedic', 1, true], ['Sealy', '/sealy', 2, false], ['Stearns & Foster', '/stearns-foster', 3, false]]);
+  assert.deepEqual(LIVE_BRANDS.map((b) => b.name), ['Tempur-Pedic']);
+  // every live brand is built: a config with the same vendor name and a store entry at its path
+  for (const b of LIVE_BRANDS) { assert.ok(BRANDS[b.key], b.key); assert.equal(BRANDS[b.key].name, b.name); assert.equal(BRAND_PAGE_LOCATION.brand_pages[b.key]?.page_path, b.path); }
+  assert.deepEqual(new Set(BRAND_LIST.map((b) => b.order)).size, BRAND_LIST.length, 'orders are unique');
+  assert.deepEqual(ALL_BRAND_PATHS, ['/tempur-pedic', '/sealy', '/stearns-foster']);
 });

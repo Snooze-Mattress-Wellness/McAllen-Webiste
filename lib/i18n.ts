@@ -3,7 +3,7 @@
    pages is translated by scripts/convert.mjs from overrides/i18n/*.json. */
 
 import { blogSlugFor } from './blog-nav';
-import { BRAND_PAGE_PATHS } from './brand-pages/keys';
+import { BRAND_PAGE_PATHS } from './brand-pages/brand-list';
 
 export type Locale = 'en' | 'es';
 export const LOCALES: Locale[] = ['en', 'es'];
@@ -38,7 +38,7 @@ type ProductItem = { label: string; desc: string };
 export type UiStrings = {
   langName: string;
   nav: { home: string; about: string; products: string; financing: string; sales: string; clearance: string; blog: string; quiz: string; allArticles: string };
-  menu: { products: string; accessories: string; latest: string; openMenu: (label: string) => string; closeMenu: (label: string) => string; openSite: string; closeSite: string; siteMenu: string; homeAria: string; call: (phone: string) => string; switchTo: string; sizes: string; sizeLinks: Array<[label: string, href: string]> };
+  menu: { products: string; accessories: string; latest: string; openMenu: (label: string) => string; closeMenu: (label: string) => string; openSite: string; closeSite: string; siteMenu: string; homeAria: string; call: (phone: string) => string; switchTo: string; brands: string; sizes: string; sizeLinks: Array<[label: string, href: string]> };
   products: Record<string, ProductItem>;
   feature: { eyebrow: string; title: string; cta: string; imgAlt: string };
   drawerBook: string;
@@ -67,6 +67,7 @@ const en: UiStrings = {
   langName: 'English',
   nav: { home: 'Home', about: 'About Us', products: 'Our Products', financing: 'Financing', sales: 'Sales', clearance: 'Clearance', blog: 'Blog', quiz: 'Sleep Quiz', allArticles: 'All articles' },
   menu: { products: 'Products', accessories: 'Sleep Accessories', latest: 'Latest articles', openMenu: (l) => `Open ${l} menu`, closeMenu: (l) => `Close ${l} menu`, openSite: 'Open menu', closeSite: 'Close menu', siteMenu: 'Site menu', homeAria: 'Snooze Mattress + Wellness — home', call: (p) => `Call ${p}`, switchTo: 'Ver en español',
+    brands: 'Our Brands',
     sizes: 'Mattresses by size & type',
     sizeLinks: [['Queen', '/queen-mattresses'], ['King', '/king-mattresses'], ['Full & Twin', '/full-twin-mattresses'], ['Memory Foam', '/memory-foam-mattresses'], ['Back Pain', '/mattresses-for-back-pain'], ['Cooling', '/cooling-mattresses']] },
   products: {
@@ -78,9 +79,6 @@ const en: UiStrings = {
     sheets: { label: 'Premium Sheets', desc: 'Luxury you can feel every night' },
     recliner: { label: 'Sleep Recliner', desc: 'Recline smarter with the Zcliner®' },
     kit: { label: 'At-Home Sleep Test Kit', desc: 'Find what disrupts your sleep' },
-    // the brand page /tempur-pedic (English only): the header's Products menu and the footer's products column add it
-    // after their own lists (not in PRODUCT_KEYS, which localizes its links)
-    tempur: { label: 'Tempur-Pedic', desc: 'Adapt, Breeze and smart bases' },
   },
   feature: { eyebrow: 'Dream Mapping', title: 'Find your perfect mattress in about 5 minutes', cta: 'Book a free fitting', imgAlt: 'Snooze Sleep Coaches fitting a customer on a mattress' },
   drawerBook: 'Book Free Dream Mapping Appointment',
@@ -114,6 +112,7 @@ const es: UiStrings = {
   langName: 'Español',
   nav: { home: 'Inicio', about: 'Nosotros', products: 'Productos', financing: 'Financiamiento', sales: 'Ofertas', clearance: 'Liquidación', blog: 'Blog', quiz: 'Quiz de Sueño', allArticles: 'Todos los artículos' }, // nav label kept short so the desktop row fits on one line; the full 'Nuestros Productos' stays in the footer
   menu: { products: 'Productos', accessories: 'Accesorios para Dormir', latest: 'Artículos recientes', openMenu: (l) => `Abrir menú ${l}`, closeMenu: (l) => `Cerrar menú ${l}`, openSite: 'Abrir menú', closeSite: 'Cerrar menú', siteMenu: 'Menú del sitio', homeAria: 'Snooze Mattress + Wellness — inicio', call: (p) => `Llamar al ${p}`, switchTo: 'View in English',
+    brands: 'Nuestras Marcas',
     sizes: 'Colchones por tamaño y tipo',
     sizeLinks: [['Queen', '/queen-mattresses'], ['King', '/king-mattresses'], ['Full y Twin', '/full-twin-mattresses'], ['Memory Foam', '/memory-foam-mattresses'], ['Dolor de espalda', '/mattresses-for-back-pain'], ['Frescos', '/cooling-mattresses']] },
   products: {
@@ -125,8 +124,6 @@ const es: UiStrings = {
     sheets: { label: 'Sábanas Premium', desc: 'Lujo que se siente cada noche' },
     recliner: { label: 'Sillón Reclinable', desc: 'Reclínate mejor con el Zcliner®' },
     kit: { label: 'Kit de Prueba de Sueño en Casa', desc: 'Descubre qué interrumpe tu sueño' },
-    // menú Productos del encabezado y columna de productos del pie (no en PRODUCT_KEYS); enlaza a la página en inglés /tempur-pedic
-    tempur: { label: 'Tempur-Pedic', desc: 'Adapt, Breeze y bases inteligentes' },
   },
   feature: { eyebrow: 'Dream Mapping', title: 'Encuentra tu colchón perfecto en unos 5 minutos', cta: 'Reserva tu cita de Dream Mapping', imgAlt: 'Sleep Coaches de Snooze ajustando a una clienta sobre un colchón' },
   drawerBook: 'Reserva tu cita de Dream Mapping',

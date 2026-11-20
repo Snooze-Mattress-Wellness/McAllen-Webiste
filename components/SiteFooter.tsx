@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { SITE } from './site-config';
 import { LOCATION } from '@/lib/location';
 import { localizeHref, ui, PRODUCT_KEYS, type Locale } from '@/lib/i18n';
+import { LIVE_BRANDS } from '@/lib/brand-pages/brand-list';
 import styles from './SiteFooter.module.css';
 
 /* The one site footer, rendered by the root layout of each locale on every route (the GoHighLevel footer
@@ -86,8 +87,9 @@ export function SiteFooter({ locale = 'en' }: { locale?: Locale }) {
               {PRODUCT_KEYS.map((key) => (
                 <li key={key}><a href={L(PRODUCT_HREFS[key])}>{t.products[key].label}</a></li>
               ))}
-              {/* the Tempur-Pedic brand page: English only, so both languages link the same URL (as the header's Products menu) */}
-              <li><a href="/tempur-pedic">{t.products.tempur.label}</a></li>
+              {/* the live brand pages (lib/brand-pages/brand-list.ts), in order: English only, so both languages link the same
+                  URL (as the header's "Our Brands" group) */}
+              {LIVE_BRANDS.map((b) => <li key={b.key}><a href={b.path}>{b.name}</a></li>)}
             </ul>
           </div>
 

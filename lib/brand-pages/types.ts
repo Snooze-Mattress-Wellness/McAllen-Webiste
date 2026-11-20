@@ -3,8 +3,8 @@
    from the rest of the site except through lib/brand-pages/site.ts, the one adapter that reads this site's location
    data. Written so the two folders could later move into a package that every store site installs. */
 
-/** A brand's key: its folder name and URL slug (lib/brand-pages/keys.ts). */
-import type { BrandKey } from './keys.ts';
+/** A live brand page's key: its folder name (lib/brand-pages/brand-list.ts). */
+import type { BrandKey } from './brand-list.ts';
 export type { BrandKey };
 
 /** Text with links in it: the visible FAQ renders the links, the FAQPage JSON-LD takes the plain text. */
