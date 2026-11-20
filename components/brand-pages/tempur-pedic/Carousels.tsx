@@ -1,11 +1,11 @@
 'use client';
-/* The two sliders of the Tempur-Pedic brand page (app/(en)/tempur-pedic/page.tsx): "Solutions for Your Sleep Problems"
-   and the reviews. The package's js/scripts.js, ported: same Swiper 8.4.5 build (the vendored
-   public/brands/tempur-pedic/js/swiper-bundle.min.js; no npm dependency), same options, same resize update. Only the
-   wiring differs: the bundle loads through next/script, whose onReady fires once it has loaded and again on every later
-   mount, so the sliders are created on mount and destroyed on unmount. Leaving the page and coming back (client-side
-   navigation, back/forward) builds them afresh on the new markup. The pagination and arrow elements are passed as
-   elements, scoped to their own slider, instead of the vendor's page-wide selectors. */
+/* The two sliders of the Tempur-Pedic brand page: "Solutions for Your Sleep Problems" and the reviews. The package's
+   js/scripts.js, ported: same Swiper 8.4.5 build (the vendored public/brands/tempur-pedic/js/swiper-bundle.min.js; no npm
+   dependency), same options, same resize update. Only the wiring differs: the bundle loads through next/script, whose
+   onReady fires once it has loaded and again on every later mount, so the sliders are created on mount and destroyed on
+   unmount. Leaving the page and coming back (client-side navigation, back/forward) builds them afresh on the new markup.
+   The pagination and arrow elements are passed as elements, scoped to their own slider, instead of the vendor's
+   page-wide selectors. */
 import { useEffect, useState } from 'react';
 import Script from 'next/script';
 
@@ -15,14 +15,13 @@ declare global {
   interface Window { Swiper?: SwiperConstructor }
 }
 
-export const SWIPER_SRC = '/brands/tempur-pedic/js/swiper-bundle.min.js';
-
-export default function TempurCarousels() {
+/** src: the vendored Swiper bundle; wrapperClass: the page wrapper the sliders live in */
+export default function Carousels({ src, wrapperClass }: { src: string; wrapperClass: string }) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
     const Swiper = window.Swiper;
-    const root = document.querySelector('.tempur-wrapper');
+    const root = document.querySelector(`.${wrapperClass}`);
     if (!ready || !Swiper || !root) return;
     const sliders: SwiperInstance[] = [];
 
@@ -51,7 +50,7 @@ export default function TempurCarousels() {
       window.removeEventListener('resize', onResize);
       sliders.forEach((s) => s.destroy(true, true));
     };
-  }, [ready]);
+  }, [ready, wrapperClass]);
 
-  return <Script src={SWIPER_SRC} strategy="afterInteractive" onReady={() => setReady(true)} />;
+  return <Script src={src} strategy="afterInteractive" onReady={() => setReady(true)} />;
 }

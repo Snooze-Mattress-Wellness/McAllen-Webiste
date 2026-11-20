@@ -6,20 +6,23 @@
      optin_submit           — the contact opt-in confirmation page loaded (/thank/you, /es/thank/you); the form
                               itself is a LeadConnector iframe, so the redirect to its thank-you page is the hook
      booking_widget_message — best effort: a confirmation-like postMessage from the LeadConnector booking widget
-   The Sleep Fit Quiz already pushes quiz_start, quiz_answer, quiz_lead_form_view, quiz_completed and
+   On a brand page (/tempur-pedic: data-snz-store-id on its wrapper) phone_click and directions_click also carry
+   store_id. The Sleep Fit Quiz already pushes quiz_start, quiz_answer, quiz_lead_form_view, quiz_completed and
    quiz_results_revisit (public/sleep-fit-quiz.js). */
 (function () {
   var dl = (window.dataLayer = window.dataLayer || []);
   var path = (location.pathname.replace(/\/+$/, '') || '/');
   function push(name, data) { var o = { event: name, page_path: path }; for (var k in data) if (Object.prototype.hasOwnProperty.call(data, k)) o[k] = data[k]; dl.push(o); }
   function text(a) { return (a.textContent || a.getAttribute('aria-label') || '').replace(/\s+/g, ' ').trim().slice(0, 80); }
+  function storeId() { var w = document.querySelector('[data-snz-store-id]'); return w ? w.getAttribute('data-snz-store-id') : null; }
+  function withStore(o) { var s = storeId(); if (s) o.store_id = s; return o; }
   var MAPS = /(^|\/\/)(www\.)?(google\.[a-z.]+\/maps|maps\.google\.|maps\.app\.goo\.gl|goo\.gl\/maps)/i;
   document.addEventListener('click', function (e) {
     var t = e.target; if (!t || !t.closest) return;
     var a = t.closest('a[href]'); if (!a) return;
     var href = a.getAttribute('href') || '';
-    if (/^tel:/i.test(href)) push('phone_click', { phone_number: href.replace(/^tel:/i, ''), link_text: text(a) });
-    else if (MAPS.test(href)) push('directions_click', { link_url: href, link_text: text(a) });
+    if (/^tel:/i.test(href)) push('phone_click', withStore({ phone_number: href.replace(/^tel:/i, ''), link_text: text(a) }));
+    else if (MAPS.test(href)) push('directions_click', withStore({ link_url: href, link_text: text(a) }));
   }, true);
   if (/^(\/es)?\/dream\/map\/thank\/you$/.test(path)) push('booking_confirmation', {});
   if (/^(\/es)?\/thank\/you$/.test(path)) push('optin_submit', {});

@@ -1,0 +1,347 @@
+{
+  "version": 1,
+  "generated_at": "2026-11-20T10:00:00-06:00",
+  "source": "Snooze Offer Calendar (test fixture from sheet export 2026-11-20)",
+  "stores": {
+    "albuquerque": {
+      "city": "Albuquerque",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "auburn": {
+      "city": "Auburn",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "foley": {
+      "city": "Foley",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "gadsden": {
+      "city": "Gadsden",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "jasper-clearance-center": {
+      "city": "Jasper",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "madison": {
+      "city": "Madison",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "oxford": {
+      "city": "Oxford",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "prattville": {
+      "city": "Prattville",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "tuscaloosa": {
+      "city": "Tuscaloosa",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "guntersville": {
+      "city": "Guntersville",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "castle-rock": {
+      "city": "Castle Rock",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "colorado-springs-dublin": {
+      "city": "Colorado Springs (Dublin Blvd)",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "colorado-springs-austin-bluffs": {
+      "city": "Colorado Springs (Austin Bluffs)",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "fort-collins": {
+      "city": "Fort Collins",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "parker": {
+      "city": "Parker",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "pueblo-west": {
+      "city": "Pueblo West",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "woodland-park": {
+      "city": "Woodland Park",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "millville": {
+      "city": "Millville",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "rome": {
+      "city": "Rome",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "indianapolis": {
+      "city": "Indianapolis",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "troy": {
+      "city": "Troy",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "chesterfield": {
+      "city": "Chesterfield",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "cornelius": {
+      "city": "Cornelius",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "omaha-whispering-ridge": {
+      "city": "Omaha (Whispering Ridge)",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "omaha-wright-plaza": {
+      "city": "Omaha (Wright Plaza)",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "myrtlebeach": {
+      "city": "Murrells Inlet",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "brownsville": {
+      "city": "Brownsville",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "el-paso": {
+      "city": "El Paso",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "mcallen": {
+      "city": "McAllen",
+      "brands": [
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Serta",
+        "Beautyrest",
+        "Helix",
+        "Brooklyn Bedding",
+        "FLOWT by King Koil",
+        "Handcrafted by King Koil",
+        "Copper by Spring Air",
+        "Snooze-O-Pedic",
+        "BedTech",
+        "BedGear",
+        "Sleeptone",
+        "DreamFit"
+      ]
+    },
+    "rockwall": {
+      "city": "Rockwall",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "san-antonio": {
+      "city": "San Antonio",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "pleasant-grove": {
+      "city": "Pleasant Grove",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    }
+  },
+  "promotions": [
+    {
+      "block": "BF26-TEMPUR",
+      "vendor": "Tempur-Pedic",
+      "event": "Black Friday Sale",
+      "start": "2026-11-03",
+      "end": "2026-12-01",
+      "headline": "Save Up to $500 on Tempur-Pedic Smart Base Sets",
+      "fine_print": "Offers valid November 3 – December 1, 2026 on the models named. See store for details.",
+      "image": "base",
+      "stores": [],
+      "items": [
+        {
+          "id": "BF26-02",
+          "text": "$300 off Tempur-LuxeAdapt, ProBreeze, LuxeBreeze and ActiveBreeze",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        },
+        {
+          "id": "BF26-03",
+          "text": "$600 off Tempur-LuxeBreeze Split Head King",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        },
+        {
+          "id": "BF26-04",
+          "text": "$200 off Tempur-Adapt and ProAdapt",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        },
+        {
+          "id": "BF26-05",
+          "text": "$25 off Tempur-Adapt and Breeze pillows",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        },
+        {
+          "id": "BF26-06",
+          "text": "$100 off TEMPUR-Ergo",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        },
+        {
+          "id": "BF26-07",
+          "text": "$200 off Tempur-Pedic smart bases (TEMPUR-Ergo Smart and ProSmart)",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        }
+      ]
+    },
+    {
+      "block": "NY26-TEMPUR",
+      "vendor": "Tempur-Pedic",
+      "event": "Holiday & Year-End Sale",
+      "start": "2026-12-15",
+      "end": "2027-01-05",
+      "headline": "Save Up to $500 on Select Tempur-Pedic Adjustable Sets",
+      "fine_print": "Offers valid December 15, 2026 – January 5, 2027 on the models named. Sets and smart bases sold as set where noted. See store for details.",
+      "image": "base",
+      "stores": [],
+      "items": [
+        {
+          "id": "NY26-02",
+          "text": "$300 off Tempur-LuxeAdapt, ProBreeze, LuxeBreeze and ActiveBreeze sets",
+          "start": "2026-12-15",
+          "end": "2027-01-05"
+        },
+        {
+          "id": "NY26-03",
+          "text": "$600 off Tempur-LuxeBreeze Split Head King",
+          "start": "2026-12-15",
+          "end": "2027-01-05"
+        },
+        {
+          "id": "NY26-04",
+          "text": "$200 off Tempur-Adapt and ProAdapt",
+          "start": "2026-12-15",
+          "end": "2027-01-05"
+        },
+        {
+          "id": "NY26-05",
+          "text": "$200 off TEMPUR-Ergo Smart bases (Ergo Smart, Ergo ProSmart and ProSmart Air)",
+          "start": "2026-12-15",
+          "end": "2027-01-05"
+        },
+        {
+          "id": "NY26-06",
+          "text": "$100 off TEMPUR-Ergo",
+          "start": "2026-12-15",
+          "end": "2027-01-05"
+        }
+      ]
+    }
+  ],
+  "always_on": [
+    {
+      "id": "EVG-07",
+      "title": "Free Dream Mapping",
+      "body": "Always free, no purchase needed. See where your body needs support before you choose.",
+      "fine_print": "",
+      "stores": [],
+      "faq": null
+    },
+    {
+      "id": "EVG-01",
+      "title": "365-Night Sleep Guarantee",
+      "body": "Sleep on it at home with our 365-Night Sleep Guarantee.",
+      "fine_print": "See store for details.",
+      "stores": [],
+      "faq": null
+    },
+    {
+      "id": "CTD-06",
+      "title": "Special Financing",
+      "body": "0% interest for up to 60 months, no down payment.\nNo credit check options available.",
+      "fine_print": "0% interest with approved credit. No credit check options are offered separately. See store for details.",
+      "stores": [],
+      "faq": {
+        "q": "Do you offer financing on Tempur-Pedic mattresses?",
+        "a": "Yes. Special financing is available: 0% interest for up to 60 months with no down payment, with approved credit. No credit check options are also available. See store for details."
+      }
+    },
+    {
+      "id": "EVG-05",
+      "title": "HSA/FSA Accepted",
+      "body": "Put your HSA or FSA dollars toward better sleep on eligible purchases.",
+      "fine_print": "Eligibility depends on your plan.",
+      "stores": [],
+      "faq": {
+        "q": "Can I use my HSA or FSA?",
+        "a": "Snooze Mattress accepts HSA and FSA payments on eligible purchases. Eligibility depends on your plan."
+      }
+    }
+  ]
+}

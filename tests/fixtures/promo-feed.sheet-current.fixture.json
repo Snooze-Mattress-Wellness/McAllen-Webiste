@@ -1,0 +1,215 @@
+{
+  "version": 1,
+  "generated_at": "2026-11-20T10:00:00-06:00",
+  "source": "Snooze Offer Calendar (test fixture from sheet export 2026-11-20)",
+  "stores": {
+    "albuquerque": {
+      "city": "Albuquerque",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "auburn": {
+      "city": "Auburn",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "foley": {
+      "city": "Foley",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "gadsden": {
+      "city": "Gadsden",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "jasper-clearance-center": {
+      "city": "Jasper",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "madison": {
+      "city": "Madison",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "oxford": {
+      "city": "Oxford",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "prattville": {
+      "city": "Prattville",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "tuscaloosa": {
+      "city": "Tuscaloosa",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "guntersville": {
+      "city": "Guntersville",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "castle-rock": {
+      "city": "Castle Rock",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "colorado-springs-dublin": {
+      "city": "Colorado Springs (Dublin Blvd)",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "colorado-springs-austin-bluffs": {
+      "city": "Colorado Springs (Austin Bluffs)",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "fort-collins": {
+      "city": "Fort Collins",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "parker": {
+      "city": "Parker",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "pueblo-west": {
+      "city": "Pueblo West",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "woodland-park": {
+      "city": "Woodland Park",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "millville": {
+      "city": "Millville",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "rome": {
+      "city": "Rome",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "indianapolis": {
+      "city": "Indianapolis",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "troy": {
+      "city": "Troy",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "chesterfield": {
+      "city": "Chesterfield",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "cornelius": {
+      "city": "Cornelius",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "omaha-whispering-ridge": {
+      "city": "Omaha (Whispering Ridge)",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "omaha-wright-plaza": {
+      "city": "Omaha (Wright Plaza)",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "myrtlebeach": {
+      "city": "Murrells Inlet",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "brownsville": {
+      "city": "Brownsville",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "el-paso": {
+      "city": "El Paso",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "mcallen": {
+      "city": "McAllen",
+      "brands": [
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Serta",
+        "Beautyrest",
+        "Helix",
+        "Brooklyn Bedding",
+        "FLOWT by King Koil",
+        "Handcrafted by King Koil",
+        "Copper by Spring Air",
+        "Snooze-O-Pedic",
+        "BedTech",
+        "BedGear",
+        "Sleeptone",
+        "DreamFit"
+      ]
+    },
+    "rockwall": {
+      "city": "Rockwall",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "san-antonio": {
+      "city": "San Antonio",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    },
+    "pleasant-grove": {
+      "city": "Pleasant Grove",
+      "brands": [
+        "Tempur-Pedic"
+      ]
+    }
+  },
+  "promotions": [],
+  "always_on": []
+}

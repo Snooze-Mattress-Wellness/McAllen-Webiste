@@ -59,7 +59,7 @@
    keeps its exact look as an H2. */
 .tempur-wrapper .header .header__inner .header__content-container h1.snz-h1 {
   color: #D5DFE3;
-  font-family: "montserrat", helvetica, arial, sans-serif;
+  font-family: var(--font-montserrat), helvetica, arial, sans-serif;
   font-size: 0.833em;
   font-weight: 600;
   letter-spacing: 0.04em;
@@ -68,7 +68,7 @@
   text-transform: uppercase;
 }
 .tempur-wrapper .header .header__inner .header__content-container h2.header__headline {
-  font-family: "montserrat", helvetica, arial, sans-serif;
+  font-family: var(--font-montserrat), helvetica, arial, sans-serif;
   font-size: 1.6666666667em;
   font-weight: 300;
   line-height: 1.2667;
@@ -205,4 +205,32 @@
 .tempur-wrapper .header .header__inner .header__content-container .snz-hero-btns a.btn { margin: 0; }
 @media (max-width: 1023px) {
   .tempur-wrapper .header .header__inner .header__content-container .snz-hero-btns a.btn { flex: 1 1 100%; }
+}
+
+/* ===== 7. Montserrat with its size-matched fallback (CLS) =====
+   The vendor sets font-family "montserrat", helvetica, arial on the rules below. Until Montserrat arrives (it is not
+   preloaded) the text shows in Helvetica/Arial, which is wider than Montserrat, and the hero copy re-wraps when the
+   font swaps in (the hero block moved ~80px; CLS 0.139 on the live page). The page loads Montserrat with next/font
+   (components/brand-pages/tempur-pedic/font.ts), which defines --font-montserrat on .tempur-wrapper as "Montserrat",
+   "Montserrat Fallback": a local Arial face size-adjusted to Montserrat metrics, so the swap no longer moves the
+   text. Same selectors as the vendor file (tempur-pedic.scoped.css, unchanged), loaded after it. */
+.tempur-wrapper .btn,
+.tempur-wrapper .header .header__inner .header__content-container h1,
+.tempur-wrapper .header .header__inner .header__content-container p,
+.tempur-wrapper .rtbs .rtbs__inner h2,
+.tempur-wrapper .rtbs .rtbs__inner .swiper .swiper-wrapper .swiper-slide .content-container h3,
+.tempur-wrapper .rtbs .rtbs__inner .swiper .swiper-wrapper .swiper-slide .content-container p,
+.tempur-wrapper .product-container .product-container__inner .product-container__content-container h2,
+.tempur-wrapper .product-container .product-container__inner .product-container__content-container h3,
+.tempur-wrapper .product-container .product-container__inner .product-container__content-container p,
+.tempur-wrapper .product-container .product-container__inner .product-container__content-container li,
+.tempur-wrapper .testimonials .testimonials__inner h2,
+.tempur-wrapper .testimonials .testimonials__inner .swiper .swiper-wrapper .swiper-slide .inner h3,
+.tempur-wrapper .testimonials .testimonials__inner .swiper .swiper-wrapper .swiper-slide .inner p,
+.tempur-wrapper .testimonials .testimonials__inner .swiper .swiper-wrapper .swiper-slide .inner .customer,
+.tempur-wrapper .why h2,
+.tempur-wrapper .why p,
+.tempur-wrapper .video .video__inner h2,
+.tempur-wrapper .disclaimers .disclaimers__inner p {
+  font-family: var(--font-montserrat), helvetica, arial, sans-serif;
 }
