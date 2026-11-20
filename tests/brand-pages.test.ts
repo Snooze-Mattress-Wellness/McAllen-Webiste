@@ -31,6 +31,8 @@ test('copy: the package strings, with the city and state filled in', () => {
   assert.equal(TP.seo.description(LOC), 'Try Tempur-Pedic Adapt, Breeze and smart adjustable bases at Snooze Mattress in McAllen. Get a free Dream Mapping fitting to find the right fit for your body.');
   assert.equal(TP.copy.h1(LOC), 'Tempur-Pedic Mattresses in McAllen, TX');
   assert.equal(TP.copy.visit_heading(LOC), 'Try Tempur-Pedic in McAllen');
+  assert.equal(TP.copy.plain_answer(LOC), 'Snooze Mattress + Wellness at 7913 N 10th St in McAllen carries Tempur-Pedic mattresses, adjustable bases and pillows.');
+  assert.equal(TP.copy.plain_answer({ ...LOC, business_name: 'Snooze Mattress + Wellness', street_short: '100 Main St', city: 'Rockwall' }), 'Snooze Mattress + Wellness at 100 Main St in Rockwall carries Tempur-Pedic mattresses, adjustable bases and pillows.');
   assert.equal(TP.copy.why_heading(LOC), 'Why Buy Tempur-Pedic at Snooze Mattress in McAllen');
   assert.equal(TP.copy.faq_heading(LOC), 'Tempur-Pedic in McAllen: Common Questions');
 });

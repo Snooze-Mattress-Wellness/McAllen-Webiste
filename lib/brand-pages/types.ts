@@ -127,6 +127,8 @@ export type BrandConfig = {
   copy: {
     h1: (loc: BrandLocation) => string;
     visit_heading: (loc: BrandLocation) => string;
+    /** the one-sentence plain answer that opens the visit section (who carries what, where) */
+    plain_answer: (loc: BrandLocation) => string;
     visit_paragraphs: (loc: BrandLocation) => string[];
     floor_note: string;
     why_heading: (loc: BrandLocation) => string;

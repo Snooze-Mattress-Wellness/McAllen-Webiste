@@ -36,6 +36,8 @@ export const TEMPUR_PEDIC: BrandConfig = {
   copy: {
     h1: (l) => `Tempur-Pedic Mattresses in ${l.city}, ${l.state}`,
     visit_heading: (l) => `Try Tempur-Pedic in ${l.city}`,
+    // client-supplied (November 20, 2026), with the store's own street and city; it never claims a dealer authorization
+    plain_answer: (l) => `${l.business_name} at ${l.street_short} in ${l.city} carries Tempur-Pedic mattresses, adjustable bases and pillows.`,
     visit_paragraphs: (l) => [
       `Reading about TEMPUR-Material is one thing. Feeling how it supports your body is another. Visit Snooze Mattress in ${l.city} to lie down on Tempur-Pedic mattresses and adjustable bases, and start with a free Dream Mapping fitting.`,
       'Dream Mapping, our pressure mapping technology, shows where your body needs support. Your Sleep Coach then helps you find the Tempur-Pedic that fits how you sleep, whether that\'s the cooling Breeze collection or the pressure-relieving Adapt collection.',

@@ -20,6 +20,7 @@ export function Visit({ brand, location: l }: LocalProps) {
       <div className="snz-inner">
         <div>
           <h2>{brand.copy.visit_heading(l)}</h2>
+          <p>{brand.copy.plain_answer(l)}</p>
           {brand.copy.visit_paragraphs(l).map((p) => <p key={p}>{p}</p>)}
           <div className="snz-btns">
             <a className="snz-btn snz-btn--orange" href={l.links.booking}>Book Free Dream Mapping</a>
