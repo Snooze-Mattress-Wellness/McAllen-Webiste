@@ -132,8 +132,7 @@ export type BrandConfig = {
     why_lead: string;
     faq_heading: (loc: BrandLocation) => string;
   };
-  /** the offers shown when the feed cannot be read and no copy of it is cached (feed shape) */
+  /** the offers shown when the feed cannot be read and no copy of it is cached (feed shape): the always-on tiles and
+      their FAQs; never a dated promotion */
   fallback: { always_on: readonly AlwaysOnOffer[] };
-  /** the dated promotion block written into the page before the feed existed, shown until `until` (ms) */
-  static_promotion?: { block: Promotion; until: number };
 };

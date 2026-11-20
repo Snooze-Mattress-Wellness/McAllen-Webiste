@@ -45,7 +45,8 @@ export const TEMPUR_PEDIC: BrandConfig = {
     why_lead: 'Tempur-Pedic makes great mattresses, but the right one still depends on your body. Skip the guesswork: get fitted first, then choose with confidence.',
     faq_heading: (l) => `Tempur-Pedic in ${l.city}: Common Questions`,
   },
-  // the package's four always-on tiles and their two FAQ answers, word for word (mcallen.html)
+  // the static fallback (only when the feed cannot be read and no copy is cached): the package's four always-on tiles
+  // and their two FAQ answers, word for word (mcallen.html)
   fallback: {
     always_on: [
       { title: 'Free Dream Mapping', body: 'Always free, no purchase needed. See where your body needs support before you choose.', fine_print: '', faq: null },
@@ -63,29 +64,5 @@ export const TEMPUR_PEDIC: BrandConfig = {
         faq: { q: 'Can I use my HSA or FSA?', a: 'Snooze Mattress accepts HSA and FSA payments on eligible purchases. Eligibility depends on your plan.' },
       },
     ],
-  },
-  // the package's Black Friday block, through December 1, 2026 23:59:59 America/Chicago (CST, so the cut-off is
-  // 2026-12-02 00:00 −06:00)
-  static_promotion: {
-    until: Date.parse('2026-12-02T00:00:00-06:00'),
-    block: {
-      block: 'BF26-TEMPUR',
-      vendor: 'Tempur-Pedic',
-      event: 'Black Friday Sale',
-      start: '2026-11-03',
-      end: '2026-12-01',
-      headline: 'Save Up to $500 on Tempur-Pedic Smart Base Sets',
-      fine_print: 'Offers valid November 3 – December 1, 2026 on the models named. See store for details.',
-      image: 'base',
-      stores: [],
-      items: [
-        { text: '$300 off Tempur-LuxeAdapt, ProBreeze, LuxeBreeze and ActiveBreeze', start: '2026-11-03', end: '2026-12-01' },
-        { text: '$600 off Tempur-LuxeBreeze Split Head King', start: '2026-11-03', end: '2026-12-01' },
-        { text: '$200 off Tempur-Adapt and ProAdapt', start: '2026-11-03', end: '2026-12-01' },
-        { text: '$200 off Tempur-Pedic smart bases (TEMPUR-Ergo Smart and ProSmart)', start: '2026-11-03', end: '2026-12-01' },
-        { text: '$100 off TEMPUR-Ergo', start: '2026-11-03', end: '2026-12-01' },
-        { text: '$25 off Tempur-Adapt and Breeze pillows', start: '2026-11-03', end: '2026-12-01' },
-      ],
-    },
   },
 };

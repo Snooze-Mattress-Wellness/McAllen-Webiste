@@ -4,6 +4,7 @@
 import { Fragment } from 'react';
 import type { AlwaysOnOffer, BrandConfig, BrandLocation, FaqEntry, Promotion, Segment } from '@/lib/brand-pages/types';
 import { answerSegments, townSegments } from '@/lib/brand-pages/faq';
+import { promoLabel } from '@/lib/brand-pages/promo';
 
 /** Text with links in it. */
 export function Segments({ items }: { items: Segment[] }) {
@@ -50,11 +51,8 @@ export function Visit({ brand, location: l }: LocalProps) {
   );
 }
 
-const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-/** "2026-12-01" -> "December 1" */
-const longDate = (iso: string) => { const p = iso.split('-'); return `${MONTHS[+p[1] - 1]} ${+p[2]}`; };
-
-/** The promo slot: one block per live promotion; nothing at all (no box, no spacing) when none is live. */
+/** The promo slot: one block per live promotion (the image from the block's image key); nothing at all (no box, no
+    spacing) when none is live. */
 export function Promo({ brand, location: l, promos, img }: LocalProps & { promos: readonly Promotion[]; img: string }) {
   if (!promos.length) return null;
   return (
@@ -65,7 +63,7 @@ export function Promo({ brand, location: l, promos, img }: LocalProps & { promos
           <section key={b.block} className="snz-local snz-promo" aria-label={`${b.vendor} ${b.event} offers`}>
             <div className="snz-inner">
               <div>
-                <p className="snz-event">{`${b.event} · Through ${longDate(b.end)}`}</p>
+                <p className="snz-event">{promoLabel(b)}</p>
                 <h2>{b.headline}</h2>
                 {b.items.length > 0 && <ul>{b.items.map((i, k) => <li key={k}>{i.text}</li>)}</ul>}
                 <div className="snz-btns">

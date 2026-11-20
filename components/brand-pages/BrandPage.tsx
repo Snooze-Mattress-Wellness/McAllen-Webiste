@@ -7,25 +7,27 @@ import { BRANDS } from '@/lib/brand-pages/registry';
 import { brandPage } from '@/lib/brand-pages/page';
 import { brandPageJsonLd, type JsonLd } from '@/lib/brand-pages/jsonld';
 import { pageFaq } from '@/lib/brand-pages/faq';
-import type { BrandKey, BrandLocation, SectionKey } from '@/lib/brand-pages/types';
+import { brandOffers } from '@/lib/brand-pages/feed';
+import type { BrandKey, BrandLocation, PromoFeed, SectionKey } from '@/lib/brand-pages/types';
 import { BRAND_SECTIONS } from './sections';
 import { Faq, Promo, Visit, WhyBuy } from './local';
 
 type Props = {
   brand: BrandKey;
   location: BrandLocation;
+  /** the promo feed (lib/brand-pages/feed-loader.ts loadPromoFeed), or null for the static fallback offers */
+  feed: PromoFeed | null;
   /** renders the page's structured data (the site puts it in its one JSON-LD graph) */
   renderSchema?: (items: JsonLd[]) => ReactNode;
 };
 
-export function BrandPage({ brand: key, location: l, renderSchema }: Props) {
+export function BrandPage({ brand: key, location: l, feed, renderSchema }: Props) {
   const brand = BRANDS[key];
   const own = BRAND_SECTIONS[key];
   const page = brandPage(brand, l);
-  const sp = brand.static_promotion;
-  const promos = sp && Date.now() < sp.until ? [sp.block] : [];
-  const tiles = brand.fallback.always_on;
-  // the store's local questions, then the offers' questions (financing, HSA/FSA)
+  // the offers: the vendor promotions live today (store time) and the always-on tiles, in feed order
+  const { promos, tiles } = brandOffers(brand, l.store_id, feed);
+  // the store's local questions, then the offers' own questions (always_on[].faq)
   const faq = pageFaq(page.faq, tiles);
   const props = { brand, location: l, img: page.img };
 
