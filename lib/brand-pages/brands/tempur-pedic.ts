@@ -17,6 +17,11 @@ export const TEMPUR_PEDIC: BrandConfig = {
     { file: 'bg_mobile_header.webp', media: '(max-width: 1023px)' },
   ],
   promo_slot: 'tempur_promo',
+  tracking: {
+    // the vendor buttons (.btn), the local and offer buttons (.snz-btn) and the links inside the FAQ answers
+    cta_selector: 'a.btn, a.snz-btn, .snz-faq details a',
+    cta_sections: [['hero', '.header'], ['visit', '.snz-visit'], ['promo', '.snz-promo'], ['product', '.product-container'], ['why', '.snz-why'], ['faq', '.snz-faq']],
+  },
   // js/snooze-promo.js IMAGES, unchanged
   images: {
     base: { file: 'base.webp', w: 1592, h: 948, alt: 'TEMPUR-Ergo ProSmart adjustable base' },

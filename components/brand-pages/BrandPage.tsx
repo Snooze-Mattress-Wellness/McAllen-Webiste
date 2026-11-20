@@ -11,6 +11,7 @@ import { brandOffers } from '@/lib/brand-pages/feed';
 import type { BrandKey, BrandLocation, PromoFeed, SectionKey } from '@/lib/brand-pages/types';
 import { BRAND_SECTIONS } from './sections';
 import { Faq, Promo, Visit, WhyBuy } from './local';
+import BrandTracking from './BrandTracking';
 
 type Props = {
   brand: BrandKey;
@@ -49,10 +50,21 @@ export function BrandPage({ brand: key, location: l, feed, renderSchema }: Props
       {brand.stylesheets.map((f) => <link key={f} rel="stylesheet" href={`${page.css}${f}`} precedence={brand.key} />)}
       {/* the hero background (CSS) for each layout, fetched early as in the package's <head> */}
       {brand.preloads.map((p) => <link key={p.file} rel="preload" as="image" href={`${page.img}${p.file}`} media={p.media} />)}
-      <div className={`${brand.wrapper_class} ${own.fontClass}`}>
+      {/* data-snz-store-id: public/snz-events.js adds it to phone_click and directions_click on this page */}
+      <div className={`${brand.wrapper_class} ${own.fontClass}`} data-snz-store-id={l.store_id}>
         {brand.sections.map((s) => <Fragment key={s}>{section(s)}</Fragment>)}
       </div>
       <own.Scripts {...props} js={page.js} />
+      {/* view_promotion, select_promotion, cta_click (dataLayer only) */}
+      <BrandTracking
+        storeId={l.store_id}
+        brand={brand.vendor}
+        wrapperClass={brand.wrapper_class}
+        promoSlot={brand.promo_slot}
+        promos={promos.map((b) => ({ block: b.block, headline: b.headline, event: b.event }))}
+        ctaSelector={brand.tracking.cta_selector}
+        ctaSections={brand.tracking.cta_sections}
+      />
     </>
   );
 }

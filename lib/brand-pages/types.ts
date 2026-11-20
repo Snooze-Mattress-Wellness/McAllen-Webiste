@@ -114,6 +114,9 @@ export type BrandConfig = {
   preloads: readonly { file: string; media: string }[];
   /** GA4 creative_slot of the promo block */
   promo_slot: string;
+  /** dataLayer events (components/brand-pages/BrandTracking.tsx): what counts as a CTA, and the section each CTA
+      reports (the first entry whose selector contains the CTA wins) */
+  tracking: { cta_selector: string; cta_sections: readonly (readonly [section: string, selector: string])[] };
   /** promotions[].image key -> file under <asset_base>img/ */
   images: Readonly<Record<string, PromoImage>>;
   sections: readonly SectionKey[];

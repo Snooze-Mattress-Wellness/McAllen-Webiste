@@ -61,7 +61,7 @@ export function Promo({ brand, location: l, promos, img }: LocalProps & { promos
       {promos.map((b) => {
         const pic = b.image ? brand.images[b.image] : undefined;
         return (
-          <section key={b.block} className="snz-local snz-promo" aria-label={`${b.vendor} ${b.event} offers`}>
+          <section key={b.block} className="snz-local snz-promo" aria-label={`${b.vendor} ${b.event} offers`} data-promo-id={b.block}>
             <div className="snz-inner">
               <div>
                 <p className="snz-event">{promoLabel(b)}</p>
