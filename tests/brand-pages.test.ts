@@ -122,3 +122,20 @@ test('every brand key has a page at /<key> in the location config (the language 
   for (const key of BRAND_KEYS) assert.equal(BRAND_PAGE_LOCATION.brand_pages[key]?.page_path, `/${key}`, key);
   assert.deepEqual(BRAND_PAGE_PATHS, ['/tempur-pedic']);
 });
+
+test('llms.txt: the hand-written guide plus a "Brand pages" section from the registry; nothing cut off', async () => {
+  const { buildLlmsTxt, llmsBrandPagesSection } = await import('../lib/brand-pages/llms.ts');
+  const base = readFileSync(new URL('../lib/llms.txt', import.meta.url), 'utf8');
+  const out = buildLlmsTxt(base, LOC);
+  assert.equal(llmsBrandPagesSection(LOC), '## Brand pages\n- [Tempur-Pedic at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/tempur-pedic)');
+  assert.ok(out.includes('\n\n## Brand pages\n- [Tempur-Pedic at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/tempur-pedic)\n\n## Financing and offers\n'));
+  assert.ok(!out.includes('{{'));
+  // every line of the hand-written file is still there, in order, and the file ends with its last section intact
+  const kept = base.replace(/\r\n/g, '\n').split('\n').filter((l) => l !== '{{BRAND_PAGES}}');
+  const lines = out.split('\n'); let i = 0; for (const l of lines) if (i < kept.length && l === kept[i]) i++;
+  assert.equal(i, kept.length);
+  assert.ok(out.endsWith('- [Terms and conditions](https://mcallen.snoozemattresscompany.com/terms-conditions-page)\n'));
+  // a store with no brand page: no section, no stray blank lines
+  const none = buildLlmsTxt(base, { ...LOC, brand_pages: {} });
+  assert.ok(!none.includes('Brand pages') && !none.includes('\n\n\n'));
+});
