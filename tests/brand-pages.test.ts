@@ -113,3 +113,9 @@ test('local FAQ (one array in the location config): the package questions and an
     { text: 'Pharr', href: '/mattress-store-pharr' },
   ]);
 });
+
+test('every brand key has a page at /<key> in the location config (the language switch and GA4 rely on it)', async () => {
+  const { BRAND_PAGE_PATHS } = await import('../lib/brand-pages/keys.ts');
+  for (const key of BRAND_KEYS) assert.equal(BRAND_PAGE_LOCATION.brand_pages[key]?.page_path, `/${key}`, key);
+  assert.deepEqual(BRAND_PAGE_PATHS, ['/tempur-pedic']);
+});

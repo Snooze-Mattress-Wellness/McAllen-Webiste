@@ -3,6 +3,7 @@
    pages is translated by scripts/convert.mjs from overrides/i18n/*.json. */
 
 import { blogSlugFor } from './blog-nav';
+import { BRAND_PAGE_PATHS } from './brand-pages/keys';
 
 export type Locale = 'en' | 'es';
 export const LOCALES: Locale[] = ['en', 'es'];
@@ -23,9 +24,11 @@ export function splitLocale(pathname: string): { locale: Locale; path: string } 
 }
 
 /** The same page in the other language (used by the EN | ES switcher). Blog posts whose slug differs per language
-    (lib/blog-nav.ts BLOG_SLUG_ES) are mapped to their counterpart. */
+    (lib/blog-nav.ts BLOG_SLUG_ES) are mapped to their counterpart. The brand pages (/tempur-pedic) are English only
+    (/es/tempur-pedic 308s back, next.config.ts), so their ES switch goes to the Spanish homepage. */
 export function alternateHref(pathname: string, target: Locale): string {
   const { path } = splitLocale(pathname);
+  if (target === 'es' && BRAND_PAGE_PATHS.includes(path)) return localizeHref('/', 'es');
   const post = path.match(/^\/blog\/([^/]+)$/);
   if (post) return localizeHref(`/blog/${blogSlugFor(post[1], target)}`, target);
   return localizeHref(path, target);
