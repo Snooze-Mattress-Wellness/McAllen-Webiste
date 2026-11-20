@@ -18,7 +18,8 @@ export function brandPageJsonLd(brand: BrandConfig, loc: BrandLocation, faq: rea
       description: brand.seo.description(loc),
       inLanguage: 'en-US',
       isPartOf: { '@id': loc.schema_ids.website },
-      about: { '@type': 'Brand', name: brand.name },
+      // the brand, and the store that carries it (the site's own LocalBusiness node, #store)
+      about: [{ '@type': 'Brand', name: brand.name }, { '@id': loc.schema_ids.store }],
       publisher: { '@id': loc.schema_ids.organization },
       breadcrumb: { '@id': `${url}#breadcrumb` },
     },

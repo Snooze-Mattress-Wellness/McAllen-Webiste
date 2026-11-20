@@ -57,6 +57,7 @@ test('structured data: WebPage, BreadcrumbList and FAQPage; the FAQPage text is 
   assert.equal(webPage.name, 'Tempur-Pedic Mattresses in McAllen, TX | Snooze Mattress');
   assert.deepEqual(webPage.isPartOf, { '@id': `${SITE}/#website` });
   assert.deepEqual(webPage.publisher, { '@id': `${SITE}/#organization` });
+  assert.deepEqual(webPage.about, [{ '@type': 'Brand', name: 'Tempur-Pedic' }, { '@id': `${SITE}/#store` }]);
   assert.deepEqual((crumbs.itemListElement as { item: string }[]).map((c) => c.item), [`${SITE}/`, `${SITE}/mattresses`, `${SITE}/tempur-pedic`]);
   assert.deepEqual((faqPage.mainEntity as { name: string; acceptedAnswer: { text: string } }[]).map((q) => [q.name, q.acceptedAnswer.text]), faq.map((f) => [f.question, f.answer]));
   assert.ok(!JSON.stringify([webPage, crumbs, faqPage]).includes('Review'), 'no Review / AggregateRating');

@@ -33,10 +33,18 @@ const htmlFiles = []; (function walk(d) { for (const e of fs.readdirSync(d, { wi
 const routeOf = (f) => '/' + path.relative(path.join(ROOT, 'out'), f).split(path.sep).join('/').replace(/index\.html$/, '').replace(/\.html$/, '').replace(/\/$/, '');
 const typesOf = (o) => (Array.isArray(o['@type']) ? o['@type'] : [o['@type']]).filter(Boolean);
 const flatten = (o, out = []) => { if (!o || typeof o !== 'object') return out; if (Array.isArray(o)) { o.forEach((x) => flatten(x, out)); return out; } if (o['@type']) out.push(o); for (const [k, v] of Object.entries(o)) if (k !== '@type' && v && typeof v === 'object') flatten(v, out); return out; };
-/* a required property, following {"@id": …} references to the page's own nodes (an unresolved reference is missing) */
+/* a required property, following {"@id": …} references to the page's own nodes (an unresolved reference is missing).
+   A list on the way (e.g. a WebPage "about" naming a Brand and the #store) passes when every item has the rest. */
 const need = (o, keys, errs, label, byId = new Map()) => {
   const deref = (v) => (v && typeof v === 'object' && !Array.isArray(v) && v['@id'] && Object.keys(v).length === 1 ? byId.get(v['@id']) : v);
-  for (const k of keys) { const v = k.split('.').reduce((a, b) => { const x = deref(a); return x && x[b] !== undefined ? x[b] : undefined; }, o); const r = deref(v); if (r === undefined || r === '' || (Array.isArray(r) && !r.length)) errs.push(`${label}: missing ${k}`); }
+  const missing = (r) => r === undefined || r === '' || (Array.isArray(r) && !r.length);
+  const get = (v, path) => {
+    if (!path.length) return v;
+    const x = deref(v);
+    if (Array.isArray(x)) { const all = x.map((e) => deref(get(e, path))); return all.length && !all.some(missing) ? all : undefined; }
+    return x && x[path[0]] !== undefined ? get(x[path[0]], path.slice(1)) : undefined;
+  };
+  for (const k of keys) { const r = deref(get(o, k.split('.'))); if (missing(r)) errs.push(`${label}: missing ${k}`); }
 };
 
 let pagesChecked = 0, pagesBad = 0; const summary = {};
