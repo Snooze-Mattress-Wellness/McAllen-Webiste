@@ -86,6 +86,8 @@ export function SiteFooter({ locale = 'en' }: { locale?: Locale }) {
               {PRODUCT_KEYS.map((key) => (
                 <li key={key}><a href={L(PRODUCT_HREFS[key])}>{t.products[key].label}</a></li>
               ))}
+              {/* the Tempur-Pedic brand page: English only, so both languages link the same URL (as the header's Products menu) */}
+              <li><a href="/tempur-pedic">{t.products.tempur.label}</a></li>
             </ul>
           </div>
 

@@ -50,10 +50,11 @@ const BRANDS = Object.fromEntries(LINEUP.map((name) => [LOGO[name], { name }]));
 const DROPPED = ['6a7f50378921ecbd9ca94ef7'];
 const DROPPED_ITEM = new RegExp(`<div class="snz-logo-marquee__item">\\s*<img\\b[^>]*\\/media\\/(?:${DROPPED.join('|')})[^>]*>\\s*<\\/div>\\s*`, 'g');
 const altFor = (id, locale) => { const b = BRANDS[id]; if (!b) return null; const n = b.name.replace(/&/g, '&amp;'); return locale === 'es' ? `Logotipo de ${n}` : `${n} logo`; };
-/* each copy of the strip (a run of logo items) in the lineup's order: every item is the strip's own, re-ordered */
-const ITEM = /[ \t]*<div class="snz-logo-marquee__item">\s*<img\b[^>]*>\s*<\/div>/g;
+/* each copy of the strip (a run of logo items) in the lineup's order: every item is the strip's own, re-ordered. A logo
+   may sit in a link (the Tempur-Pedic logo on the English home page links to /tempur-pedic, scripts/brand-page-links.mjs). */
+const ITEM = /[ \t]*<div class="snz-logo-marquee__item">\s*(?:<a\b[^>]*>\s*)?<img\b[^>]*>\s*(?:<\/a>\s*)?<\/div>/g;
 function orderSets(html) {
-  return html.replace(/(?:[ \t]*<div class="snz-logo-marquee__item">\s*<img\b[^>]*>\s*<\/div>[ \t]*\r?\n?)+/g, (run) => {
+  return html.replace(/(?:[ \t]*<div class="snz-logo-marquee__item">\s*(?:<a\b[^>]*>\s*)?<img\b[^>]*>\s*(?:<\/a>\s*)?<\/div>[ \t]*\r?\n?)+/g, (run) => {
     const items = run.match(ITEM); const byMedia = new Map(items.map((it) => [(it.match(/media\/([a-f0-9]{24})/) || [])[1], it.trim()]));
     const indent = (items[0].match(/^[ \t]*/) || [''])[0]; const eol = /\r?\n$/.test(run) ? run.match(/\r?\n$/)[0] : '';
     const missing = LINEUP.filter((b) => !byMedia.has(LOGO[b])); if (missing.length) throw new Error(`strip has no logo item for ${missing.join(', ')}`);
@@ -73,7 +74,7 @@ function patchBlock(html, locale) {
   const ordered = orderSets(out); if (ordered !== out) { n++; out = ordered; }
   // only the strip's own logos: the /mattresses brand blocks reuse some of these media ids as builder images, which
   // image-hydration-match owns (patching them here would make the two steps undo each other)
-  out = out.replace(/(<div class="snz-logo-marquee__item">\s*)(<img\b[^>]*>)/g, (whole, pre, tag) => {
+  out = out.replace(/(<div class="snz-logo-marquee__item">\s*(?:<a\b[^>]*>\s*)?)(<img\b[^>]*>)/g, (whole, pre, tag) => {
     const id = (tag.match(/media\/([a-f0-9]{24})/) || [])[1]; const alt = id ? altFor(id, locale) : null;
     let t = tag.replace(/\bloading="eager"/, 'loading="lazy"');
     if (!/\bloading=/.test(t)) t = t.replace(/^<img\b/, '<img loading="lazy"');

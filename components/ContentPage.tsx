@@ -14,14 +14,33 @@ import styles from './ContentPage.module.css';
    /dream-mapping itself or the mention already sits inside a link; everything else in the copy is rendered as written. */
 function withDreamMappingLink(c: PageCopy, slug: string, locale: Locale): PageCopy {
   if (slug === '/dream-mapping') return c;
-  const href = localizeHref('/dream-mapping', locale);
+  return withFirstMentionLink(c, 'Dream Mapping', localizeHref('/dream-mapping', locale));
+}
+
+/* Brand pages (lib/brand-pages/, English only): on these English pages the first "Tempur-Pedic" in the body copy links
+   to /tempur-pedic, same tab, one link per page (the intro and sections; not headings, not the FAQ). */
+const BRAND_PAGE_MENTIONS: Record<string, { phrase: string; href: string }> = {
+  '/cooling-mattresses': { phrase: 'Tempur-Pedic', href: '/tempur-pedic' },
+  '/memory-foam-mattresses': { phrase: 'Tempur-Pedic', href: '/tempur-pedic' },
+  '/mattress-store-edinburg': { phrase: 'Tempur-Pedic', href: '/tempur-pedic' },
+  '/mattress-store-mission': { phrase: 'Tempur-Pedic', href: '/tempur-pedic' },
+  '/mattress-store-pharr': { phrase: 'Tempur-Pedic', href: '/tempur-pedic' },
+};
+function withBrandPageLink(c: PageCopy, slug: string, locale: Locale): PageCopy {
+  const m = locale === 'en' ? BRAND_PAGE_MENTIONS[slug] : undefined;
+  return m ? withFirstMentionLink(c, m.phrase, m.href) : c;
+}
+
+/** The first mention of `phrase` in the body copy (intro, then each section's paragraphs, bullets and subsections, in
+    page order) becomes [phrase](href), unless it already sits inside a link (then the next mention is taken). */
+function withFirstMentionLink(c: PageCopy, phrase: string, href: string): PageCopy {
   let done = false;
   const link = (t: string) => {
-    if (done || !t.includes('Dream Mapping')) return t;
+    if (done || !t.includes(phrase)) return t;
     return t.split(/(\[[^\]]+\]\([^)]+\))/).map((seg) => {
-      if (done || /^\[[^\]]+\]\([^)]+\)$/.test(seg) || !seg.includes('Dream Mapping')) return seg;
+      if (done || /^\[[^\]]+\]\([^)]+\)$/.test(seg) || !seg.includes(phrase)) return seg;
       done = true;
-      return seg.replace('Dream Mapping', `[Dream Mapping](${href})`);
+      return seg.replace(phrase, `[${phrase}](${href})`);
     }).join('');
   };
   const intro = c.intro.map(link);
@@ -90,7 +109,7 @@ function ListBlock({ items, style }: { items: string[]; style?: ListStyle }) {
 }
 
 export function ContentPage({ page, locale }: { page: ContentPageData; locale: Locale }) {
-  const c = withDreamMappingLink(page.copy[locale] || page.copy.en, page.slug, locale);
+  const c = withBrandPageLink(withDreamMappingLink(page.copy[locale] || page.copy.en, page.slug, locale), page.slug, locale);
   const t = ui(locale);
   const home = locale === 'es' ? `${SITE_URL}/es` : SITE_URL;
   const url = `${SITE_URL}${localizeHref(page.slug, locale)}`;
