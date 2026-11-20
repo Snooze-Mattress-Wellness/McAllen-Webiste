@@ -1,6 +1,11 @@
 /* FAQ entries -> what the page renders. One list feeds both the visible accordion and the FAQPage JSON-LD, so the two
    cannot drift: the accordion renders answerSegments() (the links), the JSON-LD takes plainAnswer() (the same text). */
-import type { FaqEntry, Segment } from './types.ts';
+import type { AlwaysOnOffer, FaqEntry, Segment } from './types.ts';
+
+/** The page's FAQ: the store's local questions, then the offers' own questions (always_on[].faq), in offer order. */
+export function pageFaq(local: readonly FaqEntry[], offers: readonly AlwaysOnOffer[]): FaqEntry[] {
+  return [...local, ...offers.flatMap((o) => (o.faq ? [{ question: o.faq.q, answer: o.faq.a }] : []))];
+}
 
 /** The answer split into text and links. Each link takes the first occurrence of its text after the previous link;
     a link whose text is not in the answer is an error in the config (thrown, so the build fails instead of dropping it). */

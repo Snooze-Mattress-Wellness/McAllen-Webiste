@@ -6,6 +6,7 @@ import { Fragment, type ReactNode } from 'react';
 import { BRANDS } from '@/lib/brand-pages/registry';
 import { brandPage } from '@/lib/brand-pages/page';
 import { brandPageJsonLd, type JsonLd } from '@/lib/brand-pages/jsonld';
+import { pageFaq } from '@/lib/brand-pages/faq';
 import type { BrandKey, BrandLocation, SectionKey } from '@/lib/brand-pages/types';
 import { BRAND_SECTIONS } from './sections';
 import { Faq, Promo, Visit, WhyBuy } from './local';
@@ -24,7 +25,8 @@ export function BrandPage({ brand: key, location: l, renderSchema }: Props) {
   const sp = brand.static_promotion;
   const promos = sp && Date.now() < sp.until ? [sp.block] : [];
   const tiles = brand.fallback.always_on;
-  const faq = page.faq;
+  // the store's local questions, then the offers' questions (financing, HSA/FSA)
+  const faq = pageFaq(page.faq, tiles);
   const props = { brand, location: l, img: page.img };
 
   const section = (s: SectionKey): ReactNode => {
