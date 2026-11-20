@@ -62,6 +62,7 @@ const PRODUCT_PAGES = new Set([
   'mattresses', 'queen-mattresses', 'king-mattresses', 'full-twin-mattresses', 'cooling-mattresses', 'memory-foam-mattresses',
   'mattresses-for-back-pain', 'adjustable-mattress-bases', 'massage-chairs', 'sleep-recliner', 'pillows', 'premium-sheets',
   'mattress-protectors', 'at-home-sleep-test-kit-by-sleepcorner', 'mattress-sales',
+  'tempur-pedic', // the Tempur-Pedic brand page (app/(en)/tempur-pedic)
 ]);
 
 /** The path without the /es prefix and without trailing slashes: '/es/blog/x/' → '/blog/x', '/es' → '/'. */

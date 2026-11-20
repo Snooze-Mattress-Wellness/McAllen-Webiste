@@ -75,6 +75,8 @@ const en: UiStrings = {
     sheets: { label: 'Premium Sheets', desc: 'Luxury you can feel every night' },
     recliner: { label: 'Sleep Recliner', desc: 'Recline smarter with the Zcliner®' },
     kit: { label: 'At-Home Sleep Test Kit', desc: 'Find what disrupts your sleep' },
+    // header Products menu only (not in PRODUCT_KEYS, so the footer list is unchanged); the page is English-only
+    tempur: { label: 'Tempur-Pedic', desc: 'Adapt, Breeze and smart bases' },
   },
   feature: { eyebrow: 'Dream Mapping', title: 'Find your perfect mattress in about 5 minutes', cta: 'Book a free fitting', imgAlt: 'Snooze Sleep Coaches fitting a customer on a mattress' },
   drawerBook: 'Book Free Dream Mapping Appointment',
@@ -119,6 +121,8 @@ const es: UiStrings = {
     sheets: { label: 'Sábanas Premium', desc: 'Lujo que se siente cada noche' },
     recliner: { label: 'Sillón Reclinable', desc: 'Reclínate mejor con el Zcliner®' },
     kit: { label: 'Kit de Prueba de Sueño en Casa', desc: 'Descubre qué interrumpe tu sueño' },
+    // menú Productos del encabezado (no en PRODUCT_KEYS); enlaza a la página en inglés /tempur-pedic
+    tempur: { label: 'Tempur-Pedic', desc: 'Adapt, Breeze y bases inteligentes' },
   },
   feature: { eyebrow: 'Dream Mapping', title: 'Encuentra tu colchón perfecto en unos 5 minutos', cta: 'Reserva tu cita de Dream Mapping', imgAlt: 'Sleep Coaches de Snooze ajustando a una clienta sobre un colchón' },
   drawerBook: 'Reserva tu cita de Dream Mapping',
