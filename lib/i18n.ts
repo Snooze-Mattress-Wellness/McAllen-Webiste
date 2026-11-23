@@ -27,7 +27,7 @@ export function splitLocale(pathname: string): { locale: Locale; path: string } 
 }
 
 /** The same page in the other language (used by the EN | ES switcher). Blog posts whose slug differs per language
-    (lib/blog-nav.ts BLOG_SLUG_ES) are mapped to their counterpart. The brand pages (/tempur-pedic, /beautyrest) are English only
+    (lib/blog-nav.ts BLOG_SLUG_ES) are mapped to their counterpart. The brand pages (/tempur-pedic, /beautyrest, /serta) are English only
     (/es/<brand> 308s back, next.config.ts), so their ES switch goes to the Spanish homepage. */
 export function alternateHref(pathname: string, target: Locale): string {
   const { path } = splitLocale(pathname);

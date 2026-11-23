@@ -1,10 +1,10 @@
 /*
  * Links to the brand pages (components/brand-pages/) from the generated GoHighLevel pages, same tab, no copy changes:
- * /tempur-pedic (brand-page v2 brief, November 20, 2026 — item 6) and /beautyrest (Beautyrest brief, November 23,
- * 2026 — step 4). For every brand in BRANDS below:
+ * /tempur-pedic (brand-page v2 brief, November 20, 2026 — item 6), /beautyrest (Beautyrest brief, November 23, 2026 —
+ * step 4) and /serta (Serta brief, November 24, 2026 — step 3). For every brand in BRANDS below:
  *  - /mattresses (English): the brand's two "<Brand>® Mattresses" heading links (desktop + mobile copies), which
  *    scripts/brand-links.mjs made new-tab links to the brand's own site, now go to the brand page in the same tab. The
- *    other brands' headings, and the Spanish /es/mattresses, keep their links.
+ *    other brands' headings, and the Spanish /es/mattresses, keep their links. (Serta has no heading on /mattresses.)
  *  - / (English home): the brand's logo in the brand marquee (both marquees, both sets) links to its brand page.
  *    The link fills the logo's box, so the logo keeps its size; the duplicate set is aria-hidden, so its copy of the
  *    link has tabindex="-1" (no hidden focus stops).
@@ -20,10 +20,12 @@ const CHECK = process.argv.includes('--check');
 const BS = String.fromCharCode(92);
 const escapeJsonForScript = (json) => json.split('<').join(BS + 'u003C').split(String.fromCharCode(0x2028)).join(BS + 'u2028').split(String.fromCharCode(0x2029)).join(BS + 'u2029');
 
-/* page: the brand page; site: the brand's own site as the /mattresses heading links it; logo: the marquee logo's alt */
+/* page: the brand page; site: the brand's own site as the /mattresses heading links it (null: no heading there);
+   logo: the marquee logo's alt */
 const BRANDS = [
   { name: 'Tempur-Pedic', page: '/tempur-pedic', site: 'https://www.tempurpedic.com/', logo: 'Tempur-Pedic logo' },
   { name: 'Beautyrest', page: '/beautyrest', site: 'https://www.beautyrest.com/', logo: 'Beautyrest logo' },
+  { name: 'Serta', page: '/serta', site: null, logo: 'Serta logo' },
 ];
 const literal = (s) => s.replace(/[.*+?^${}()|[\]\\/]/g, (c) => BS + c);
 
@@ -48,7 +50,7 @@ const marquee = (b) => {
 };
 
 const JOBS = BRANDS.flatMap((b) => [
-  { file: 'app/(en)/mattresses/content.ts', fix: headings(b), what: `${b.name} heading links`, page: b.page },
+  ...(b.site ? [{ file: 'app/(en)/mattresses/content.ts', fix: headings(b), what: `${b.name} heading links`, page: b.page }] : []),
   { file: 'app/(en)/content.ts', fix: marquee(b), what: `${b.name} marquee logos`, page: b.page },
 ]);
 
