@@ -4,9 +4,13 @@ import type { BrandParts } from './types';
 import { TEMPUR_PEDIC_PARTS } from './tempur-pedic';
 import { BEAUTYREST_PARTS } from './beautyrest';
 import { SERTA_PARTS } from './serta';
+import { SEALY_PARTS } from './sealy';
+import { STEARNS_FOSTER_PARTS } from './stearns-foster';
 
 export const BRAND_PARTS: Readonly<Record<BrandKey, BrandParts>> = {
   'tempur-pedic': TEMPUR_PEDIC_PARTS,
   beautyrest: BEAUTYREST_PARTS,
   serta: SERTA_PARTS,
+  sealy: SEALY_PARTS,
+  'stearns-foster': STEARNS_FOSTER_PARTS,
 };

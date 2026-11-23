@@ -1,0 +1,22 @@
+/* Public Sans with its size-matched fallback, so the font swap does not move the text (the hero above all).
+   The vendor CSS (stearns-foster.scoped.css, snooze-stearns-foster-overrides.css; copied unchanged) names the font
+   directly: font-family: "Public Sans", -apple-system, BlinkMacSystemFont, ... next/font registers the face under
+   that same name, so the text is set in the self-hosted Public Sans either way; these rules only put next/font's
+   "Public Sans Fallback" (a local face size-adjusted to Public Sans) in front of the vendor's system fallbacks, on
+   exactly the elements the vendor sets in Public Sans:
+   - the wrapper (everything inherits it);
+   - h3-h6, .as-h3-.as-h6, the .as-*-alt headings, the .as-b buttons. Not h1/h2, .as-h1/.as-h2, .as-h2-alt and .badge:
+     the vendor sets those in "Gaspacho" (a face the kit does not include; they fall back to serif);
+   - the H1 in the hero (snooze-stearns-foster-overrides.css).
+   The shared local sections (visit, promo, why, FAQ; .snz-local, set in Poppins by snooze-brand-local.css) are left
+   out with a zero-specificity :not(:where(...)), so these rules can never outrank the Poppins ones. The outer div
+   carries this class; the doubled class puts every rule above the vendor's own, whatever the stylesheet order. */
+.fonts.fonts :global(.snz-brand--stearns-foster) {
+  font-family: var(--font-sf), -apple-system, BlinkMacSystemFont, "Roboto", "Ubuntu", "Droid Sans", "Helvetica Neue", "Arial", sans-serif;
+}
+.fonts.fonts :global(.snz-brand--stearns-foster) :global(:where(h3, .as-h3, h4, .as-h4, h5, .as-h5, h6, .as-h6, .as-h3-alt, .as-h4-alt, .as-h5-alt, .as-b):not(:where(.snz-local, .snz-local *))) {
+  font-family: var(--font-sf), -apple-system, BlinkMacSystemFont, "Roboto", "Ubuntu", "Droid Sans", "Helvetica Neue", "Arial", sans-serif;
+}
+.fonts.fonts :global(.snz-brand--stearns-foster .hero .snz-h1) {
+  font-family: var(--font-sf), -apple-system, "Segoe UI", sans-serif;
+}

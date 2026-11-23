@@ -8,7 +8,7 @@ import type { BrandLocation, PromoFeed } from '../lib/brand-pages/types.ts';
 import { BRANDS, BRAND_KEYS } from '../lib/brand-pages/registry.ts';
 import { answerSegments, brandFaq, listAnd, plainText } from '../lib/brand-pages/faq.ts';
 import { brandPageJsonLd } from '../lib/brand-pages/jsonld.ts';
-import { assetUrl, brandPage } from '../lib/brand-pages/page.ts';
+import { assetUrl, brandPage, brandScripts } from '../lib/brand-pages/page.ts';
 import { brandText, renderBrandBody } from '../lib/brand-pages/render.ts';
 import { PARTIALS } from '../lib/brand-pages/files.ts';
 import { Promo, brandOffers } from '../lib/brand-pages/offers.ts';
@@ -20,6 +20,8 @@ import { SERTA_VIDEO } from '../components/brand-pages/serta/video.ts';
 const TP = BRANDS['tempur-pedic'];
 const BR = BRANDS.beautyrest;
 const SE = BRANDS.serta;
+const SF = BRANDS['stearns-foster'];
+const SY = BRANDS.sealy;
 const SITE = 'https://mcallen.snoozemattresscompany.com';
 const LOC: BrandLocation = { ...BRAND_PAGE_LOCATION, schema_ids: { organization: `${SITE}/#organization`, website: `${SITE}/#website`, store: `${SITE}/#store` } };
 const fixture = (name: string) => readFileSync(new URL(`./fixtures/${name}`, import.meta.url), 'utf8');
@@ -43,7 +45,7 @@ const ourBody = (key: keyof typeof BRANDS, f: PromoFeed, today: string, l: Brand
 };
 
 test('registry: Tempur-Pedic from its brand.json, vendor spelled as in the feed, assets under /brands/tempur-pedic/', () => {
-  assert.deepEqual(BRAND_KEYS, ['tempur-pedic', 'beautyrest', 'serta']);
+  assert.deepEqual(BRAND_KEYS, ['tempur-pedic', 'beautyrest', 'serta', 'sealy', 'stearns-foster']);
   assert.equal(TP.json.slug, 'tempur-pedic');
   assert.equal(TP.json.vendor, 'Tempur-Pedic');
   assert.equal(TP.json.page_path, '/tempur-pedic');
@@ -188,6 +190,119 @@ test('Serta hero video: the loader is on exactly when the video file is in the r
   assert.equal(existsSync(new URL('../public/brands/serta/video/serta-hero.mp4', import.meta.url)), SERTA_VIDEO);
 });
 
+test('Stearns & Foster body: byte for byte the package preview mcallen-stearns-foster.html (example feed, Nov 23)', () => {
+  assert.equal(lf(ourBody('stearns-foster', feed('v2-example'), '2026-11-23')), previewBody(lf(fixture('stearns-foster.preview.fixture.html'))));
+});
+
+test('Stearns & Foster: brand.json as delivered, wrapper, styles and scripts in brand.json order', () => {
+  assert.equal(SF.json.slug, 'stearns-foster');
+  assert.equal(SF.json.vendor, 'Stearns & Foster');
+  assert.equal(SF.json.page_path, '/stearns-foster');
+  assert.equal(SF.site.wrapper_class, 'snz-brand--stearns-foster');
+  assert.ok(SF.template.includes('<div class="snz-brand snz-brand--stearns-foster">'));
+  assert.deepEqual(SF.json.styles.map((x) => assetUrl(SF, x)), [
+    '/brands/stearns-foster/css/stearns-foster.scoped.css',
+    '/brands/stearns-foster/css/aos.scoped.css',
+    '/brands/stearns-foster/css/snooze-stearns-foster-overrides.css',
+    '/brands/shared/css/snooze-brand-local.css',
+  ]);
+  // the vendor scripts as delivered, in order; the libraries load once per document, main.js on every mount;
+  // snooze-promo.js is not loaded (offers are rendered on the server)
+  assert.deepEqual(brandScripts(SF), [
+    { src: '/brands/shared/js/swiper-bundle.min.js', once: true },
+    { src: '/brands/stearns-foster/js/aos.min.js', once: true },
+    { src: '/brands/stearns-foster/js/main.js', once: false },
+  ]);
+  assert.deepEqual(SF.json.preload_images, []);
+  const files = [...SF.template.matchAll(/\{\{brand_base\}\}img\/([\w.-]+)/g)].map((m) => m[1]).concat(Object.values(SF.json.promo_images || {}).map((i) => i.file), 'og-image.jpg');
+  for (const f of files) assert.ok(existsSync(new URL(`../public/brands/stearns-foster/img/${f}`, import.meta.url)), f);
+  for (const s of brandScripts(SF)) assert.ok(existsSync(new URL(`../public${s.src}`, import.meta.url)), s.src);
+});
+
+test('Stearns & Foster SEO: title, H1 in the hero, description, canonical, OG image; one H1; no animation in the hero', () => {
+  const m = brandPageMetadata(SF, LOC);
+  assert.equal(m.title, 'Stearns & Foster Mattresses in McAllen, TX | Snooze Mattress');
+  assert.equal(m.description, 'Try Stearns & Foster Estate, Lux Estate, Legacy and Reserve mattresses at Snooze Mattress in McAllen. Get a free Dream Mapping fitting to find your fit.');
+  assert.deepEqual(m.alternates, { canonical: `${SITE}/stearns-foster` });
+  assert.deepEqual(m.openGraph?.images, [{ url: `${SITE}/brands/stearns-foster/img/og-image.jpg`, width: 1200, height: 630 }]);
+  const { promos, tiles } = brandOffers(SF.json, 'mcallen', feed('v2-example'), '2026-11-23');
+  const faq = brandFaq(SF.json, LOC, tiles);
+  const html = renderBrandBody({ brand: SF.json, template: SF.template, partials: PARTIALS, location: LOC, promos, tiles, faq });
+  assert.equal(html.match(/<h1\b/g)?.length, 1);
+  const hero = html.slice(html.indexOf('<section class="block-full block-full--with-bg hero'), html.indexOf('{{VISIT}}') > 0 ? undefined : html.indexOf('<section class="snz-local snz-visit"'));
+  assert.ok(hero.includes('<h1 class="snz-h1">Stearns &amp; Foster Mattresses in McAllen, TX</h1>'));
+  assert.ok(!hero.includes('data-aos'), 'the hero is not animated');
+  assert.ok(!/\{\{|\{city\}|\{state\}|\{brand\}/.test(html));
+  const [webPage, , faqPage] = brandPageJsonLd(SF, LOC, faq);
+  assert.deepEqual(webPage.about, [{ '@type': 'Brand', name: 'Stearns & Foster' }, { '@id': `${SITE}/#store` }]);
+  assert.equal((faqPage.mainEntity as unknown[]).length, (html.match(/<details/g) || []).length, 'FAQPage = the visible FAQ');
+});
+
+test('Stearns & Foster offers: BF26-STEARNS in November, NY26-STEARNS from December 15 (example feed)', () => {
+  assert.deepEqual(brandOffers(SF.json, 'mcallen', feed('v2-example'), '2026-11-23').promos.map((b) => b.block), ['BF26-STEARNS']);
+  assert.deepEqual(brandOffers(SF.json, 'mcallen', feed('v2-example'), '2026-12-20').promos.map((b) => b.block), ['NY26-STEARNS']);
+});
+
+test('Sealy body: byte for byte the package preview mcallen-sealy.html (example feed, Dec 20: Holiday offers)', () => {
+  assert.equal(lf(ourBody('sealy', feed('v2-example'), '2026-12-20')), previewBody(lf(fixture('sealy.preview.fixture.html'))));
+});
+
+test('Sealy: brand.json as delivered, wrapper, styles and scripts in brand.json order, hero preloads', () => {
+  assert.equal(SY.json.slug, 'sealy');
+  assert.equal(SY.json.vendor, 'Sealy');
+  assert.equal(SY.json.page_path, '/sealy');
+  assert.equal(SY.site.wrapper_class, 'sealy-wrapper');
+  assert.ok(SY.template.includes('<div class="sealy-wrapper snz-brand snz-brand--sealy">'));
+  assert.deepEqual(SY.json.styles.map((x) => assetUrl(SY, x)), [
+    '/brands/shared/css/swiper-bundle.min.css',
+    '/brands/sealy/css/sealy.scoped.css',
+    '/brands/sealy/css/snooze-sealy-overrides.css',
+    '/brands/shared/css/snooze-brand-local.css',
+  ]);
+  // this site's containment for the one vendor rule that is not scoped (br { display: none } from 658px)
+  assert.match(readFileSync(new URL('../public/brands/sealy/css/sealy.scoped.css', import.meta.url), 'utf8'), /\(min-width: 658px\)\s*\{\s*br\s*\{\s*display: none;/);
+  assert.deepEqual(SY.site.site_styles, ['/brands/site/sealy-containment.css']);
+  assert.ok(existsSync(new URL('../public/brands/site/sealy-containment.css', import.meta.url)));
+  assert.deepEqual(brandScripts(SY), [
+    { src: '/brands/shared/js/swiper-bundle.min.js', once: true },
+    { src: '/brands/sealy/js/scripts.js', once: false },
+  ]);
+  assert.deepEqual((SY.json.preload_images || []).map((p) => [assetUrl(SY, p.href), p.media]), [
+    ['/brands/sealy/img/bg_header.webp', '(min-width: 1024px)'],
+    ['/brands/sealy/img/bg_mobile_header.webp', '(max-width: 1023px)'],
+  ]);
+  const files = [...SY.template.matchAll(/\{\{brand_base\}\}img\/([\w.-]+)/g)].map((m) => m[1]).concat(Object.values(SY.json.promo_images || {}).map((i) => i.file), 'og-image.jpg');
+  for (const f of files) assert.ok(existsSync(new URL(`../public/brands/sealy/img/${f}`, import.meta.url)), f);
+  for (const x of [...SY.json.styles.map((p) => assetUrl(SY, p)), ...brandScripts(SY).map((b) => b.src)]) assert.ok(existsSync(new URL(`../public${x}`, import.meta.url)), x);
+});
+
+test('Sealy SEO and markup: title, description, canonical, OG image; one real H1, the image headings are h2.snz-hd; Copyright 2026; the YouTube embed', () => {
+  const m = brandPageMetadata(SY, LOC);
+  assert.equal(m.title, 'Sealy Posturepedic Mattresses in McAllen, TX | Snooze Mattress');
+  assert.equal(m.description, 'Try Sealy Posturepedic and Sealy Essentials mattresses at Snooze Mattress in McAllen. Get a free Dream Mapping fitting to find the right fit for your body.');
+  assert.deepEqual(m.alternates, { canonical: `${SITE}/sealy` });
+  assert.deepEqual(m.openGraph?.images, [{ url: `${SITE}/brands/sealy/img/og-image.jpg`, width: 1200, height: 630 }]);
+  const { promos, tiles } = brandOffers(SY.json, 'mcallen', feed('v2-example'), '2026-11-23');
+  const faq = brandFaq(SY.json, LOC, tiles);
+  const html = renderBrandBody({ brand: SY.json, template: SY.template, partials: PARTIALS, location: LOC, promos, tiles, faq });
+  assert.equal(html.match(/<h1\b/g)?.length, 1);
+  assert.ok(html.includes('<h1 class="snz-h1">Sealy Mattresses in McAllen, TX</h1>'));
+  // every heading that is a picture is an h2.snz-hd with alt text (no image H1s)
+  for (const h of html.matchAll(/<(h\d)([^>]*)>\s*<img[^>]*alt="([^"]*)"/g)) { assert.equal(h[1], 'h2', h[0]); assert.match(h[2], /snz-hd/); }
+  assert.equal((html.match(/<h2 class="snz-hd">/g) || []).length, 3);
+  assert.ok(html.includes('Copyright 2026 Sealy, Inc.') && !html.includes('2027'));
+  assert.match(html, /<iframe src="https:\/\/www\.youtube-nocookie\.com\/embed\/20Es3XawcoE\?controls=0&amp;rel=0" title="Sealy Posturepedic video"/);
+  assert.ok(!/\{\{|\{city\}|\{state\}|\{brand\}/.test(html));
+  const [webPage, , faqPage] = brandPageJsonLd(SY, LOC, faq);
+  assert.deepEqual(webPage.about, [{ '@type': 'Brand', name: 'Sealy' }, { '@id': `${SITE}/#store` }]);
+  assert.equal((faqPage.mainEntity as unknown[]).length, (html.match(/<details/g) || []).length, 'FAQPage = the visible FAQ');
+});
+
+test('Sealy offers: BF26-SEALY in November, NY26-SEALY from December 15 (example feed)', () => {
+  assert.deepEqual(brandOffers(SY.json, 'mcallen', feed('v2-example'), '2026-11-23').promos.map((b) => b.block), ['BF26-SEALY']);
+  assert.deepEqual(brandOffers(SY.json, 'mcallen', feed('v2-example'), '2026-12-20').promos.map((b) => b.block), ['NY26-SEALY']);
+});
+
 test('body: one H1, every token filled, production paths, the promo slot empty when nothing is live', () => {
   const { promos, tiles } = brandOffers(TP.json, 'mcallen', feed('sheet-current'), '2026-11-23');
   const html = renderBrandBody({ brand: TP.json, template: TP.template, partials: PARTIALS, location: LOC, promos, tiles, faq: brandFaq(TP.json, LOC, tiles) });
@@ -297,14 +412,14 @@ test('local FAQ: the package questions and answers word for word, with their lin
 test('every brand key has a page at /<key> in the location config (the language switch and GA4 rely on it)', async () => {
   const { BRAND_PAGE_PATHS, LIVE_BRANDS } = await import('../lib/brand-pages/brand-list.ts');
   for (const b of LIVE_BRANDS) assert.equal(BRAND_PAGE_LOCATION.brand_pages[b.key]?.page_path, b.path, b.key);
-  assert.deepEqual(BRAND_PAGE_PATHS, ['/tempur-pedic', '/beautyrest', '/serta']);
+  assert.deepEqual(BRAND_PAGE_PATHS, ['/tempur-pedic', '/beautyrest', '/serta', '/sealy', '/stearns-foster']);
 });
 
 test('llms.txt: the hand-written guide plus a "Brand pages" section from the registry; nothing cut off', async () => {
   const { buildLlmsTxt, llmsBrandPagesSection } = await import('../lib/brand-pages/llms.ts');
   const base = readFileSync(new URL('../lib/llms.txt', import.meta.url), 'utf8');
   const out = buildLlmsTxt(base, LOC);
-  const section = '## Brand pages\n- [Tempur-Pedic at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/tempur-pedic)\n- [Beautyrest at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/beautyrest)\n- [Serta at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/serta)';
+  const section = '## Brand pages\n- [Tempur-Pedic at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/tempur-pedic)\n- [Beautyrest at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/beautyrest)\n- [Serta at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/serta)\n- [Sealy at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/sealy)\n- [Stearns & Foster at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/stearns-foster)';
   assert.equal(llmsBrandPagesSection(LOC), section);
   assert.ok(out.includes(`\n\n${section}\n\n## Financing and offers\n`));
   assert.ok(!out.includes('{{'));
@@ -320,8 +435,8 @@ test('llms.txt: the hand-written guide plus a "Brand pages" section from the reg
 
 test('brand list (lib/brand-pages/brand-list.ts): name, path, order, live; only live brands are linked, in order', async () => {
   const { BRAND_LIST, LIVE_BRANDS, ALL_BRAND_PATHS } = await import('../lib/brand-pages/brand-list.ts');
-  assert.deepEqual(BRAND_LIST.map((b) => [b.name, b.path, b.order, b.live]), [['Tempur-Pedic', '/tempur-pedic', 1, true], ['Beautyrest', '/beautyrest', 2, true], ['Serta', '/serta', 3, true], ['Sealy', '/sealy', 4, false], ['Stearns & Foster', '/stearns-foster', 5, false]]);
-  assert.deepEqual(LIVE_BRANDS.map((b) => b.name), ['Tempur-Pedic', 'Beautyrest', 'Serta']);
+  assert.deepEqual(BRAND_LIST.map((b) => [b.name, b.path, b.order, b.live]), [['Tempur-Pedic', '/tempur-pedic', 1, true], ['Beautyrest', '/beautyrest', 2, true], ['Serta', '/serta', 3, true], ['Sealy', '/sealy', 4, true], ['Stearns & Foster', '/stearns-foster', 5, true]]);
+  assert.deepEqual(LIVE_BRANDS.map((b) => b.name), ['Tempur-Pedic', 'Beautyrest', 'Serta', 'Sealy', 'Stearns & Foster']);
   // every live brand is built: a brand.json with the same name and path, and a store entry at its path
   for (const b of LIVE_BRANDS) {
     assert.ok(BRANDS[b.key], b.key);

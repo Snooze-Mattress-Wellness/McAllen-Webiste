@@ -1,0 +1,45 @@
+{
+  "slug": "sealy",
+  "name": "Sealy",
+  "vendor": "Sealy",
+  "page_path": "/sealy",
+  "title": "Sealy Posturepedic Mattresses in {city}, {state} | Snooze Mattress",
+  "h1": "Sealy Mattresses in {city}, {state}",
+  "description": "Try Sealy Posturepedic and Sealy Essentials mattresses at Snooze Mattress in {city}. Get a free Dream Mapping fitting to find the right fit for your body.",
+  "og_description": "Try Sealy in {city} and get a free Dream Mapping fitting to find the right fit for your body.",
+  "carries": "Sealy Posturepedic and Sealy Essentials mattresses",
+  "visit_intro": "Reading about PrecisionFit Coils is one thing. Feeling how they support your body is another.",
+  "try_items": "Sealy Posturepedic and Sealy Essentials mattresses",
+  "fit_tail": ", from the Sealy Essentials collection to Sealy Posturepedic Elite",
+  "faq_right_for_me": "It depends on your body and how you sleep. Dream Mapping, our pressure mapping technology, shows where your body needs support. Then your Sleep Coach helps you compare Sealy Posturepedic Elite, Pro, Plus and Posturepedic mattresses and the Sealy Essentials collection.",
+  "font_url": "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:wght@400;600;700&display=swap",
+  "styles": [
+    "{shared}css/swiper-bundle.min.css",
+    "{brand}css/sealy.scoped.css",
+    "{brand}css/snooze-sealy-overrides.css",
+    "{shared}css/snooze-brand-local.css"
+  ],
+  "scripts": [
+    "{shared}js/swiper-bundle.min.js",
+    "{brand}js/scripts.js",
+    "{shared}js/snooze-promo.js"
+  ],
+  "preload_images": [
+    {
+      "href": "{brand}img/bg_header.webp",
+      "media": "(min-width: 1024px)"
+    },
+    {
+      "href": "{brand}img/bg_mobile_header.webp",
+      "media": "(max-width: 1023px)"
+    }
+  ],
+  "promo_images": {
+    "base": {
+      "file": "mattress-posturepedic.webp",
+      "w": 1252,
+      "h": 768,
+      "alt": "Sealy Posturepedic mattress"
+    }
+  }
+}

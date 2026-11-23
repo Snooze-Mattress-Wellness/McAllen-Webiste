@@ -6,5 +6,6 @@ import { Inter, Source_Serif_4 } from 'next/font/google';
 
 /** headings (--br-serif in beautyrest.css): one variable file; the CSS uses 400 and 600 */
 export const sourceSerif = Source_Serif_4({ subsets: ['latin'], axes: ['opsz'], display: 'swap', preload: false, variable: '--font-br-serif' });
-/** body (--br-sans): the weights font_url lists; a lighter weight in the CSS (300) renders at 400, as on the package page */
+/** body (--br-sans): the weights font_url lists; a lighter weight in the CSS (300) renders at 400, as on the package page.
+    Sealy uses this same instance (its CSS sets Inter at 400 and 700), so the site loads Inter once. */
 export const inter = Inter({ subsets: ['latin'], weight: ['400', '500', '600', '700'], display: 'swap', preload: false, variable: '--font-br-sans' });

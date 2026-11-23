@@ -1,0 +1,2008 @@
+/* Stearns & Foster brand page – vendor stylesheet (assets/css/styles.css), prepared for Snooze Mattress.
+   Changes from the vendor original (nothing else edited):
+   1. Every rule is scoped to .snz-brand--stearns-foster. The vendor file was fully global
+      (normalize reset, html/body/:root rules and generic class names such as .container,
+      .card, .badge, .list, .footer, .hero), which would have restyled the whole site.
+      html, body and :root rules now apply to the brand wrapper instead.
+   2. The vendor's Swiper styles stay inside this file (also scoped).
+   Fixes and Snooze additions live in snooze-stearns-foster-overrides.css (load AFTER this file). */
+.snz-brand--stearns-foster {
+  --color-sapphire: #041C2C;
+  --color-sky: #88ABC1;
+  --color-olive: #4E6548;
+  --color-gold: #DEBE76;
+  --color-stone: #D9D9D6;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-emerald: #002D19;
+}
+
+/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+/* Document
+   ========================================================================== */
+/**
+ * 1. Correct the line height in all browsers.
+ * 2. Prevent adjustments of font size after orientation changes in iOS.
+ */
+.snz-brand--stearns-foster {
+  line-height: 1.15; /* 1 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+}
+
+/* Sections
+   ========================================================================== */
+/**
+ * Remove the margin in all browsers.
+ */
+.snz-brand--stearns-foster {
+  margin: 0;
+}
+
+/**
+ * Render the `main` element consistently in IE.
+ */
+.snz-brand--stearns-foster .snz-vendor-main {
+  display: block;
+}
+
+/**
+ * Correct the font size and margin on `h1` elements within `section` and
+ * `article` contexts in Chrome, Firefox, and Safari.
+ */
+.snz-brand--stearns-foster h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+/* Grouping content
+   ========================================================================== */
+/**
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ */
+.snz-brand--stearns-foster hr {
+  box-sizing: content-box; /* 1 */
+  height: 0; /* 1 */
+  overflow: visible; /* 2 */
+}
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+.snz-brand--stearns-foster pre {
+  font-family: monospace, monospace; /* 1 */
+  font-size: 1em; /* 2 */
+}
+
+/* Text-level semantics
+   ========================================================================== */
+/**
+ * Remove the gray background on active links in IE 10.
+ */
+.snz-brand--stearns-foster a {
+  background-color: transparent;
+}
+
+/**
+ * 1. Remove the bottom border in Chrome 57-
+ * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ */
+.snz-brand--stearns-foster abbr[title] {
+  border-bottom: none; /* 1 */
+  text-decoration: underline; /* 2 */
+  text-decoration: underline dotted; /* 2 */
+}
+
+/**
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+.snz-brand--stearns-foster b,
+.snz-brand--stearns-foster strong {
+  font-weight: bolder;
+}
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+.snz-brand--stearns-foster code,
+.snz-brand--stearns-foster kbd,
+.snz-brand--stearns-foster samp {
+  font-family: monospace, monospace; /* 1 */
+  font-size: 1em; /* 2 */
+}
+
+/**
+ * Add the correct font size in all browsers.
+ */
+.snz-brand--stearns-foster small {
+  font-size: 80%;
+}
+
+/**
+ * Prevent `sub` and `sup` elements from affecting the line height in
+ * all browsers.
+ */
+.snz-brand--stearns-foster sub,
+.snz-brand--stearns-foster sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+.snz-brand--stearns-foster sub {
+  bottom: -0.25em;
+}
+
+.snz-brand--stearns-foster sup {
+  top: -0.5em;
+}
+
+/* Embedded content
+   ========================================================================== */
+/**
+ * Remove the border on images inside links in IE 10.
+ */
+.snz-brand--stearns-foster img {
+  border-style: none;
+}
+
+/* Forms
+   ========================================================================== */
+/**
+ * 1. Change the font styles in all browsers.
+ * 2. Remove the margin in Firefox and Safari.
+ */
+.snz-brand--stearns-foster button,
+.snz-brand--stearns-foster input,
+.snz-brand--stearns-foster optgroup,
+.snz-brand--stearns-foster select,
+.snz-brand--stearns-foster textarea {
+  font-family: inherit; /* 1 */
+  font-size: 100%; /* 1 */
+  line-height: 1.15; /* 1 */
+  margin: 0; /* 2 */
+}
+
+/**
+ * Show the overflow in IE.
+ * 1. Show the overflow in Edge.
+ */
+.snz-brand--stearns-foster button,
+.snz-brand--stearns-foster input { /* 1 */
+  overflow: visible;
+}
+
+/**
+ * Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 1. Remove the inheritance of text transform in Firefox.
+ */
+.snz-brand--stearns-foster button,
+.snz-brand--stearns-foster select { /* 1 */
+  text-transform: none;
+}
+
+/**
+ * Correct the inability to style clickable types in iOS and Safari.
+ */
+.snz-brand--stearns-foster button,
+.snz-brand--stearns-foster [type=button],
+.snz-brand--stearns-foster [type=reset],
+.snz-brand--stearns-foster [type=submit] {
+  -webkit-appearance: button;
+}
+
+/**
+ * Remove the inner border and padding in Firefox.
+ */
+.snz-brand--stearns-foster button::-moz-focus-inner,
+.snz-brand--stearns-foster [type=button]::-moz-focus-inner,
+.snz-brand--stearns-foster [type=reset]::-moz-focus-inner,
+.snz-brand--stearns-foster [type=submit]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+/**
+ * Restore the focus styles unset by the previous rule.
+ */
+.snz-brand--stearns-foster button:-moz-focusring,
+.snz-brand--stearns-foster [type=button]:-moz-focusring,
+.snz-brand--stearns-foster [type=reset]:-moz-focusring,
+.snz-brand--stearns-foster [type=submit]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+
+/**
+ * Correct the padding in Firefox.
+ */
+.snz-brand--stearns-foster fieldset {
+  padding: 0.35em 0.75em 0.625em;
+}
+
+/**
+ * 1. Correct the text wrapping in Edge and IE.
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
+ * 3. Remove the padding so developers are not caught out when they zero out
+ *    `fieldset` elements in all browsers.
+ */
+.snz-brand--stearns-foster legend {
+  box-sizing: border-box; /* 1 */
+  color: inherit; /* 2 */
+  display: table; /* 1 */
+  max-width: 100%; /* 1 */
+  padding: 0; /* 3 */
+  white-space: normal; /* 1 */
+}
+
+/**
+ * Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ */
+.snz-brand--stearns-foster progress {
+  vertical-align: baseline;
+}
+
+/**
+ * Remove the default vertical scrollbar in IE 10+.
+ */
+.snz-brand--stearns-foster textarea {
+  overflow: auto;
+}
+
+/**
+ * 1. Add the correct box sizing in IE 10.
+ * 2. Remove the padding in IE 10.
+ */
+.snz-brand--stearns-foster [type=checkbox],
+.snz-brand--stearns-foster [type=radio] {
+  box-sizing: border-box; /* 1 */
+  padding: 0; /* 2 */
+}
+
+/**
+ * Correct the cursor style of increment and decrement buttons in Chrome.
+ */
+.snz-brand--stearns-foster [type=number]::-webkit-inner-spin-button,
+.snz-brand--stearns-foster [type=number]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/**
+ * 1. Correct the odd appearance in Chrome and Safari.
+ * 2. Correct the outline style in Safari.
+ */
+.snz-brand--stearns-foster [type=search] {
+  -webkit-appearance: textfield; /* 1 */
+  outline-offset: -2px; /* 2 */
+}
+
+/**
+ * Remove the inner padding in Chrome and Safari on macOS.
+ */
+.snz-brand--stearns-foster [type=search]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/**
+ * 1. Correct the inability to style clickable types in iOS and Safari.
+ * 2. Change font properties to `inherit` in Safari.
+ */
+.snz-brand--stearns-foster ::-webkit-file-upload-button {
+  -webkit-appearance: button; /* 1 */
+  font: inherit; /* 2 */
+}
+
+/* Interactive
+   ========================================================================== */
+/*
+ * Add the correct display in Edge, IE 10+, and Firefox.
+ */
+.snz-brand--stearns-foster details {
+  display: block;
+}
+
+/*
+ * Add the correct display in all browsers.
+ */
+.snz-brand--stearns-foster summary {
+  display: list-item;
+}
+
+/* Misc
+   ========================================================================== */
+/**
+ * Add the correct display in IE 10+.
+ */
+.snz-brand--stearns-foster template {
+  display: none;
+}
+
+/**
+ * Add the correct display in IE 10.
+ */
+.snz-brand--stearns-foster [hidden] {
+  display: none;
+}
+
+.snz-brand--stearns-foster *,
+.snz-brand--stearns-foster *:before,
+.snz-brand--stearns-foster *:after {
+  box-sizing: inherit;
+}
+
+.snz-brand--stearns-foster {
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+.snz-brand--stearns-foster {
+  margin: 0;
+  min-height: 100%;
+  word-break: break-word;
+  font-family: "Public Sans", -apple-system, BlinkMacSystemFont, "Roboto", "Ubuntu", "Droid Sans", "Helvetica Neue", "Arial", sans-serif;
+  font-size: clamp(1rem, 0.8333333333rem + 0.462962963vw, 1.25rem);
+  line-height: 1.5;
+  text-align: left;
+  color: var(--color-sapphire);
+  background-color: var(--color-sapphire);
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.snz-brand--stearns-foster [tabindex="-1"]:focus {
+  outline: none !important;
+}
+
+.snz-brand--stearns-foster [role=button] {
+  cursor: pointer;
+}
+
+.snz-brand--stearns-foster [type=search]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+.snz-brand--stearns-foster a,
+.snz-brand--stearns-foster button,
+.snz-brand--stearns-foster [role=button],
+.snz-brand--stearns-foster input,
+.snz-brand--stearns-foster label,
+.snz-brand--stearns-foster select,
+.snz-brand--stearns-foster textarea {
+  touch-action: manipulation;
+  margin: 0;
+}
+
+.snz-brand--stearns-foster button,
+.snz-brand--stearns-foster input {
+  overflow: visible;
+  text-transform: none;
+}
+
+.snz-brand--stearns-foster button,
+.snz-brand--stearns-foster [type=button],
+.snz-brand--stearns-foster [type=reset],
+.snz-brand--stearns-foster [type=submit] {
+  -webkit-appearance: button;
+}
+
+.snz-brand--stearns-foster button::-moz-focus-inner,
+.snz-brand--stearns-foster [type=button]::-moz-focus-inner,
+.snz-brand--stearns-foster [type=reset]::-moz-focus-inner,
+.snz-brand--stearns-foster [type=submit]::-moz-focus-inner {
+  padding: 0;
+  border-style: none;
+}
+
+.snz-brand--stearns-foster textarea {
+  resize: vertical;
+}
+
+.snz-brand--stearns-foster svg {
+  fill: currentColor;
+}
+
+.snz-brand--stearns-foster img {
+  max-width: 100%;
+  height: auto;
+}
+
+.snz-brand--stearns-foster a {
+  color: var(--color-olive);
+  background-color: transparent;
+  transition: color 0.3s;
+}
+.snz-brand--stearns-foster a:hover, .snz-brand--stearns-foster a:focus {
+  color: var(--color-white);
+}
+
+.snz-brand--stearns-foster hr {
+  box-sizing: content-box;
+  height: 0;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  border: 0;
+  border-top: 1px solid var(--color-white);
+}
+
+.snz-brand--stearns-foster h1, .snz-brand--stearns-foster .as-h1, .snz-brand--stearns-foster h2, .snz-brand--stearns-foster .as-h2, .snz-brand--stearns-foster h3, .snz-brand--stearns-foster .as-h3, .snz-brand--stearns-foster h4, .snz-brand--stearns-foster .as-h4, .snz-brand--stearns-foster h5, .snz-brand--stearns-foster .as-h5, .snz-brand--stearns-foster h6, .snz-brand--stearns-foster .as-h6 {
+  margin-top: 1rem;
+  margin-bottom: 0;
+  font-family: "Public Sans", -apple-system, BlinkMacSystemFont, "Roboto", "Ubuntu", "Droid Sans", "Helvetica Neue", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 1.3;
+  color: currentColor;
+}
+.snz-brand--stearns-foster h1.sapphire, .snz-brand--stearns-foster .as-h1.sapphire, .snz-brand--stearns-foster h2.sapphire, .snz-brand--stearns-foster .as-h2.sapphire, .snz-brand--stearns-foster h3.sapphire, .snz-brand--stearns-foster .as-h3.sapphire, .snz-brand--stearns-foster h4.sapphire, .snz-brand--stearns-foster .as-h4.sapphire, .snz-brand--stearns-foster h5.sapphire, .snz-brand--stearns-foster .as-h5.sapphire, .snz-brand--stearns-foster h6.sapphire, .snz-brand--stearns-foster .as-h6.sapphire {
+  color: var(--color-sapphire);
+}
+.snz-brand--stearns-foster h1.sky, .snz-brand--stearns-foster .as-h1.sky, .snz-brand--stearns-foster h2.sky, .snz-brand--stearns-foster .as-h2.sky, .snz-brand--stearns-foster h3.sky, .snz-brand--stearns-foster .as-h3.sky, .snz-brand--stearns-foster h4.sky, .snz-brand--stearns-foster .as-h4.sky, .snz-brand--stearns-foster h5.sky, .snz-brand--stearns-foster .as-h5.sky, .snz-brand--stearns-foster h6.sky, .snz-brand--stearns-foster .as-h6.sky {
+  color: var(--color-sky);
+}
+.snz-brand--stearns-foster h1.olive, .snz-brand--stearns-foster .as-h1.olive, .snz-brand--stearns-foster h2.olive, .snz-brand--stearns-foster .as-h2.olive, .snz-brand--stearns-foster h3.olive, .snz-brand--stearns-foster .as-h3.olive, .snz-brand--stearns-foster h4.olive, .snz-brand--stearns-foster .as-h4.olive, .snz-brand--stearns-foster h5.olive, .snz-brand--stearns-foster .as-h5.olive, .snz-brand--stearns-foster h6.olive, .snz-brand--stearns-foster .as-h6.olive {
+  color: var(--color-olive);
+}
+.snz-brand--stearns-foster h1.gold, .snz-brand--stearns-foster .as-h1.gold, .snz-brand--stearns-foster h2.gold, .snz-brand--stearns-foster .as-h2.gold, .snz-brand--stearns-foster h3.gold, .snz-brand--stearns-foster .as-h3.gold, .snz-brand--stearns-foster h4.gold, .snz-brand--stearns-foster .as-h4.gold, .snz-brand--stearns-foster h5.gold, .snz-brand--stearns-foster .as-h5.gold, .snz-brand--stearns-foster h6.gold, .snz-brand--stearns-foster .as-h6.gold {
+  color: var(--color-gold);
+}
+.snz-brand--stearns-foster h1.stone, .snz-brand--stearns-foster .as-h1.stone, .snz-brand--stearns-foster h2.stone, .snz-brand--stearns-foster .as-h2.stone, .snz-brand--stearns-foster h3.stone, .snz-brand--stearns-foster .as-h3.stone, .snz-brand--stearns-foster h4.stone, .snz-brand--stearns-foster .as-h4.stone, .snz-brand--stearns-foster h5.stone, .snz-brand--stearns-foster .as-h5.stone, .snz-brand--stearns-foster h6.stone, .snz-brand--stearns-foster .as-h6.stone {
+  color: var(--color-stone);
+}
+.snz-brand--stearns-foster h1.white, .snz-brand--stearns-foster .as-h1.white, .snz-brand--stearns-foster h2.white, .snz-brand--stearns-foster .as-h2.white, .snz-brand--stearns-foster h3.white, .snz-brand--stearns-foster .as-h3.white, .snz-brand--stearns-foster h4.white, .snz-brand--stearns-foster .as-h4.white, .snz-brand--stearns-foster h5.white, .snz-brand--stearns-foster .as-h5.white, .snz-brand--stearns-foster h6.white, .snz-brand--stearns-foster .as-h6.white {
+  color: var(--color-white);
+}
+.snz-brand--stearns-foster h1.black, .snz-brand--stearns-foster .as-h1.black, .snz-brand--stearns-foster h2.black, .snz-brand--stearns-foster .as-h2.black, .snz-brand--stearns-foster h3.black, .snz-brand--stearns-foster .as-h3.black, .snz-brand--stearns-foster h4.black, .snz-brand--stearns-foster .as-h4.black, .snz-brand--stearns-foster h5.black, .snz-brand--stearns-foster .as-h5.black, .snz-brand--stearns-foster h6.black, .snz-brand--stearns-foster .as-h6.black {
+  color: var(--color-black);
+}
+.snz-brand--stearns-foster h1.emerald, .snz-brand--stearns-foster .as-h1.emerald, .snz-brand--stearns-foster h2.emerald, .snz-brand--stearns-foster .as-h2.emerald, .snz-brand--stearns-foster h3.emerald, .snz-brand--stearns-foster .as-h3.emerald, .snz-brand--stearns-foster h4.emerald, .snz-brand--stearns-foster .as-h4.emerald, .snz-brand--stearns-foster h5.emerald, .snz-brand--stearns-foster .as-h5.emerald, .snz-brand--stearns-foster h6.emerald, .snz-brand--stearns-foster .as-h6.emerald {
+  color: var(--color-emerald);
+}
+.snz-brand--stearns-foster h1:first-child, .snz-brand--stearns-foster .as-h1:first-child, .snz-brand--stearns-foster h2:first-child, .snz-brand--stearns-foster .as-h2:first-child, .snz-brand--stearns-foster h3:first-child, .snz-brand--stearns-foster .as-h3:first-child, .snz-brand--stearns-foster h4:first-child, .snz-brand--stearns-foster .as-h4:first-child, .snz-brand--stearns-foster h5:first-child, .snz-brand--stearns-foster .as-h5:first-child, .snz-brand--stearns-foster h6:first-child, .snz-brand--stearns-foster .as-h6:first-child {
+  margin-top: 0;
+}
+.snz-brand--stearns-foster h1:last-child, .snz-brand--stearns-foster .as-h1:last-child, .snz-brand--stearns-foster h2:last-child, .snz-brand--stearns-foster .as-h2:last-child, .snz-brand--stearns-foster h3:last-child, .snz-brand--stearns-foster .as-h3:last-child, .snz-brand--stearns-foster h4:last-child, .snz-brand--stearns-foster .as-h4:last-child, .snz-brand--stearns-foster h5:last-child, .snz-brand--stearns-foster .as-h5:last-child, .snz-brand--stearns-foster h6:last-child, .snz-brand--stearns-foster .as-h6:last-child {
+  margin-bottom: 0;
+}
+
+.snz-brand--stearns-foster h1, .snz-brand--stearns-foster .as-h1 {
+  font-size: clamp(2.5rem, -0.4166666667rem + 8.1018518519vw, 6.875rem);
+  font-family: "Gaspacho", serif;
+  line-height: 1.1;
+  letter-spacing: 0;
+}
+
+.snz-brand--stearns-foster h2, .snz-brand--stearns-foster .as-h2 {
+  font-size: clamp(1.875rem, -0.625rem + 6.9444444444vw, 5.625rem);
+  font-family: "Gaspacho", serif;
+  line-height: 1.1;
+  letter-spacing: 0;
+  margin-bottom: -0.2em;
+}
+
+.snz-brand--stearns-foster .as-h2-copy1 {
+  max-width: 9em;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.snz-brand--stearns-foster .as-h2-copy2 {
+  max-width: 7em;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.snz-brand--stearns-foster .as-h2-copy3, .snz-brand--stearns-foster .as-h2-copy5 {
+  max-width: 5em;
+  width: 100%;
+  margin: 0 auto 0.1em;
+}
+
+.snz-brand--stearns-foster .as-h2-copy4 {
+  width: 100%;
+  max-width: 8em;
+  margin: 0 auto;
+}
+
+.snz-brand--stearns-foster .as-h2-alt {
+  font-size: clamp(2.5rem, 1.5rem + 2.7777777778vw, 4rem);
+  font-family: "Gaspacho", serif;
+  line-height: 1.1;
+  letter-spacing: 0;
+}
+
+.snz-brand--stearns-foster h3, .snz-brand--stearns-foster .as-h3 {
+  font-size: clamp(1.25rem, 0.4166666667rem + 2.3148148148vw, 2.5rem);
+  letter-spacing: 30%;
+  line-height: 1.4;
+  text-transform: uppercase;
+  font-family: "Public Sans", -apple-system, BlinkMacSystemFont, "Roboto", "Ubuntu", "Droid Sans", "Helvetica Neue", "Arial", sans-serif;
+  margin-bottom: 0.2em;
+}
+
+.snz-brand--stearns-foster .as-h3-alt {
+  font-size: clamp(1.625rem, 1.5416666667rem + 0.2314814815vw, 1.75rem);
+  font-weight: 600;
+  letter-spacing: 2%;
+  text-transform: uppercase;
+  font-family: "Public Sans", -apple-system, BlinkMacSystemFont, "Roboto", "Ubuntu", "Droid Sans", "Helvetica Neue", "Arial", sans-serif;
+}
+
+.snz-brand--stearns-foster .as-h4-alt {
+  font-size: clamp(1.375rem, 1.375rem + 0vw, 1.375rem);
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  font-family: "Public Sans", -apple-system, BlinkMacSystemFont, "Roboto", "Ubuntu", "Droid Sans", "Helvetica Neue", "Arial", sans-serif;
+}
+
+.snz-brand--stearns-foster h4, .snz-brand--stearns-foster .as-h4 {
+  font-size: clamp(1.625rem, 1.375rem + 0.6944444444vw, 2rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  font-family: "Public Sans", -apple-system, BlinkMacSystemFont, "Roboto", "Ubuntu", "Droid Sans", "Helvetica Neue", "Arial", sans-serif;
+}
+
+.snz-brand--stearns-foster h5, .snz-brand--stearns-foster .as-h5 {
+  font-size: clamp(1.5rem, 1.5rem + 0vw, 1.5rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  font-family: "Public Sans", -apple-system, BlinkMacSystemFont, "Roboto", "Ubuntu", "Droid Sans", "Helvetica Neue", "Arial", sans-serif;
+}
+
+.snz-brand--stearns-foster .as-h5-alt {
+  font-size: clamp(1.25rem, 1.1666666667rem + 0.2314814815vw, 1.375rem);
+  font-weight: 600;
+  letter-spacing: 2%;
+  text-transform: uppercase;
+  font-family: "Public Sans", -apple-system, BlinkMacSystemFont, "Roboto", "Ubuntu", "Droid Sans", "Helvetica Neue", "Arial", sans-serif;
+}
+
+.snz-brand--stearns-foster h6, .snz-brand--stearns-foster .as-h6 {
+  font-size: clamp(1rem, 0.8333333333rem + 0.462962963vw, 1.25rem);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 30%;
+  font-family: "Public Sans", -apple-system, BlinkMacSystemFont, "Roboto", "Ubuntu", "Droid Sans", "Helvetica Neue", "Arial", sans-serif;
+}
+
+.snz-brand--stearns-foster .as-h3 + .as-h2,
+.snz-brand--stearns-foster h3 + h2,
+.snz-brand--stearns-foster h2 + h1 {
+  margin-top: 0;
+}
+
+.snz-brand--stearns-foster p,
+.snz-brand--stearns-foster ul,
+.snz-brand--stearns-foster ol,
+.snz-brand--stearns-foster dl,
+.snz-brand--stearns-foster table,
+.snz-brand--stearns-foster blockquote,
+.snz-brand--stearns-foster pre,
+.snz-brand--stearns-foster address,
+.snz-brand--stearns-foster figure {
+  margin: 1rem 0 0;
+}
+
+.snz-brand--stearns-foster address {
+  font-style: normal;
+}
+
+.snz-brand--stearns-foster ul,
+.snz-brand--stearns-foster ol {
+  margin-top: 1rem;
+  margin-bottom: 0;
+  padding-left: 1.5em;
+}
+.snz-brand--stearns-foster ul ul,
+.snz-brand--stearns-foster ul ol,
+.snz-brand--stearns-foster ol ul,
+.snz-brand--stearns-foster ol ol {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.snz-brand--stearns-foster li {
+  line-height: inherit;
+}
+
+.snz-brand--stearns-foster dt {
+  font-weight: 700;
+}
+
+.snz-brand--stearns-foster dd {
+  margin-left: 0;
+}
+@media (min-width: 36rem) {
+  .snz-brand--stearns-foster dd {
+    margin-left: 1.5rem;
+  }
+}
+.snz-brand--stearns-foster dd + dt {
+  margin-top: 0.75rem;
+}
+
+.snz-brand--stearns-foster .small,
+.snz-brand--stearns-foster small {
+  font-size: 0.75em;
+}
+
+.snz-brand--stearns-foster sub,
+.snz-brand--stearns-foster sup {
+  font-size: 0.75em;
+}
+
+.snz-brand--stearns-foster .mark,
+.snz-brand--stearns-foster mark {
+  background: rgba(var(--color-black), 0.3);
+  padding: 0.1em 0.3em;
+}
+
+.snz-brand--stearns-foster b,
+.snz-brand--stearns-foster strong {
+  font-weight: bolder;
+}
+
+.snz-brand--stearns-foster blockquote {
+  padding: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.snz-brand--stearns-foster code,
+.snz-brand--stearns-foster kbd,
+.snz-brand--stearns-foster pre {
+  font-family: "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", monospace;
+}
+
+.snz-brand--stearns-foster code {
+  padding: 0.06em 0.3em;
+  color: var(--color-sapphire);
+  background-color: rgba(0, 0, 0, 0.08);
+  border-radius: 0.6rem;
+}
+
+.snz-brand--stearns-foster kbd {
+  padding: 0.06em 0.3em;
+  color: var(--color-sapphire);
+  background-color: rgba(0, 0, 0, 0.9);
+  border-radius: 0.6rem;
+}
+.snz-brand--stearns-foster kbd kbd {
+  padding: 0;
+}
+
+.snz-brand--stearns-foster pre {
+  display: block;
+  width: 100%;
+  margin-bottom: 1rem;
+  overflow-x: auto;
+  tab-size: 2;
+  background-color: rgba(0, 0, 0, 0.08);
+}
+.snz-brand--stearns-foster pre code {
+  background: transparent;
+}
+
+.snz-brand--stearns-foster .tal {
+  text-align: left;
+}
+
+.snz-brand--stearns-foster .tac {
+  text-align: center;
+}
+
+.snz-brand--stearns-foster .tar {
+  text-align: right;
+}
+
+.snz-brand--stearns-foster .bg-dark {
+  color: var(--color-white);
+}
+
+.snz-brand--stearns-foster .bg-light {
+  color: var(--color-sapphire);
+}
+
+.snz-brand--stearns-foster .bg-sapphire {
+  background-color: var(--color-sapphire);
+}
+
+.snz-brand--stearns-foster .bg-sky {
+  background-color: var(--color-sky);
+}
+
+.snz-brand--stearns-foster .bg-olive {
+  background-color: var(--color-olive);
+}
+
+.snz-brand--stearns-foster .bg-gold {
+  background-color: var(--color-gold);
+}
+
+.snz-brand--stearns-foster .bg-stone {
+  background-color: var(--color-stone);
+}
+
+.snz-brand--stearns-foster .bg-white {
+  background-color: var(--color-white);
+}
+
+.snz-brand--stearns-foster .bg-black {
+  background-color: var(--color-black);
+}
+
+.snz-brand--stearns-foster .bg-emerald {
+  background-color: var(--color-emerald);
+}
+
+.snz-brand--stearns-foster .container {
+  display: block;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+@media (min-width: 36rem) {
+  .snz-brand--stearns-foster .container {
+    width: 100%;
+  }
+}
+@media (min-width: 48rem) {
+  .snz-brand--stearns-foster .container {
+    width: 100%;
+  }
+}
+@media (min-width: 64rem) {
+  .snz-brand--stearns-foster .container {
+    width: 62rem;
+  }
+}
+@media (min-width: 75rem) {
+  .snz-brand--stearns-foster .container {
+    width: 71rem;
+  }
+}
+@media (min-width: 90rem) {
+  .snz-brand--stearns-foster .container {
+    width: 81.25rem;
+  }
+}
+@media (min-width: 112.5rem) {
+  .snz-brand--stearns-foster .container {
+    width: 90rem;
+  }
+}
+
+.snz-brand--stearns-foster .logo {
+  position: relative;
+  z-index: 100;
+  width: clamp(14.625rem, 5.4583333333rem + 25.462962963vw, 28.375rem);
+  max-width: calc(100% - 2rem);
+}
+
+.snz-brand--stearns-foster .actions {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.snz-brand--stearns-foster .actions--centered {
+  justify-content: center;
+}
+
+.snz-brand--stearns-foster .image-wrap {
+  position: relative;
+  background: rgba(var(--color-black), 0.05);
+  margin: 0 auto;
+  overflow: hidden;
+}
+.snz-brand--stearns-foster .image-wrap img {
+  display: block;
+}
+
+.snz-brand--stearns-foster .image-wrap--cover,
+.snz-brand--stearns-foster .image-wrap--contain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.snz-brand--stearns-foster .image-wrap--cover img,
+.snz-brand--stearns-foster .image-wrap--contain img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+}
+
+.snz-brand--stearns-foster .image-wrap--contain img {
+  object-fit: contain;
+}
+
+.snz-brand--stearns-foster .image-wrap--transparent {
+  background: none;
+}
+
+.snz-brand--stearns-foster img.responsive {
+  width: 100% !important;
+  height: auto !important;
+}
+
+.snz-brand--stearns-foster .as-b {
+  --background: var(--color-sky);
+  --color: var(--color-sapphire);
+  --background-hover: var(--color-sapphire);
+  --color-hover: var(--color-sky);
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-family: "Public Sans", -apple-system, BlinkMacSystemFont, "Roboto", "Ubuntu", "Droid Sans", "Helvetica Neue", "Arial", sans-serif;
+  font-size: clamp(1rem, 0.8333333333rem + 0.462962963vw, 1.25rem);
+  line-height: 1;
+  font-weight: 700;
+  color: var(--color);
+  text-transform: uppercase;
+  text-align: center;
+  padding: 0.75em 1.5em;
+  box-sizing: border-box;
+  background: var(--background);
+  border: none;
+  border-radius: 0.625em;
+  text-decoration: none !important;
+  vertical-align: middle;
+  transition: background 0.3s, color 0.3s, transform 0.3s, opacity 0.3s;
+  position: relative;
+  overflow: hidden;
+  outline: none !important;
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.5019607843);
+}
+@media (max-width: 47.98rem) {
+  .snz-brand--stearns-foster .as-b {
+    width: 100%;
+  }
+}
+.snz-brand--stearns-foster .as-b-hover:hover .as-b, .snz-brand--stearns-foster .as-b.active, .snz-brand--stearns-foster .as-b:hover, .snz-brand--stearns-foster .as-b:focus-visible {
+  --background: var(--background-hover);
+  --color: var(--color-hover);
+  transform: translateY(-0.125em);
+}
+
+.snz-brand--stearns-foster .as-b[disabled] {
+  background: rgba(var(--color-black), 0.5) !important;
+  cursor: auto;
+  pointer-events: none;
+}
+.snz-brand--stearns-foster .as-b--primary {
+  --background: var(--color-sapphire);
+  --color: var(--color-white);
+  box-shadow: none;
+}
+.snz-brand--stearns-foster .as-b--primary:hover {
+  background-color: var(--color-white);
+  color: var(--color-sapphire);
+}
+.snz-brand--stearns-foster .as-b--secondary {
+  --background: var(--color-emerald);
+  --color: var(--color-white);
+  box-shadow: none;
+}
+.snz-brand--stearns-foster .as-b--secondary:hover {
+  background-color: var(--color-white);
+  color: var(--color-emerald);
+}
+.snz-brand--stearns-foster .as-b--tertiary {
+  --background: var(--color-olive);
+  --color: var(--color-white);
+  box-shadow: none;
+}
+.snz-brand--stearns-foster .as-b--tertiary:hover {
+  background-color: var(--color-white);
+  color: var(--color-olive);
+}
+.snz-brand--stearns-foster .as-b--gold {
+  --background: var(--color-gold);
+  --color: var(--color-sapphire);
+  box-shadow: none;
+}
+.snz-brand--stearns-foster .as-b--gold:hover {
+  background-color: var(--color-sapphire);
+  color: var(--color-gold);
+}
+
+.snz-brand--stearns-foster .editor {
+  margin-top: 1rem;
+}
+.snz-brand--stearns-foster .editor--large > * {
+  font-size: clamp(1rem, 0.6666666667rem + 0.9259259259vw, 1.5rem);
+  letter-spacing: 2%;
+}
+.snz-brand--stearns-foster .editor--small > * {
+  font-size: clamp(0.875rem, 0.7916666667rem + 0.2314814815vw, 1rem);
+}
+
+.snz-brand--stearns-foster .block-full {
+  --block-bg: transparent;
+  background: var(--block-bg);
+}
+
+.snz-brand--stearns-foster .block-full--pad-top-double {
+  padding-top: 10em;
+}
+@media (max-width: 63.98rem) {
+  .snz-brand--stearns-foster .block-full--pad-top-double {
+    padding-top: 5em;
+  }
+}
+
+.snz-brand--stearns-foster .block-full--pad-bot-double {
+  padding-bottom: 10em;
+}
+@media (max-width: 63.98rem) {
+  .snz-brand--stearns-foster .block-full--pad-bot-double {
+    padding-bottom: 5em;
+  }
+}
+
+.snz-brand--stearns-foster .block-full--pad-top-full-n-half {
+  padding-top: 7.5em;
+}
+@media (max-width: 63.98rem) {
+  .snz-brand--stearns-foster .block-full--pad-top-full-n-half {
+    padding-top: 3.75em;
+  }
+}
+
+.snz-brand--stearns-foster .block-full--pad-bot-full-n-half {
+  padding-bottom: 7.5em;
+}
+@media (max-width: 63.98rem) {
+  .snz-brand--stearns-foster .block-full--pad-bot-full-n-half {
+    padding-bottom: 3.75em;
+  }
+}
+
+.snz-brand--stearns-foster .block-full--pad-top-full {
+  padding-top: 5em;
+}
+@media (max-width: 63.98rem) {
+  .snz-brand--stearns-foster .block-full--pad-top-full {
+    padding-top: 2.5em;
+  }
+}
+
+.snz-brand--stearns-foster .block-full--pad-bot-full {
+  padding-bottom: 5em;
+}
+@media (max-width: 63.98rem) {
+  .snz-brand--stearns-foster .block-full--pad-bot-full {
+    padding-bottom: 2.5em;
+  }
+}
+
+.snz-brand--stearns-foster .block-full--pad-top-half {
+  padding-top: 2.5em;
+}
+@media (max-width: 63.98rem) {
+  .snz-brand--stearns-foster .block-full--pad-top-half {
+    padding-top: 1.25em;
+  }
+}
+
+.snz-brand--stearns-foster .block-full--pad-bot-half {
+  padding-bottom: 2.5em;
+}
+@media (max-width: 63.98rem) {
+  .snz-brand--stearns-foster .block-full--pad-bot-half {
+    padding-bottom: 1.25em;
+  }
+}
+
+.snz-brand--stearns-foster .block-full--pad-top-minus-half {
+  margin-top: -2.5em;
+}
+@media (max-width: 63.98rem) {
+  .snz-brand--stearns-foster .block-full--pad-top-minus-half {
+    margin-top: -1.25em;
+  }
+}
+
+.snz-brand--stearns-foster .block-full--pad-bot-minus-half {
+  margin-bottom: -2.5em;
+}
+@media (max-width: 63.98rem) {
+  .snz-brand--stearns-foster .block-full--pad-bot-minus-half {
+    margin-bottom: -1.25em;
+  }
+}
+
+.snz-brand--stearns-foster .block-full--pad-top-minus-full {
+  margin-top: -5em;
+}
+@media (max-width: 63.98rem) {
+  .snz-brand--stearns-foster .block-full--pad-top-minus-full {
+    margin-top: -2.5em;
+  }
+}
+
+.snz-brand--stearns-foster .block-full--pad-bot-minus-full {
+  margin-bottom: -5em;
+}
+@media (max-width: 63.98rem) {
+  .snz-brand--stearns-foster .block-full--pad-bot-minus-full {
+    margin-bottom: -2.5em;
+  }
+}
+
+.snz-brand--stearns-foster .block-full--pad-top-minus-full-n-half {
+  margin-top: -7.5em;
+}
+@media (max-width: 63.98rem) {
+  .snz-brand--stearns-foster .block-full--pad-top-minus-full-n-half {
+    margin-top: -3.75em;
+  }
+}
+
+.snz-brand--stearns-foster .block-full--pad-bot-minus-full-n-half {
+  margin-bottom: -7.5em;
+}
+@media (max-width: 63.98rem) {
+  .snz-brand--stearns-foster .block-full--pad-bot-minus-full-n-half {
+    margin-bottom: -3.75em;
+  }
+}
+
+.snz-brand--stearns-foster .block-full--pad-top-minus-double {
+  margin-top: -10em;
+}
+@media (max-width: 63.98rem) {
+  .snz-brand--stearns-foster .block-full--pad-top-minus-double {
+    margin-top: -5em;
+  }
+}
+
+.snz-brand--stearns-foster .block-full--pad-bot-minus-double {
+  margin-bottom: -10em;
+}
+@media (max-width: 63.98rem) {
+  .snz-brand--stearns-foster .block-full--pad-bot-minus-double {
+    margin-bottom: -5em;
+  }
+}
+
+@media (max-width: 63.98rem) {
+  .snz-brand--stearns-foster .block-full--pad-mobile-top-half {
+    margin-top: 0;
+    padding-top: 1.25em !important;
+  }
+  .snz-brand--stearns-foster .block-full--pad-mobile-bot-half {
+    margin-bottom: 0;
+    padding-bottom: 1.25em !important;
+  }
+  .snz-brand--stearns-foster .block-full--pad-mobile-top-full {
+    margin-top: 0;
+    padding-top: 2.5em !important;
+  }
+  .snz-brand--stearns-foster .block-full--pad-mobile-bot-full {
+    margin-bottom: 0;
+    padding-bottom: 2.5em !important;
+  }
+  .snz-brand--stearns-foster .block-full--pad-mobile-top-full-n-half {
+    margin-top: 0;
+    padding-top: 3.75em !important;
+  }
+  .snz-brand--stearns-foster .block-full--pad-mobile-bot-full-n-half {
+    margin-bottom: 0;
+    padding-bottom: 3.75em !important;
+  }
+  .snz-brand--stearns-foster .block-full--pad-mobile-top-double {
+    margin-top: 0;
+    padding-top: 5em !important;
+  }
+  .snz-brand--stearns-foster .block-full--pad-mobile-bot-double {
+    margin-bottom: 0;
+    padding-bottom: 5em !important;
+  }
+  .snz-brand--stearns-foster .block-full--pad-mobile-top-no {
+    margin-top: 0;
+    padding-top: 0 !important;
+  }
+  .snz-brand--stearns-foster .block-full--pad-mobile-bot-no {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  .snz-brand--stearns-foster .block-full--pad-mobile-top-minus-half {
+    margin-top: -1.25em;
+    padding-top: 0;
+  }
+  .snz-brand--stearns-foster .block-full--pad-mobile-bot-minus-half {
+    margin-bottom: -1.25em;
+    padding-bottom: 0;
+  }
+}
+.snz-brand--stearns-foster .block-full--bg-sapphire {
+  --block-bg: var(--color-sapphire);
+}
+
+.snz-brand--stearns-foster .block-full--bg-sky {
+  --block-bg: var(--color-sky);
+}
+
+.snz-brand--stearns-foster .block-full--bg-olive {
+  --block-bg: var(--color-olive);
+}
+
+.snz-brand--stearns-foster .block-full--bg-gold {
+  --block-bg: var(--color-gold);
+}
+
+.snz-brand--stearns-foster .block-full--bg-stone {
+  --block-bg: var(--color-stone);
+}
+
+.snz-brand--stearns-foster .block-full--bg-white {
+  --block-bg: var(--color-white);
+}
+
+.snz-brand--stearns-foster .block-full--bg-black {
+  --block-bg: var(--color-black);
+}
+
+.snz-brand--stearns-foster .block-full--bg-emerald {
+  --block-bg: var(--color-emerald);
+}
+
+.snz-brand--stearns-foster .block-full__bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+
+.snz-brand--stearns-foster .block-full__content {
+  max-width: 100%;
+}
+
+.snz-brand--stearns-foster .block-full--with-bg {
+  position: relative;
+}
+.snz-brand--stearns-foster .block-full--with-bg .block-full__content {
+  position: relative;
+  z-index: 2;
+}
+
+.snz-brand--stearns-foster .hero {
+  position: relative;
+  height: 70.375rem;
+  max-height: 90dvh;
+}
+.snz-brand--stearns-foster .hero__bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.snz-brand--stearns-foster .hero .container {
+  height: 100%;
+}
+.snz-brand--stearns-foster .hero__wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+.snz-brand--stearns-foster .hero__wrapper--v2 {
+  text-align: center;
+}
+@media (min-width: 48rem) {
+  .snz-brand--stearns-foster .hero__wrapper--v2 {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+.snz-brand--stearns-foster .hero .editor {
+  width: 35rem;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.snz-brand--stearns-foster .hero .as-b {
+  font-size: clamp(0.875rem, 0.625rem + 0.6944444444vw, 1.25rem);
+}
+.snz-brand--stearns-foster .hero--v2:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+.snz-brand--stearns-foster .hero--v2 .hero__bg {
+  z-index: 1;
+}
+.snz-brand--stearns-foster .hero--v2 .hero__bg img {
+  object-position: right;
+}
+.snz-brand--stearns-foster .hero--v2 .hero__container {
+  z-index: 3;
+}
+@media (min-width: 90rem) {
+  .snz-brand--stearns-foster .hero--v2 .hero__container {
+    width: 90vw;
+  }
+}
+
+.snz-brand--stearns-foster .features .editor {
+  margin-top: clamp(1rem, 0.3333333333rem + 1.8518518519vw, 2rem);
+  width: 73.125rem;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+.snz-brand--stearns-foster .features__icon {
+  display: flex;
+  justify-content: center;
+}
+.snz-brand--stearns-foster .features__item-title {
+  margin-top: 2rem;
+}
+.snz-brand--stearns-foster .features .swiper {
+  margin-top: clamp(2rem, 1.3333333333rem + 1.8518518519vw, 3rem);
+}
+@media (min-width: 48rem) {
+  .snz-brand--stearns-foster .features .swiper-pagination {
+    display: none;
+  }
+}
+
+/* Auto Height */
+.snz-brand--stearns-foster .swiper-autoheight,
+.snz-brand--stearns-foster .swiper-autoheight .swiper-slide {
+  height: auto;
+}
+.snz-brand--stearns-foster .swiper-autoheight .swiper-wrapper {
+  align-items: flex-start;
+  transition-property: transform, height;
+}
+
+.snz-brand--stearns-foster .swiper-backface-hidden .swiper-slide {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* CSS Mode */
+.snz-brand--stearns-foster .swiper-css-mode > .swiper-wrapper {
+  overflow: auto;
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+.snz-brand--stearns-foster .swiper-css-mode > .swiper-wrapper::-webkit-scrollbar {
+  display: none;
+}
+.snz-brand--stearns-foster .swiper-css-mode > .swiper-wrapper > .swiper-slide {
+  scroll-snap-align: start start;
+}
+
+.snz-brand--stearns-foster .swiper-horizontal.swiper-css-mode > .swiper-wrapper {
+  scroll-snap-type: x mandatory;
+}
+
+.snz-brand--stearns-foster .swiper-vertical.swiper-css-mode > .swiper-wrapper {
+  scroll-snap-type: y mandatory;
+}
+
+.snz-brand--stearns-foster .swiper-centered > .swiper-wrapper::before {
+  content: "";
+  flex-shrink: 0;
+  order: 9999;
+}
+.snz-brand--stearns-foster .swiper-centered.swiper-horizontal > .swiper-wrapper > .swiper-slide:first-child {
+  margin-inline-start: var(--swiper-centered-offset-before);
+}
+.snz-brand--stearns-foster .swiper-centered.swiper-horizontal > .swiper-wrapper::before {
+  height: 100%;
+  width: var(--swiper-centered-offset-after);
+}
+.snz-brand--stearns-foster .swiper-centered.swiper-vertical > .swiper-wrapper > .swiper-slide:first-child {
+  margin-block-start: var(--swiper-centered-offset-before);
+}
+.snz-brand--stearns-foster .swiper-centered.swiper-vertical > .swiper-wrapper::before {
+  width: 100%;
+  height: var(--swiper-centered-offset-after);
+}
+.snz-brand--stearns-foster .swiper-centered > .swiper-wrapper > .swiper-slide {
+  scroll-snap-align: center center;
+}
+
+/* 3D Effects */
+.snz-brand--stearns-foster .swiper-3d, .snz-brand--stearns-foster .swiper-3d.swiper-css-mode .swiper-wrapper {
+  perspective: 75rem;
+}
+.snz-brand--stearns-foster .swiper-3d .swiper-wrapper,
+.snz-brand--stearns-foster .swiper-3d .swiper-slide,
+.snz-brand--stearns-foster .swiper-3d .swiper-slide-shadow,
+.snz-brand--stearns-foster .swiper-3d .swiper-slide-shadow-left,
+.snz-brand--stearns-foster .swiper-3d .swiper-slide-shadow-right,
+.snz-brand--stearns-foster .swiper-3d .swiper-slide-shadow-top,
+.snz-brand--stearns-foster .swiper-3d .swiper-slide-shadow-bottom,
+.snz-brand--stearns-foster .swiper-3d .swiper-cube-shadow {
+  transform-style: preserve-3d;
+}
+.snz-brand--stearns-foster .swiper-3d .swiper-slide-shadow,
+.snz-brand--stearns-foster .swiper-3d .swiper-slide-shadow-left,
+.snz-brand--stearns-foster .swiper-3d .swiper-slide-shadow-right,
+.snz-brand--stearns-foster .swiper-3d .swiper-slide-shadow-top,
+.snz-brand--stearns-foster .swiper-3d .swiper-slide-shadow-bottom {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+.snz-brand--stearns-foster .swiper-3d .swiper-slide-shadow {
+  background: rgba(0, 0, 0, 0.15);
+}
+.snz-brand--stearns-foster .swiper-3d .swiper-slide-shadow-left {
+  background-image: linear-gradient(to left, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
+}
+.snz-brand--stearns-foster .swiper-3d .swiper-slide-shadow-right {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
+}
+.snz-brand--stearns-foster .swiper-3d .swiper-slide-shadow-top {
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
+}
+.snz-brand--stearns-foster .swiper-3d .swiper-slide-shadow-bottom {
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
+}
+
+.snz-brand--stearns-foster {
+  --swiper-navigation-size: 44px;
+  --swiper-navigation-color: var(--swiper-theme-color);
+}
+
+.snz-brand--stearns-foster .swiper-button-prev,
+.snz-brand--stearns-foster .swiper-button-next {
+  position: absolute;
+  top: 50%;
+  width: calc(var(--swiper-navigation-size) / 44 * 27);
+  height: var(--swiper-navigation-size);
+  margin-top: calc(0px - var(--swiper-navigation-size) / 2);
+  z-index: 10;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--swiper-navigation-color, var(--swiper-theme-color));
+}
+.snz-brand--stearns-foster .swiper-button-prev.swiper-button-disabled,
+.snz-brand--stearns-foster .swiper-button-next.swiper-button-disabled {
+  opacity: 0.35;
+  cursor: auto;
+  pointer-events: none;
+}
+.snz-brand--stearns-foster .swiper-button-prev:after,
+.snz-brand--stearns-foster .swiper-button-next:after {
+  font-family: swiper-icons;
+  font-size: var(--swiper-navigation-size);
+  text-transform: none !important;
+  letter-spacing: 0;
+  text-transform: none;
+  font-variant: initial;
+  line-height: 1;
+}
+
+.snz-brand--stearns-foster .swiper-button-prev,
+.snz-brand--stearns-foster .swiper-rtl .swiper-button-next {
+  left: 10px;
+  right: auto;
+}
+.snz-brand--stearns-foster .swiper-button-prev:after,
+.snz-brand--stearns-foster .swiper-rtl .swiper-button-next:after {
+  content: "prev";
+}
+
+.snz-brand--stearns-foster .swiper-button-next,
+.snz-brand--stearns-foster .swiper-rtl .swiper-button-prev {
+  right: 10px;
+  left: auto;
+}
+.snz-brand--stearns-foster .swiper-button-next:after,
+.snz-brand--stearns-foster .swiper-rtl .swiper-button-prev:after {
+  content: "next";
+}
+
+.snz-brand--stearns-foster .swiper-button-lock {
+  display: none;
+}
+
+.snz-brand--stearns-foster {
+  --swiper-pagination-color: var(--swiper-theme-color);
+  --swiper-pagination-bullet-size: 2rem;
+  --swiper-pagination-bullet-width: 2rem;
+  --swiper-pagination-bullet-height: .5rem;
+  --swiper-pagination-bullet-inactive-color: #000;
+  --swiper-pagination-bullet-inactive-opacity: 1;
+  --swiper-pagination-bullet-opacity: 1;
+  --swiper-pagination-bullet-horizontal-gap: .5rem;
+  --swiper-pagination-bullet-vertical-gap: .5rem;
+}
+
+.snz-brand--stearns-foster .swiper-pagination {
+  text-align: center;
+  transition: 300ms opacity;
+  transform: translate3d(0, 0, 0);
+  z-index: 10;
+  margin-top: 2.5rem;
+}
+.snz-brand--stearns-foster .swiper-pagination.swiper-pagination-hidden {
+  opacity: 0;
+}
+
+/* Common Styles */
+.snz-brand--stearns-foster .swiper-pagination-fraction,
+.snz-brand--stearns-foster .swiper-pagination-custom,
+.snz-brand--stearns-foster .swiper-horizontal > .swiper-pagination-bullets,
+.snz-brand--stearns-foster .swiper-pagination-bullets.swiper-pagination-horizontal {
+  width: 100%;
+}
+
+/* Bullets */
+.snz-brand--stearns-foster .swiper-pagination-bullets-dynamic {
+  overflow: hidden;
+  font-size: 0;
+}
+.snz-brand--stearns-foster .swiper-pagination-bullets-dynamic .swiper-pagination-bullet {
+  transform: scale(0.33);
+  position: relative;
+}
+.snz-brand--stearns-foster .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active {
+  transform: scale(1);
+}
+.snz-brand--stearns-foster .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-main {
+  transform: scale(1);
+}
+.snz-brand--stearns-foster .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-prev {
+  transform: scale(0.66);
+}
+.snz-brand--stearns-foster .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-prev-prev {
+  transform: scale(0.33);
+}
+.snz-brand--stearns-foster .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-next {
+  transform: scale(0.66);
+}
+.snz-brand--stearns-foster .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-next-next {
+  transform: scale(0.33);
+}
+
+.snz-brand--stearns-foster .swiper-pagination-bullet {
+  width: var(--swiper-pagination-bullet-width, var(--swiper-pagination-bullet-size, 8px));
+  height: var(--swiper-pagination-bullet-height, var(--swiper-pagination-bullet-size, 8px));
+  display: inline-block;
+  border-radius: 4px;
+  border: 1px solid var(--color-gold);
+  background: var(--swiper-pagination-bullet-inactive-color, #000);
+  opacity: var(--swiper-pagination-bullet-inactive-opacity, 0.2);
+}
+.snz-brand--stearns-foster button.swiper-pagination-bullet {
+  border: none;
+  margin: 0;
+  padding: 0;
+  box-shadow: none;
+  appearance: none;
+}
+
+.snz-brand--stearns-foster .swiper-pagination-clickable .swiper-pagination-bullet {
+  cursor: pointer;
+}
+.snz-brand--stearns-foster .swiper-pagination-bullet:only-child {
+  display: none !important;
+}
+
+.snz-brand--stearns-foster .swiper-pagination-bullet-active {
+  opacity: var(--swiper-pagination-bullet-opacity, 1);
+  background: var(--swiper-pagination-color, var(--swiper-theme-color));
+}
+
+.snz-brand--stearns-foster .swiper-vertical > .swiper-pagination-bullets,
+.snz-brand--stearns-foster .swiper-pagination-vertical.swiper-pagination-bullets {
+  right: 10px;
+  top: 50%;
+  transform: translate3d(0px, -50%, 0);
+}
+.snz-brand--stearns-foster .swiper-vertical > .swiper-pagination-bullets .swiper-pagination-bullet,
+.snz-brand--stearns-foster .swiper-pagination-vertical.swiper-pagination-bullets .swiper-pagination-bullet {
+  margin: var(--swiper-pagination-bullet-vertical-gap, 6px) 0;
+  display: block;
+}
+.snz-brand--stearns-foster .swiper-vertical > .swiper-pagination-bullets.swiper-pagination-bullets-dynamic,
+.snz-brand--stearns-foster .swiper-pagination-vertical.swiper-pagination-bullets.swiper-pagination-bullets-dynamic {
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+}
+.snz-brand--stearns-foster .swiper-vertical > .swiper-pagination-bullets.swiper-pagination-bullets-dynamic .swiper-pagination-bullet,
+.snz-brand--stearns-foster .swiper-pagination-vertical.swiper-pagination-bullets.swiper-pagination-bullets-dynamic .swiper-pagination-bullet {
+  display: inline-block;
+  transition: 200ms transform, 200ms top;
+}
+
+.snz-brand--stearns-foster .swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet,
+.snz-brand--stearns-foster .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet {
+  margin: 0 var(--swiper-pagination-bullet-horizontal-gap, 4px);
+}
+.snz-brand--stearns-foster .swiper-horizontal > .swiper-pagination-bullets.swiper-pagination-bullets-dynamic,
+.snz-brand--stearns-foster .swiper-pagination-horizontal.swiper-pagination-bullets.swiper-pagination-bullets-dynamic {
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+.snz-brand--stearns-foster .swiper-horizontal > .swiper-pagination-bullets.swiper-pagination-bullets-dynamic .swiper-pagination-bullet,
+.snz-brand--stearns-foster .swiper-pagination-horizontal.swiper-pagination-bullets.swiper-pagination-bullets-dynamic .swiper-pagination-bullet {
+  transition: 200ms transform, 200ms left;
+}
+
+.snz-brand--stearns-foster .swiper-horizontal.swiper-rtl > .swiper-pagination-bullets-dynamic .swiper-pagination-bullet {
+  transition: 200ms transform, 200ms right;
+}
+
+/* Progress */
+.snz-brand--stearns-foster .swiper-pagination-progressbar {
+  background: rgba(0, 0, 0, 0.25);
+  position: absolute;
+}
+.snz-brand--stearns-foster .swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
+  background: var(--swiper-pagination-color, var(--swiper-theme-color));
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transform: scale(0);
+  transform-origin: left top;
+}
+.snz-brand--stearns-foster .swiper-rtl .swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
+  transform-origin: right top;
+}
+.snz-brand--stearns-foster .swiper-horizontal > .swiper-pagination-progressbar, .snz-brand--stearns-foster .swiper-pagination-progressbar.swiper-pagination-horizontal, .snz-brand--stearns-foster .swiper-vertical > .swiper-pagination-progressbar.swiper-pagination-progressbar-opposite, .snz-brand--stearns-foster .swiper-pagination-progressbar.swiper-pagination-vertical.swiper-pagination-progressbar-opposite {
+  width: 100%;
+  height: 4px;
+  left: 0;
+  top: 0;
+}
+.snz-brand--stearns-foster .swiper-vertical > .swiper-pagination-progressbar, .snz-brand--stearns-foster .swiper-pagination-progressbar.swiper-pagination-vertical, .snz-brand--stearns-foster .swiper-horizontal > .swiper-pagination-progressbar.swiper-pagination-progressbar-opposite, .snz-brand--stearns-foster .swiper-pagination-progressbar.swiper-pagination-horizontal.swiper-pagination-progressbar-opposite {
+  width: 4px;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+.snz-brand--stearns-foster .swiper-pagination-lock {
+  display: none;
+}
+
+.snz-brand--stearns-foster {
+  --swiper-theme-color: var(--color-gold);
+}
+
+.snz-brand--stearns-foster .swiper {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  overflow: hidden;
+  list-style: none;
+  padding: 0;
+  /* Fix of Webkit flickering */
+  z-index: 1;
+  width: 100%;
+  height: auto;
+}
+
+.snz-brand--stearns-foster .swiper-vertical > .swiper-wrapper {
+  flex-direction: column;
+}
+
+.snz-brand--stearns-foster .swiper-wrapper {
+  position: relative;
+  width: 100%;
+  height: auto;
+  z-index: 1;
+  display: flex;
+  transition-property: transform;
+  box-sizing: content-box;
+}
+
+.snz-brand--stearns-foster .swiper-android .swiper-slide,
+.snz-brand--stearns-foster .swiper-wrapper {
+  transform: translate3d(0px, 0, 0);
+}
+
+.snz-brand--stearns-foster .swiper-pointer-events {
+  touch-action: pan-y;
+}
+.snz-brand--stearns-foster .swiper-pointer-events.swiper-vertical {
+  touch-action: pan-x;
+}
+
+.snz-brand--stearns-foster .swiper-slide {
+  flex-shrink: 0;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition-property: transform;
+}
+
+.snz-brand--stearns-foster .swiper-slide-invisible-blank {
+  visibility: hidden;
+}
+
+.snz-brand--stearns-foster .divider {
+  width: 100%;
+  height: clamp(2.5rem, 1.0416666667rem + 4.0509259259vw, 4.6875rem);
+  position: relative;
+  overflow: clip;
+}
+@media (max-width: 47.98rem) {
+  .snz-brand--stearns-foster .divider .image-wrap {
+    width: 200%;
+    left: -50%;
+  }
+}
+.snz-brand--stearns-foster .divider--x-small {
+  height: auto;
+}
+.snz-brand--stearns-foster .divider--x-small .container {
+  height: 2.625rem;
+  position: relative;
+}
+.snz-brand--stearns-foster .divider--x-small .image-wrap img {
+  object-fit: contain !important;
+}
+@media (max-width: 47.98rem) {
+  .snz-brand--stearns-foster .divider--x-small .image-wrap {
+    width: 100%;
+    left: 0;
+  }
+  .snz-brand--stearns-foster .divider--x-small .image-wrap img {
+    object-fit: cover !important;
+  }
+}
+
+.snz-brand--stearns-foster .card {
+  border-radius: 0.6rem;
+  display: flex;
+  flex-direction: column;
+}
+.snz-brand--stearns-foster .card__head {
+  position: relative;
+}
+.snz-brand--stearns-foster .card__head img {
+  border-radius: 0.6rem 0.6rem 0 0;
+}
+@media (max-width: 47.98rem) {
+  .snz-brand--stearns-foster .card__head img {
+    object-fit: contain;
+  }
+}
+.snz-brand--stearns-foster .card__content {
+  flex: 1;
+  padding-left: clamp(1rem, 0.8333333333rem + 0.462962963vw, 1.25rem);
+  padding-right: clamp(1rem, 0.8333333333rem + 0.462962963vw, 1.25rem);
+  padding-bottom: 2rem;
+  border-radius: 0 0 0.6rem 0.6rem;
+}
+.snz-brand--stearns-foster .card .badge {
+  transform: translateY(-50%);
+  margin-bottom: -50%;
+}
+.snz-brand--stearns-foster .card--v2 .card__content {
+  padding-top: 2rem;
+  padding-left: 0;
+  padding-right: 0;
+}
+.snz-brand--stearns-foster .card--v2 .card__head img {
+  border-radius: 0.6rem;
+}
+
+.snz-brand--stearns-foster .card-alt {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 48rem) {
+  .snz-brand--stearns-foster .card-alt {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  }
+}
+.snz-brand--stearns-foster .card-alt__head {
+  position: relative;
+}
+.snz-brand--stearns-foster .card-alt__head img {
+  border-radius: 0.6rem;
+  object-fit: cover;
+}
+.snz-brand--stearns-foster .card-alt--v2 {
+  padding: clamp(1rem, 0.3333333333rem + 1.8518518519vw, 2rem);
+  border-radius: 0.6rem;
+}
+@media (min-width: 48rem) {
+  .snz-brand--stearns-foster .card-alt--v2 {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  }
+}
+@media (min-width: 48rem) {
+  .snz-brand--stearns-foster .card-alt--v2:nth-child(even) {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  }
+  .snz-brand--stearns-foster .card-alt--v2:nth-child(even) .card-alt__head {
+    grid-column: 2/3;
+    grid-row: 1/2;
+  }
+  .snz-brand--stearns-foster .card-alt--v2:nth-child(even) .card-alt__head img {
+    border-radius: 0.6rem;
+    aspect-ratio: 16/10;
+    object-fit: contain;
+  }
+  .snz-brand--stearns-foster .card-alt--v2:nth-child(even) .card-alt__content {
+    grid-column: 1/2;
+    grid-row: 1/2;
+  }
+}
+
+.snz-brand--stearns-foster .badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2.5rem;
+  min-height: 3.75rem;
+  min-width: 14rem;
+  background: var(--color-stone);
+  font-family: "Gaspacho", serif;
+  font-size: clamp(1.625rem, 1.375rem + 0.6944444444vw, 2rem);
+  clip-path: polygon(0.875rem 0%, calc(100% - 0.875rem) 0%, 100% 0.875rem, 100% calc(100% - 0.875rem), calc(100% - 0.875rem) 100%, 0.875rem 100%, 0% calc(100% - 0.875rem), 0% 0.875rem);
+}
+
+.snz-brand--stearns-foster .badge::before,
+.snz-brand--stearns-foster .badge::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: var(--color-sapphire);
+}
+
+.snz-brand--stearns-foster .badge::before {
+  left: 1.125rem;
+}
+
+.snz-brand--stearns-foster .badge::after {
+  right: 1.125rem;
+}
+
+.snz-brand--stearns-foster .badge img {
+  max-height: 1.25rem;
+}
+.snz-brand--stearns-foster .badge img.larger {
+  max-height: 1.5rem;
+}
+
+.snz-brand--stearns-foster .badge-alt {
+  font-weight: 600;
+  font-size: clamp(1.875rem, 1.4583333333rem + 1.1574074074vw, 2.5rem);
+  line-height: -2%;
+}
+
+.snz-brand--stearns-foster .list .badge-alt {
+  margin-top: 1rem;
+}
+.snz-brand--stearns-foster .list__row {
+  margin-top: clamp(1.25rem, 0.4166666667rem + 2.3148148148vw, 2.5rem);
+  display: grid;
+  gap: clamp(1.25rem, 0.4166666667rem + 2.3148148148vw, 2.5rem);
+}
+@media (min-width: 64rem) {
+  .snz-brand--stearns-foster .list__row {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+.snz-brand--stearns-foster .options__container {
+  padding: clamp(2rem, 0.8333333333rem + 3.2407407407vw, 3.75rem) clamp(1rem, -0.8333333333rem + 5.0925925926vw, 3.75rem);
+  border-radius: 0.6rem;
+}
+.snz-brand--stearns-foster .options .block-content .editor {
+  width: 69.5rem;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+.snz-brand--stearns-foster .options__row {
+  margin-top: clamp(1.25rem, 0.4166666667rem + 2.3148148148vw, 2.5rem);
+  display: grid;
+  gap: 2.5rem;
+}
+@media (min-width: 48rem) {
+  .snz-brand--stearns-foster .options--v2 .options__row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.snz-brand--stearns-foster .video__container {
+  width: 100%;
+  aspect-ratio: 16/9;
+}
+.snz-brand--stearns-foster .video iframe {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.6rem;
+}
+.snz-brand--stearns-foster .video .video__inner {
+  padding: 2.5em 0;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+.snz-brand--stearns-foster .video .video__inner video {
+  cursor: pointer;
+  width: 100%;
+}
+.snz-brand--stearns-foster .video .video__inner .video__container {
+  cursor: pointer;
+  width: 100%;
+}
+
+.snz-brand--stearns-foster .embed-container {
+  position: relative;
+  padding-bottom: 56.25% !important;
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+}
+.snz-brand--stearns-foster .embed-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.snz-brand--stearns-foster .embed-container object {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.snz-brand--stearns-foster .embed-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.snz-brand--stearns-foster .yt-embed-holder {
+  width: 100%;
+  overflow: hidden;
+  aspect-ratio: 16/9;
+}
+.snz-brand--stearns-foster .yt-embed-holder iframe {
+  width: 360%;
+  height: 100%;
+  margin-left: -130%;
+}
+@media (min-width: 48rem) {
+  .snz-brand--stearns-foster .yt-embed-holder iframe {
+    width: 300%;
+    height: 100%;
+    margin-left: -100%;
+  }
+}
+
+.snz-brand--stearns-foster .footer {
+  margin-top: clamp(1rem, 0.6666666667rem + 0.9259259259vw, 1.5rem);
+}
+.snz-brand--stearns-foster .footer .editor {
+  width: 33.875rem;
+  max-width: 100%;
+}
+
+.snz-brand--stearns-foster .standards {
+  position: relative;
+  overflow: clip;
+}
+@media (min-width: 48rem) {
+  .snz-brand--stearns-foster .standards__row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+.snz-brand--stearns-foster .standards__image--desktop {
+  position: absolute;
+  width: 50%;
+  left: 0;
+  bottom: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+@media (max-width: 47.98rem) {
+  .snz-brand--stearns-foster .standards__image--desktop {
+    display: none;
+  }
+}
+.snz-brand--stearns-foster .standards__image--desktop img {
+  object-position: left;
+}
+.snz-brand--stearns-foster .standards__image--mobile {
+  margin-top: 1rem;
+  position: relative;
+  overflow: hidden;
+  left: calc(-50vw + 50%);
+  width: 100vw;
+}
+@media (min-width: 48rem) {
+  .snz-brand--stearns-foster .standards__image--mobile {
+    display: none;
+  }
+}
+.snz-brand--stearns-foster .standards__content {
+  grid-column: 2/3;
+}
+.snz-brand--stearns-foster .standards__text {
+  margin-top: 2rem;
+}
+.snz-brand--stearns-foster .standards .standards__items {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+@media (max-width: 47.98rem) {
+  .snz-brand--stearns-foster .standards .standards__items {
+    display: none;
+  }
+}
+.snz-brand--stearns-foster .standards__item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1.5rem;
+}
+.snz-brand--stearns-foster .standards__slide-title {
+  margin-top: 2rem;
+}
+.snz-brand--stearns-foster .standards .swiper {
+  margin-top: -55%;
+}
+@media (min-width: 48rem) {
+  .snz-brand--stearns-foster .standards .swiper {
+    display: none;
+  }
+}
+.snz-brand--stearns-foster .standards__slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.snz-brand--stearns-foster .standards .swiper-pagination {
+  margin-top: 4rem;
+}
+
+/*# sourceMappingURL=../../../sf/src/44052-04-EVG BLP Maint 2026_SF_BLP_OPT1_A_04-HTML/assets/css/styles.css.map */

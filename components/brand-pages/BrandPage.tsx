@@ -41,6 +41,8 @@ export function BrandPage({ brand: key, location: l, feed, renderSchema }: Props
     <>
       {renderSchema?.(brandPageJsonLd(brand, l, faq))}
       {brand.json.styles.map((s) => assetUrl(brand, s)).map((href) => <link key={href} rel="stylesheet" href={href} precedence={brand.key} />)}
+      {/* this site's containment for a vendor rule that reaches outside the wrapper (registry site_styles), after them */}
+      {(brand.site.site_styles || []).map((href) => <link key={href} rel="stylesheet" href={href} precedence={brand.key} />)}
       {/* brand.json preload_images (the hero image of each layout), fetched early as in the package's <head> */}
       {(brand.json.preload_images || []).map((p) => ({ href: assetUrl(brand, p.href), media: p.media })).map((p) => (
         <link key={p.href} rel="preload" as="image" href={p.href} media={p.media} />

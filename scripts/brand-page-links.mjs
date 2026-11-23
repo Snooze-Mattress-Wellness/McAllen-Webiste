@@ -1,7 +1,8 @@
 /*
  * Links to the brand pages (components/brand-pages/) from the generated GoHighLevel pages, same tab, no copy changes:
  * /tempur-pedic (brand-page v2 brief, November 20, 2026 — item 6), /beautyrest (Beautyrest brief, November 23, 2026 —
- * step 4) and /serta (Serta brief, November 24, 2026 — step 3). For every brand in BRANDS below:
+ * step 4), /serta (Serta brief, November 24, 2026 — step 3), /sealy and /stearns-foster (Stearns & Foster + Sealy
+ * brief, November 24, 2026 — step 3). For every brand in BRANDS below:
  *  - /mattresses (English): the brand's two "<Brand>® Mattresses" heading links (desktop + mobile copies), which
  *    scripts/brand-links.mjs made new-tab links to the brand's own site, now go to the brand page in the same tab. The
  *    other brands' headings, and the Spanish /es/mattresses, keep their links. (Serta has no heading on /mattresses.)
@@ -26,6 +27,8 @@ const BRANDS = [
   { name: 'Tempur-Pedic', page: '/tempur-pedic', site: 'https://www.tempurpedic.com/', logo: 'Tempur-Pedic logo' },
   { name: 'Beautyrest', page: '/beautyrest', site: 'https://www.beautyrest.com/', logo: 'Beautyrest logo' },
   { name: 'Serta', page: '/serta', site: null, logo: 'Serta logo' },
+  { name: 'Sealy', page: '/sealy', site: 'https://www.sealy.com/', logo: 'Sealy logo' },
+  { name: 'Stearns & Foster', page: '/stearns-foster', site: 'https://www.stearnsandfoster.com/', logo: 'Stearns &amp; Foster logo' },
 ];
 const literal = (s) => s.replace(/[.*+?^${}()|[\]\\/]/g, (c) => BS + c);
 

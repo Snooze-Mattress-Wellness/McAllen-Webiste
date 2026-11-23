@@ -1,0 +1,36 @@
+/* =====================================================================
+   Snooze Mattress – Stearns & Foster brand page: fixes
+   Load AFTER stearns-foster.scoped.css and aos.scoped.css.
+   Shared local sections (visit, promo, why, FAQ) are styled by
+   shared/css/snooze-brand-local.css.
+   ===================================================================== */
+
+/* The vendor's html{height:100%} rule now lands on the wrapper; keep it natural height. */
+.snz-brand--stearns-foster { height: auto; min-height: 0; }
+
+/* Logo is no longer a link to "#" (it was an <a href="#">). */
+.snz-brand--stearns-foster .logo__link { display: inline-block; }
+
+/* SEO H1 above the vendor's "Designed With / Luxury in Every Layer" heading. */
+.snz-brand--stearns-foster .hero .snz-h1 {
+  color: var(--color-gold);
+  font-family: "Public Sans", -apple-system, "Segoe UI", sans-serif;
+  font-size: clamp(0.8125rem, 0.75rem + 0.2vw, 0.9375rem);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1.3;
+  margin: 0 0 1.25rem;
+  text-transform: uppercase;
+}
+
+/* "Designed With" was an <h2>; now a <p> with the vendor's .as-h3 look. */
+.snz-brand--stearns-foster .hero p.as-h3 { margin: 0 0 0.5rem; }
+
+/* Two hero buttons side by side (vendor had one). */
+.snz-brand--stearns-foster .hero .snz-hero-btns { justify-content: center; gap: 12px; }
+
+/* Heading images keep their size now that they carry width/height attributes. */
+.snz-brand--stearns-foster h2 img[width] { height: auto; }
+
+/* width/height attributes were added to every image (prevents layout shift); keep them fluid. */
+.snz-brand--stearns-foster img[width] { max-width: 100%; height: auto; }

@@ -135,6 +135,9 @@ export type BrandSite = {
   tracking: { cta_selector: string; cta_sections: readonly (readonly [section: string, selector: string])[] };
   /** a brand.json styles entry -> the file this site serves instead (e.g. our scoped Swiper CSS) */
   style_paths?: Readonly<Record<string, string>>;
+  /** this site's own stylesheets for the brand, loaded right after brand.json's styles on that route only: containment
+      for a vendor rule that reaches outside the wrapper (the vendor files stay unchanged) */
+  site_styles?: readonly string[];
 };
 
 export type BrandConfig = {
