@@ -88,6 +88,7 @@ const LINKS = {
   pillows: '/pillows',
   contact: '/contact-us',
   financing: '/mattress-financing',
+  clearance: '/clearance',
 };
 
 /* The local FAQ of the Tempur-Pedic page: one entry per question, rendered to both the visible accordion and the
@@ -128,7 +129,7 @@ export const BRAND_PAGE_LOCATION = {
   state: L.region,
   site_url: 'https://mcallen.snoozemattresscompany.com', // = lib/schema.ts SITE_URL (lib/brand-pages/site.ts checks)
   site_name: `${L.name} ${L.city}`, // "Snooze Mattress + Wellness McAllen"
-  street_short: L.street.split(',')[0], // "7913 N 10th St" (the street without the suite)
+  address_short: L.street.split(',')[0], // "7913 N 10th St" (the street without the suite; the answer sentence)
   address_line1: L.street,
   address_line2: ADDRESS_LINE2,
   hours_lines: L.hours.en,
@@ -138,6 +139,12 @@ export const BRAND_PAGE_LOCATION = {
   maps_url: L.mapLink,
   nearby: NEARBY,
   links: LINKS,
+  /* The Sales page (/mattress-sales, lib/snooze/snooze-sales.js; package snooze-local-pages v4). local_intro is the
+     McAllen entry of the package's config/sales/local-intros.json, verbatim (marked there "draft: store manager to
+     confirm"). */
+  timezone: 'America/Chicago',
+  sales_path: '/mattress-sales',
+  local_intro: "Snooze Mattress on North 10th Street serves the Rio Grande Valley, including Edinburg, Mission, Pharr and Weslaco. Hot Valley nights make the right fit and cooling matter, so start with free Dream Mapping and let a Sleep Coach match you to this month's best deal.",
   brand_pages: {
     'tempur-pedic': { page_path: '/tempur-pedic', asset_base: '/brands/tempur-pedic/', faq: TEMPUR_PEDIC_FAQ },
   },

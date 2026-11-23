@@ -1,0 +1,57 @@
+{
+  "_note": "EXAMPLE ONLY \u2013 shape of the clearance items the Sales page expects. In production pass the store's real clearance items (same source as /clearance).",
+  "items": [
+    {
+      "id": "EX-1",
+      "brand": "[Example brand]",
+      "name": "[Example] Queen hybrid mattress",
+      "size": "Queen",
+      "price": 899,
+      "retail": 1699,
+      "savings_pct": 47,
+      "qty": 1,
+      "label": "Floor model",
+      "image": "",
+      "url": "/clearance"
+    },
+    {
+      "id": "EX-2",
+      "brand": "[Example brand]",
+      "name": "[Example] King memory foam mattress",
+      "size": "King",
+      "price": 1299,
+      "retail": 2199,
+      "savings_pct": 41,
+      "qty": 2,
+      "label": "Clearance",
+      "image": "",
+      "url": "/clearance"
+    },
+    {
+      "id": "EX-3",
+      "brand": "[Example brand]",
+      "name": "[Example] Split King adjustable base",
+      "size": "Split King",
+      "price": 1499,
+      "retail": 2399,
+      "savings_pct": 38,
+      "qty": 1,
+      "label": "Floor model",
+      "image": "",
+      "url": "/clearance"
+    },
+    {
+      "id": "EX-4",
+      "brand": "[Example brand]",
+      "name": "[Example] Queen pillow-top mattress",
+      "size": "Queen",
+      "price": 699,
+      "retail": 1049,
+      "savings_pct": 33,
+      "qty": 3,
+      "label": "Clearance",
+      "image": "",
+      "url": "/clearance"
+    }
+  ]
+}

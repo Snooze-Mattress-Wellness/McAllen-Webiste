@@ -28,7 +28,6 @@ const PAGES: Array<[path: string, priority: number]> = [
   ['/sleep-recliner', 0.8],
   ['/at-home-sleep-test-kit-by-sleepcorner', 0.8],
   ['/mattress-financing', 0.8],
-  ['/mattress-sales', 0.8],
   ['/booking', 0.8],
   ['/contact-us', 0.7], // the contact page (indexable since October 29, 2026)
   ['/sleep-quiz', 0.8],
@@ -74,6 +73,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }
   // Tempur-Pedic brand page: English only (no /es twin, no hreflang alternates; /es/tempur-pedic redirects here)
   out.push({ url: abs('/tempur-pedic'), lastModified: lastmod('/tempur-pedic', now), changeFrequency: 'monthly', priority: 0.8 });
+  // Sales page: English only (no /es twin, no hreflang alternates; /es/mattress-sales redirects here); offers change
+  // with the Offer Calendar
+  out.push({ url: abs('/mattress-sales'), lastModified: lastmod('/mattress-sales', now), changeFrequency: 'daily', priority: 0.8 });
   // Clearance & Floor Models: English only (no /es twin; /es/clearance redirects here), listings change often
   out.push({ url: abs('/clearance'), lastModified: lastmod('/clearance', now), changeFrequency: 'daily', priority: 0.7, alternates: { languages: { 'en-US': abs('/clearance'), 'x-default': abs('/clearance') } } });
   return out;

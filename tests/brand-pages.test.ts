@@ -32,7 +32,7 @@ test('copy: the package strings, with the city and state filled in', () => {
   assert.equal(TP.copy.h1(LOC), 'Tempur-Pedic Mattresses in McAllen, TX');
   assert.equal(TP.copy.visit_heading(LOC), 'Try Tempur-Pedic in McAllen');
   assert.equal(TP.copy.plain_answer(LOC), 'Snooze Mattress + Wellness at 7913 N 10th St in McAllen carries Tempur-Pedic mattresses, adjustable bases and pillows.');
-  assert.equal(TP.copy.plain_answer({ ...LOC, business_name: 'Snooze Mattress + Wellness', street_short: '100 Main St', city: 'Rockwall' }), 'Snooze Mattress + Wellness at 100 Main St in Rockwall carries Tempur-Pedic mattresses, adjustable bases and pillows.');
+  assert.equal(TP.copy.plain_answer({ ...LOC, business_name: 'Snooze Mattress + Wellness', address_short: '100 Main St', city: 'Rockwall' }), 'Snooze Mattress + Wellness at 100 Main St in Rockwall carries Tempur-Pedic mattresses, adjustable bases and pillows.');
   assert.equal(TP.copy.why_heading(LOC), 'Why Buy Tempur-Pedic at Snooze Mattress in McAllen');
   assert.equal(TP.copy.faq_heading(LOC), 'Tempur-Pedic in McAllen: Common Questions');
 });
@@ -65,21 +65,23 @@ test('structured data: WebPage, BreadcrumbList and FAQPage; the FAQPage text is 
   assert.ok(!JSON.stringify([webPage, crumbs, faqPage]).includes('Review'), 'no Review / AggregateRating');
 });
 
-test('location config (lib/location.ts BRAND_PAGE_LOCATION): the handoff fields, equal to the package mcallen.json', () => {
-  // config/locations/mcallen.json of the package (v2.1), field for field; the repo values are derived from LOCATION
+test('location config (lib/location.ts BRAND_PAGE_LOCATION): the handoff fields, equal to the package v4 mcallen.json', () => {
+  // config/locations/mcallen.json of the package (v4), field for field; the repo values are derived from LOCATION
   const pkg = {
     store_id: 'mcallen', city: 'McAllen', state: 'TX', site_url: 'https://mcallen.snoozemattresscompany.com', site_name: 'Snooze Mattress + Wellness McAllen',
     address_line1: '7913 N 10th St, Suite 130', address_line2: 'McAllen, TX 78504', hours_lines: ['Mon–Sat 10 AM–7 PM', 'Sun 12–6 PM'],
     hours_sentence: 'Monday to Saturday 10 AM to 7 PM and Sunday 12 to 6 PM', phone_display: '(956) 586-5646', phone_e164: '+19565865646',
     maps_url: 'https://www.google.com/maps/place/?q=place_id:ChIJBYBxOXChZYYR48f71GAS7YY',
     nearby: [{ name: 'Edinburg', path: '/mattress-store-edinburg' }, { name: 'Mission', path: '/mattress-store-mission' }, { name: 'Pharr', path: '/mattress-store-pharr' }],
-    links: { home: '/', mattresses: '/mattresses', booking: '/booking', dream_mapping: '/dream-mapping', memory_foam: '/memory-foam-mattresses', cooling: '/cooling-mattresses', bases: '/adjustable-mattress-bases', pillows: '/pillows', contact: '/contact-us', financing: '/mattress-financing' },
+    links: { home: '/', mattresses: '/mattresses', booking: '/booking', dream_mapping: '/dream-mapping', memory_foam: '/memory-foam-mattresses', cooling: '/cooling-mattresses', bases: '/adjustable-mattress-bases', pillows: '/pillows', contact: '/contact-us', financing: '/mattress-financing', clearance: '/clearance' },
+    address_short: '7913 N 10th St', timezone: 'America/Chicago', sales_path: '/mattress-sales',
+    local_intro: "Snooze Mattress on North 10th Street serves the Rio Grande Valley, including Edinburg, Mission, Pharr and Weslaco. Hot Valley nights make the right fit and cooling matter, so start with free Dream Mapping and let a Sleep Coach match you to this month's best deal.",
   };
   for (const [k, v] of Object.entries(pkg)) assert.deepEqual((BRAND_PAGE_LOCATION as Record<string, unknown>)[k], v, k);
   const tp = BRAND_PAGE_LOCATION.brand_pages['tempur-pedic'];
   assert.equal(tp.page_path, '/tempur-pedic'); assert.equal(tp.asset_base, '/brands/tempur-pedic/'); assert.equal(tp.asset_base, TP.asset_base);
   assert.equal(BRAND_PAGE_LOCATION.business_name, 'Snooze Mattress + Wellness');
-  assert.equal(BRAND_PAGE_LOCATION.street_short, '7913 N 10th St');
+  assert.equal(BRAND_PAGE_LOCATION.address_short, '7913 N 10th St');
   // derived from the site's own data, so the page cannot disagree with the header, footer and structured data
   assert.equal(BRAND_PAGE_LOCATION.phone_display, LOCATION.phone);
   assert.equal(`tel:${BRAND_PAGE_LOCATION.phone_e164}`, LOCATION.phoneHref);

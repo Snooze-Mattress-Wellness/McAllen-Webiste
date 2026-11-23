@@ -64,6 +64,9 @@ function setText(page, id, html) {
 }
 
 for (const rel of ['app/(en)/mattress-sales/content.ts', 'app/es/mattress-sales/content.ts']) {
+  // since November 23, 2026 /mattress-sales is the hand-written Sales page (app/(en)/mattress-sales/page.tsx) and
+  // /es/mattress-sales redirects to it: there is no converted page to patch
+  if (!fs.existsSync(path.join(ROOT, rel))) { console.log(`  ${rel}: not a converted page any more (the Sales page is hand-written), skipped`); continue; }
   const loc = rel.startsWith('app/es/') ? 'es' : 'en';
   const page = readPage(path.join(ROOT, rel)); if (!page) { console.log(`  ${rel}: unreadable, skipped`); continue; }
   const notes = [];
