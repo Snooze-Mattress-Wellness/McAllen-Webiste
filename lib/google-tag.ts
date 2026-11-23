@@ -92,7 +92,7 @@ export function contentGroup(pathname: string): ContentGroup {
   if (seg === 'mattress-financing') return 'financing';
   if (seg === 'mattress-sales') return 'sales'; // the Sales page (app/(en)/mattress-sales)
   if (seg === 'contact-us' || path === '/thank/you') return 'contact';
-  if (BRAND_PAGE_PATHS.includes(`/${seg}`)) return 'brand'; // the brand pages (the live ones in lib/brand-pages/brand-list.ts: /tempur-pedic, /beautyrest, /serta)
+  if (BRAND_PAGE_PATHS.includes(`/${seg}`)) return 'brand'; // the brand pages (the live ones in lib/brand-pages/brand-list.ts: /tempur-pedic, /beautyrest, /serta, /sealy, /stearns-foster)
   if (PRODUCT_PAGES.has(seg)) return 'product';
   return 'other';
 }
