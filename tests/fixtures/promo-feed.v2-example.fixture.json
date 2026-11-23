@@ -1,0 +1,1484 @@
+{
+  "version": 2,
+  "generated_at": "2026-11-21T20:15:00-06:00",
+  "source": "Snooze Offer Calendar – EXAMPLE: every web-filled Black Friday / Holiday row shown as if approved",
+  "stores": {
+    "albuquerque": {
+      "city": "Albuquerque",
+      "brands": [
+        "Helix",
+        "Beautyrest",
+        "Serta",
+        "King Koil",
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Spring Air",
+        "Brooklyn Bedding",
+        "Puffy",
+        "BedTech"
+      ]
+    },
+    "auburn": {
+      "city": "Auburn",
+      "brands": [
+        "Helix",
+        "Beautyrest",
+        "Serta",
+        "King Koil",
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Spring Air",
+        "Brooklyn Bedding",
+        "Puffy",
+        "BedTech"
+      ]
+    },
+    "foley": {
+      "city": "Foley",
+      "brands": [
+        "Helix",
+        "Beautyrest",
+        "Serta",
+        "King Koil",
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Spring Air",
+        "Brooklyn Bedding",
+        "Puffy",
+        "BedTech"
+      ]
+    },
+    "gadsden": {
+      "city": "Gadsden",
+      "brands": [
+        "Helix",
+        "Beautyrest",
+        "Serta",
+        "King Koil",
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Spring Air",
+        "Brooklyn Bedding",
+        "Puffy",
+        "BedTech"
+      ]
+    },
+    "jasper-clearance-center": {
+      "city": "Jasper",
+      "brands": [
+        "Helix",
+        "Beautyrest",
+        "Serta",
+        "King Koil",
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Spring Air",
+        "Brooklyn Bedding",
+        "Puffy",
+        "BedTech"
+      ]
+    },
+    "madison": {
+      "city": "Madison",
+      "brands": [
+        "Helix",
+        "Beautyrest",
+        "Serta",
+        "King Koil",
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Spring Air",
+        "Brooklyn Bedding",
+        "Puffy",
+        "BedTech"
+      ]
+    },
+    "oxford": {
+      "city": "Oxford",
+      "brands": [
+        "Helix",
+        "Beautyrest",
+        "Serta",
+        "King Koil",
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Spring Air",
+        "Brooklyn Bedding",
+        "Puffy",
+        "BedTech"
+      ]
+    },
+    "prattville": {
+      "city": "Prattville",
+      "brands": [
+        "Helix",
+        "Beautyrest",
+        "Serta",
+        "King Koil",
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Spring Air",
+        "Brooklyn Bedding",
+        "Puffy",
+        "BedTech"
+      ]
+    },
+    "tuscaloosa": {
+      "city": "Tuscaloosa",
+      "brands": [
+        "Helix",
+        "Beautyrest",
+        "Serta",
+        "King Koil",
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Spring Air",
+        "Brooklyn Bedding",
+        "Puffy",
+        "BedTech"
+      ]
+    },
+    "guntersville": {
+      "city": "Guntersville",
+      "brands": [
+        "Helix",
+        "Beautyrest",
+        "Serta",
+        "King Koil",
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Spring Air",
+        "Brooklyn Bedding",
+        "Puffy",
+        "BedTech"
+      ]
+    },
+    "castle-rock": {
+      "city": "Castle Rock",
+      "brands": [
+        "Helix",
+        "Beautyrest",
+        "Serta",
+        "King Koil",
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Spring Air",
+        "Brooklyn Bedding",
+        "Puffy",
+        "BedTech"
+      ]
+    },
+    "colorado-springs-dublin": {
+      "city": "Colorado Springs (Dublin Blvd)",
+      "brands": [
+        "Helix",
+        "Beautyrest",
+        "Serta",
+        "King Koil",
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Spring Air",
+        "Brooklyn Bedding",
+        "Puffy",
+        "BedTech"
+      ]
+    },
+    "colorado-springs-austin-bluffs": {
+      "city": "Colorado Springs (Austin Bluffs)",
+      "brands": [
+        "Helix",
+        "Beautyrest",
+        "Serta",
+        "King Koil",
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Spring Air",
+        "Brooklyn Bedding",
+        "Puffy",
+        "BedTech"
+      ]
+    },
+    "fort-collins": {
+      "city": "Fort Collins",
+      "brands": [
+        "Helix",
+        "Beautyrest",
+        "Serta",
+        "King Koil",
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Spring Air",
+        "Brooklyn Bedding",
+        "Puffy",
+        "BedTech"
+      ]
+    },
+    "parker": {
+      "city": "Parker",
+      "brands": [
+        "Helix",
+        "Beautyrest",
+        "Serta",
+        "King Koil",
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Spring Air",
+        "Brooklyn Bedding",
+        "Puffy",
+        "BedTech"
+      ]
+    },
+    "pueblo-west": {
+      "city": "Pueblo West",
+      "brands": [
+        "Helix",
+        "Beautyrest",
+        "Serta",
+        "King Koil",
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Spring Air",
+        "Brooklyn Bedding",
+        "Puffy",
+        "BedTech"
+      ]
+    },
+    "woodland-park": {
+      "city": "Woodland Park",
+      "brands": [
+        "Helix",
+        "Beautyrest",
+        "Serta",
+        "King Koil",
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Spring Air",
+        "Brooklyn Bedding",
+        "Puffy",
+        "BedTech"
+      ]
+    },
+    "millville": {
+      "city": "Millville",
+      "brands": [
+        "Helix",
+        "Beautyrest",
+        "Serta",
+        "King Koil",
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Spring Air",
+        "Brooklyn Bedding",
+        "Puffy",
+        "BedTech"
+      ]
+    },
+    "rome": {
+      "city": "Rome",
+      "brands": [
+        "Helix",
+        "Beautyrest",
+        "Serta",
+        "King Koil",
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Spring Air",
+        "Brooklyn Bedding",
+        "Puffy",
+        "BedTech"
+      ]
+    },
+    "indianapolis": {
+      "city": "Indianapolis",
+      "brands": [
+        "Helix",
+        "Beautyrest",
+        "Serta",
+        "King Koil",
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Spring Air",
+        "Brooklyn Bedding",
+        "Puffy",
+        "BedTech"
+      ]
+    },
+    "troy": {
+      "city": "Troy",
+      "brands": [
+        "Helix",
+        "Beautyrest",
+        "Serta",
+        "King Koil",
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Spring Air",
+        "Brooklyn Bedding",
+        "Puffy",
+        "BedTech"
+      ]
+    },
+    "chesterfield": {
+      "city": "Chesterfield",
+      "brands": [
+        "Helix",
+        "Beautyrest",
+        "Serta",
+        "King Koil",
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Spring Air",
+        "Brooklyn Bedding",
+        "Puffy",
+        "BedTech"
+      ]
+    },
+    "cornelius": {
+      "city": "Cornelius",
+      "brands": [
+        "Helix",
+        "Beautyrest",
+        "Serta",
+        "King Koil",
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Spring Air",
+        "Brooklyn Bedding",
+        "Puffy",
+        "BedTech"
+      ]
+    },
+    "omaha-whispering-ridge": {
+      "city": "Omaha (Whispering Ridge)",
+      "brands": [
+        "Helix",
+        "Beautyrest",
+        "Serta",
+        "King Koil",
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Spring Air",
+        "Brooklyn Bedding",
+        "Puffy",
+        "BedTech"
+      ]
+    },
+    "omaha-wright-plaza": {
+      "city": "Omaha (Wright Plaza)",
+      "brands": [
+        "Helix",
+        "Beautyrest",
+        "Serta",
+        "King Koil",
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Spring Air",
+        "Brooklyn Bedding",
+        "Puffy",
+        "BedTech"
+      ]
+    },
+    "myrtlebeach": {
+      "city": "Murrells Inlet",
+      "brands": [
+        "Helix",
+        "Beautyrest",
+        "Serta",
+        "King Koil",
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Spring Air",
+        "Brooklyn Bedding",
+        "Puffy",
+        "BedTech"
+      ]
+    },
+    "brownsville": {
+      "city": "Brownsville",
+      "brands": [
+        "Helix",
+        "Beautyrest",
+        "Serta",
+        "King Koil",
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Spring Air",
+        "Brooklyn Bedding",
+        "Puffy",
+        "BedTech"
+      ]
+    },
+    "el-paso": {
+      "city": "El Paso",
+      "brands": [
+        "Helix",
+        "Beautyrest",
+        "Serta",
+        "King Koil",
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Spring Air",
+        "Brooklyn Bedding",
+        "Puffy",
+        "BedTech"
+      ]
+    },
+    "mcallen": {
+      "city": "McAllen",
+      "brands": [
+        "Helix",
+        "Beautyrest",
+        "Serta",
+        "King Koil",
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Spring Air",
+        "Brooklyn Bedding",
+        "Puffy",
+        "BedTech"
+      ]
+    },
+    "rockwall": {
+      "city": "Rockwall",
+      "brands": [
+        "Helix",
+        "Beautyrest",
+        "Serta",
+        "King Koil",
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Spring Air",
+        "Brooklyn Bedding",
+        "Puffy",
+        "BedTech"
+      ]
+    },
+    "san-antonio": {
+      "city": "San Antonio",
+      "brands": [
+        "Helix",
+        "Beautyrest",
+        "Serta",
+        "King Koil",
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Spring Air",
+        "Brooklyn Bedding",
+        "Puffy",
+        "BedTech"
+      ]
+    },
+    "pleasant-grove": {
+      "city": "Pleasant Grove",
+      "brands": [
+        "Helix",
+        "Beautyrest",
+        "Serta",
+        "King Koil",
+        "Tempur-Pedic",
+        "Sealy",
+        "Stearns & Foster",
+        "Spring Air",
+        "Brooklyn Bedding",
+        "Puffy",
+        "BedTech"
+      ]
+    }
+  },
+  "events": [
+    {
+      "id": "BF26-00",
+      "name": "Black Friday Sale",
+      "headline": "",
+      "start": "2026-10-30",
+      "end": "2026-12-10"
+    },
+    {
+      "id": "NY26-00",
+      "name": "Holiday & Year-End Sale",
+      "headline": "",
+      "start": "2026-12-09",
+      "end": "2027-01-05"
+    }
+  ],
+  "promotions": [
+    {
+      "block": "BF26-TEMPUR",
+      "vendor": "Tempur-Pedic",
+      "event": "Black Friday Sale",
+      "start": "2026-11-03",
+      "end": "2026-12-01",
+      "headline": "Save Up to $500 on Tempur-Pedic Smart Base Sets",
+      "amount": "Up to $500",
+      "fine_print": "Offers valid November 3 – December 1, 2026 on the models named. See store for details.",
+      "image": "base",
+      "stores": [],
+      "items": [
+        {
+          "id": "BF26-02",
+          "text": "$300 off Tempur-LuxeAdapt, ProBreeze, LuxeBreeze and ActiveBreeze",
+          "amount": "$300 off",
+          "fine_print": "",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        },
+        {
+          "id": "BF26-03",
+          "text": "$600 off Tempur-LuxeBreeze Split Head King",
+          "amount": "$600 off",
+          "fine_print": "",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        },
+        {
+          "id": "BF26-04",
+          "text": "$200 off Tempur-Adapt and ProAdapt",
+          "amount": "$200 off",
+          "fine_print": "",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        },
+        {
+          "id": "BF26-05",
+          "text": "$25 off Tempur-Adapt and Breeze pillows",
+          "amount": "$25 off",
+          "fine_print": "",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        },
+        {
+          "id": "BF26-06",
+          "text": "$100 off TEMPUR-Ergo",
+          "amount": "$100 off",
+          "fine_print": "",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        },
+        {
+          "id": "BF26-07",
+          "text": "$200 off Tempur-Pedic smart bases (TEMPUR-Ergo Smart and ProSmart)",
+          "amount": "$200 off",
+          "fine_print": "",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        }
+      ]
+    },
+    {
+      "block": "BF26-STEARNS",
+      "vendor": "Stearns & Foster",
+      "event": "Black Friday Sale",
+      "start": "2026-11-03",
+      "end": "2026-12-01",
+      "headline": "Save Up to $1,000 on Select Stearns & Foster Adjustable Sets",
+      "amount": "Up to $1,000",
+      "fine_print": "Offers valid November 3 – December 1, 2026 on the models named. See store for details.",
+      "image": "base",
+      "stores": [],
+      "items": [
+        {
+          "id": "BF26-09",
+          "text": "$200 off Stearns & Foster Studio",
+          "amount": "$200 off",
+          "fine_print": "",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        },
+        {
+          "id": "BF26-10",
+          "text": "$200 off Stearns & Foster Estate",
+          "amount": "$200 off",
+          "fine_print": "",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        },
+        {
+          "id": "BF26-11",
+          "text": "$400 off Stearns & Foster Lux Estate",
+          "amount": "$400 off",
+          "fine_print": "",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        },
+        {
+          "id": "BF26-12",
+          "text": "$600 off Stearns & Foster Lux Hybrid Elite",
+          "amount": "$600 off",
+          "fine_print": "",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        },
+        {
+          "id": "BF26-13",
+          "text": "$600 off Stearns & Foster Legacy",
+          "amount": "$600 off",
+          "fine_print": "",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        },
+        {
+          "id": "BF26-14",
+          "text": "$800 off Stearns & Foster Reserve",
+          "amount": "$800 off",
+          "fine_print": "",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        },
+        {
+          "id": "BF26-15",
+          "text": "$100 off TEMPUR-Ergo base",
+          "amount": "$100 off",
+          "fine_print": "",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        },
+        {
+          "id": "BF26-16",
+          "text": "$200 off TEMPUR-Ergo Smart and ProSmart bases",
+          "amount": "$200 off",
+          "fine_print": "",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        }
+      ]
+    },
+    {
+      "block": "BF26-SEALY",
+      "vendor": "Sealy",
+      "event": "Black Friday Sale",
+      "start": "2026-11-03",
+      "end": "2026-12-01",
+      "headline": "Save Up to $400 on Select Sealy Adjustable Sets",
+      "amount": "Up to $400",
+      "fine_print": "Offers valid November 3 – December 1, 2026 on the models named. See store for details.",
+      "image": "base",
+      "stores": [],
+      "items": [
+        {
+          "id": "BF26-18",
+          "text": "$100 off Sealy Albany II",
+          "amount": "$100 off",
+          "fine_print": "",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        },
+        {
+          "id": "BF26-19",
+          "text": "$100 off Sealy Brenham II",
+          "amount": "$100 off",
+          "fine_print": "",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        },
+        {
+          "id": "BF26-20",
+          "text": "$200 off Sealy High Point II",
+          "amount": "$200 off",
+          "fine_print": "",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        },
+        {
+          "id": "BF26-21",
+          "text": "$100 off TEMPUR-Ergo base",
+          "amount": "$100 off",
+          "fine_print": "",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        },
+        {
+          "id": "BF26-22",
+          "text": "$200 off TEMPUR-Ergo Smart and ProSmart bases",
+          "amount": "$200 off",
+          "fine_print": "",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        }
+      ]
+    },
+    {
+      "block": "BF26-SERTA",
+      "vendor": "Serta",
+      "event": "Black Friday Sale",
+      "start": "2026-11-03",
+      "end": "2026-12-01",
+      "headline": "",
+      "amount": "",
+      "fine_print": "",
+      "image": "",
+      "stores": [],
+      "items": [
+        {
+          "id": "BF26-23",
+          "text": "Save up to $700 on Serta Perfect Sleeper",
+          "amount": "Up to $700",
+          "fine_print": "Offer valid November 3 – December 1, 2026 on the models named. See store for details.",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        },
+        {
+          "id": "BF26-24",
+          "text": "Save up to $900 on Serta iComfort",
+          "amount": "Up to $900",
+          "fine_print": "Offer valid November 3 – December 1, 2026 on the models named. See store for details.",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        },
+        {
+          "id": "BF26-25",
+          "text": "Save up to $700 on Serta iSeries NXG",
+          "amount": "Up to $700",
+          "fine_print": "Offer valid November 3 – December 1, 2026 on the models named. See store for details.",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        }
+      ]
+    },
+    {
+      "block": "BF26-KINGKOIL",
+      "vendor": "King Koil",
+      "event": "Black Friday Sale",
+      "start": "2026-11-03",
+      "end": "2026-12-01",
+      "headline": "Save up to $300 on FLOWT and Handcrafted by King Koil mattresses",
+      "amount": "Up to $300",
+      "fine_print": "Offer valid November 3 – December 1, 2026. Can't be combined with the Handcrafted by King Koil free adjustable base. See store for details.",
+      "image": "",
+      "stores": [],
+      "items": []
+    },
+    {
+      "block": "BF26-BEAUTYREST-BLACK",
+      "vendor": "Beautyrest",
+      "event": "Black Friday Sale",
+      "start": "2026-11-03",
+      "end": "2026-12-01",
+      "headline": "Save up to $1,000 on Beautyrest Black",
+      "amount": "Up to $1,000",
+      "fine_print": "Offer valid November 3 – December 1, 2026. Up to $700 off a Series Four mattress plus $300 off a Beautyrest Black Luxury or Baselogic Platinum base. Series Five not included. See store for details.",
+      "image": "",
+      "stores": [],
+      "items": [
+        {
+          "id": "BF26-28",
+          "text": "$300 off Beautyrest Black Series One",
+          "amount": "$300 off",
+          "fine_print": "Offer valid November 3 – December 1, 2026 on the models named. See store for details.",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        },
+        {
+          "id": "BF26-29",
+          "text": "$300 off Beautyrest Black Series Two",
+          "amount": "$300 off",
+          "fine_print": "Offer valid November 3 – December 1, 2026 on the models named. See store for details.",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        },
+        {
+          "id": "BF26-30",
+          "text": "$600 off Beautyrest Black Series Three",
+          "amount": "$600 off",
+          "fine_print": "Offer valid November 3 – December 1, 2026 on the models named. See store for details.",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        },
+        {
+          "id": "BF26-31",
+          "text": "$700 off Beautyrest Black Series Four",
+          "amount": "$700 off",
+          "fine_print": "Offer valid November 3 – December 1, 2026 on the models named. See store for details.",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        },
+        {
+          "id": "BF26-36",
+          "text": "$300 off Baselogic Platinum",
+          "amount": "$300 off",
+          "fine_print": "Offer valid November 3 – December 1, 2026 on the models named. See store for details.",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        },
+        {
+          "id": "BF26-37",
+          "text": "$300 off Beautyrest Black Luxury base",
+          "amount": "$300 off",
+          "fine_print": "Offer valid November 3 – December 1, 2026 on the models named. See store for details.",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        }
+      ]
+    },
+    {
+      "block": "BF26-BEAUTYREST-WC",
+      "vendor": "Beautyrest",
+      "event": "Black Friday Sale",
+      "start": "2026-11-03",
+      "end": "2026-12-01",
+      "headline": "Save up to $500 on Beautyrest World Class",
+      "amount": "Up to $500",
+      "fine_print": "Offer valid November 3 – December 1, 2026. $200 off the mattress plus $300 off an adjustable base. See store for details.",
+      "image": "",
+      "stores": [],
+      "items": [
+        {
+          "id": "BF26-34",
+          "text": "$200 off Beautyrest World Class Level Three",
+          "amount": "$200 off",
+          "fine_print": "Offer valid November 3 – December 1, 2026 on the models named. See store for details.",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        },
+        {
+          "id": "BF26-35",
+          "text": "$200 off Beautyrest World Class Level Four",
+          "amount": "$200 off",
+          "fine_print": "Offer valid November 3 – December 1, 2026 on the models named. See store for details.",
+          "start": "2026-11-03",
+          "end": "2026-12-01"
+        }
+      ]
+    },
+    {
+      "block": "BF26-COPPER",
+      "vendor": "Spring Air",
+      "event": "Black Friday Sale",
+      "start": "2026-11-13",
+      "end": "2026-12-01",
+      "headline": "Save up to $1,000 on Copper by Spring Air mattresses",
+      "amount": "Up to $1,000",
+      "fine_print": "Offer valid November 13 – December 1, 2026. Choose this offer or the free Copper pillow and adjustable base offer, not both. See store for details.",
+      "image": "",
+      "stores": [],
+      "items": [
+        {
+          "id": "BF26-39",
+          "text": "Free Copper pillow and adjustable base with any Copper by Spring Air mattress",
+          "amount": "Free",
+          "fine_print": "Offer valid November 13 – December 1, 2026 with purchase of a Copper by Spring Air mattress. Can't be combined with the Copper dollar-off offer. See store for details.",
+          "start": "2026-11-13",
+          "end": "2026-12-01"
+        }
+      ]
+    },
+    {
+      "block": "BF26-BROOKLYN-41",
+      "vendor": "Brooklyn Bedding",
+      "event": "Black Friday Sale",
+      "start": "2026-11-12",
+      "end": "2026-11-29",
+      "headline": "30% off Brooklyn Bedding",
+      "amount": "30% off",
+      "fine_print": "Offer valid November 12 – November 29, 2026 on Brooklyn Bedding products. See store for details.",
+      "image": "",
+      "stores": [],
+      "items": []
+    },
+    {
+      "block": "BF26-BROOKLYN-42",
+      "vendor": "Brooklyn Bedding",
+      "event": "Black Friday Sale",
+      "start": "2026-11-30",
+      "end": "2026-11-30",
+      "headline": "30% off Brooklyn Bedding",
+      "amount": "30% off",
+      "fine_print": "Offer valid November 30, 2026 on Brooklyn Bedding products. See store for details.",
+      "image": "",
+      "stores": [],
+      "items": []
+    },
+    {
+      "block": "BF26-BROOKLYN-43",
+      "vendor": "Brooklyn Bedding",
+      "event": "Black Friday Sale",
+      "start": "2026-12-01",
+      "end": "2026-12-08",
+      "headline": "25% off Brooklyn Bedding",
+      "amount": "25% off",
+      "fine_print": "Offer valid December 1 – December 8, 2026 on Brooklyn Bedding products. See store for details.",
+      "image": "",
+      "stores": [],
+      "items": []
+    },
+    {
+      "block": "BF26-HELIX-44",
+      "vendor": "Helix",
+      "event": "Black Friday Sale",
+      "start": "2026-10-30",
+      "end": "2026-11-29",
+      "headline": "25% off all Helix mattresses",
+      "amount": "25% off",
+      "fine_print": "Offer valid October 30 – November 29, 2026. Can't be combined with the free adjustable base. See store for details.",
+      "image": "",
+      "stores": [],
+      "items": []
+    },
+    {
+      "block": "BF26-HELIX-45",
+      "vendor": "Helix",
+      "event": "Black Friday Sale",
+      "start": "2026-11-30",
+      "end": "2026-12-06",
+      "headline": "25% off all Helix mattresses",
+      "amount": "25% off",
+      "fine_print": "Offer valid November 30 – December 6, 2026. Can't be combined with the free adjustable base. See store for details.",
+      "image": "",
+      "stores": [],
+      "items": []
+    },
+    {
+      "block": "BF26-HELIX-46",
+      "vendor": "Helix",
+      "event": "Black Friday Sale",
+      "start": "2026-12-07",
+      "end": "2026-12-10",
+      "headline": "20% off all Helix mattresses",
+      "amount": "20% off",
+      "fine_print": "Offer valid December 7 – December 10, 2026. Can't be combined with the free adjustable base. See store for details.",
+      "image": "",
+      "stores": [],
+      "items": []
+    },
+    {
+      "block": "NY26-TEMPUR",
+      "vendor": "Tempur-Pedic",
+      "event": "Holiday & Year-End Sale",
+      "start": "2026-12-15",
+      "end": "2027-01-05",
+      "headline": "Save Up to $500 on Select Tempur-Pedic Adjustable Sets",
+      "amount": "Up to $500",
+      "fine_print": "Offers valid December 15, 2026 – January 5, 2027 on the models named. Sets and smart bases sold as set where noted. See store for details.",
+      "image": "base",
+      "stores": [],
+      "items": [
+        {
+          "id": "NY26-02",
+          "text": "$300 off Tempur-LuxeAdapt, ProBreeze, LuxeBreeze and ActiveBreeze sets",
+          "amount": "$300 off",
+          "fine_print": "",
+          "start": "2026-12-15",
+          "end": "2027-01-05"
+        },
+        {
+          "id": "NY26-03",
+          "text": "$600 off Tempur-LuxeBreeze Split Head King",
+          "amount": "$600 off",
+          "fine_print": "",
+          "start": "2026-12-15",
+          "end": "2027-01-05"
+        },
+        {
+          "id": "NY26-04",
+          "text": "$200 off Tempur-Adapt and ProAdapt",
+          "amount": "$200 off",
+          "fine_print": "",
+          "start": "2026-12-15",
+          "end": "2027-01-05"
+        },
+        {
+          "id": "NY26-05",
+          "text": "$200 off TEMPUR-Ergo Smart bases (Ergo Smart, Ergo ProSmart and ProSmart Air)",
+          "amount": "$200 off",
+          "fine_print": "",
+          "start": "2026-12-15",
+          "end": "2027-01-05"
+        },
+        {
+          "id": "NY26-06",
+          "text": "$100 off TEMPUR-Ergo",
+          "amount": "$100 off",
+          "fine_print": "",
+          "start": "2026-12-15",
+          "end": "2027-01-05"
+        }
+      ]
+    },
+    {
+      "block": "NY26-STEARNS",
+      "vendor": "Stearns & Foster",
+      "event": "Holiday & Year-End Sale",
+      "start": "2026-12-15",
+      "end": "2027-01-05",
+      "headline": "Save Up to $1,000 on Select Stearns & Foster Adjustable Sets",
+      "amount": "Up to $1,000",
+      "fine_print": "Offers valid December 15, 2026 – January 5, 2027 on the models named. See store for details.",
+      "image": "base",
+      "stores": [],
+      "items": [
+        {
+          "id": "NY26-08",
+          "text": "$200 off Stearns & Foster Studio and Estate",
+          "amount": "$200 off",
+          "fine_print": "",
+          "start": "2026-12-15",
+          "end": "2027-01-05"
+        },
+        {
+          "id": "NY26-09",
+          "text": "$400 off Stearns & Foster Lux Estate",
+          "amount": "$400 off",
+          "fine_print": "",
+          "start": "2026-12-15",
+          "end": "2027-01-05"
+        },
+        {
+          "id": "NY26-10",
+          "text": "$600 off Stearns & Foster Lux Hybrid Elite and Legacy",
+          "amount": "$600 off",
+          "fine_print": "",
+          "start": "2026-12-15",
+          "end": "2027-01-05"
+        },
+        {
+          "id": "NY26-11",
+          "text": "$800 off Stearns & Foster Reserve",
+          "amount": "$800 off",
+          "fine_print": "",
+          "start": "2026-12-15",
+          "end": "2027-01-05"
+        },
+        {
+          "id": "NY26-12",
+          "text": "$200 off TEMPUR-Ergo Smart and ProSmart bases",
+          "amount": "$200 off",
+          "fine_print": "",
+          "start": "2026-12-15",
+          "end": "2027-01-05"
+        },
+        {
+          "id": "NY26-13",
+          "text": "$100 off TEMPUR-Ergo base",
+          "amount": "$100 off",
+          "fine_print": "",
+          "start": "2026-12-15",
+          "end": "2027-01-05"
+        }
+      ]
+    },
+    {
+      "block": "NY26-SEALY",
+      "vendor": "Sealy",
+      "event": "Holiday & Year-End Sale",
+      "start": "2026-12-15",
+      "end": "2027-01-05",
+      "headline": "Save Up to $400 on Select Sealy Adjustable Sets",
+      "amount": "Up to $400",
+      "fine_print": "Offers valid December 15, 2026 – January 5, 2027 on the models named. See store for details.",
+      "image": "base",
+      "stores": [],
+      "items": [
+        {
+          "id": "NY26-15",
+          "text": "$100 off Sealy Albany II",
+          "amount": "$100 off",
+          "fine_print": "",
+          "start": "2026-12-15",
+          "end": "2027-01-05"
+        },
+        {
+          "id": "NY26-16",
+          "text": "$100 off Sealy Brenham II",
+          "amount": "$100 off",
+          "fine_print": "",
+          "start": "2026-12-15",
+          "end": "2027-01-05"
+        },
+        {
+          "id": "NY26-17",
+          "text": "$200 off Sealy High Point II",
+          "amount": "$200 off",
+          "fine_print": "",
+          "start": "2026-12-15",
+          "end": "2027-01-05"
+        },
+        {
+          "id": "NY26-18",
+          "text": "$200 off TEMPUR-Ergo Smart and ProSmart bases",
+          "amount": "$200 off",
+          "fine_print": "",
+          "start": "2026-12-15",
+          "end": "2027-01-05"
+        },
+        {
+          "id": "NY26-19",
+          "text": "$100 off TEMPUR-Ergo base",
+          "amount": "$100 off",
+          "fine_print": "",
+          "start": "2026-12-15",
+          "end": "2027-01-05"
+        }
+      ]
+    },
+    {
+      "block": "NY26-SERTA",
+      "vendor": "Serta",
+      "event": "Holiday & Year-End Sale",
+      "start": "2026-12-15",
+      "end": "2027-01-05",
+      "headline": "",
+      "amount": "",
+      "fine_print": "",
+      "image": "",
+      "stores": [],
+      "items": [
+        {
+          "id": "NY26-20",
+          "text": "Save up to $900 on Serta iComfortPro and iComfort mattress + Baselogic Platinum base sets (up to $600 off the mattress + $300 off the base)",
+          "amount": "Up to $900",
+          "fine_print": "Offer valid December 15, 2026 – January 5, 2027 on the models named. See store for details.",
+          "start": "2026-12-15",
+          "end": "2027-01-05"
+        },
+        {
+          "id": "NY26-21",
+          "text": "Save up to $700 on Serta Perfect SleeperPro mattress + Baselogic Platinum base sets (up to $400 off the mattress + $300 off the base)",
+          "amount": "Up to $700",
+          "fine_print": "Offer valid December 15, 2026 – January 5, 2027 on the models named. See store for details.",
+          "start": "2026-12-15",
+          "end": "2027-01-05"
+        },
+        {
+          "id": "NY26-22",
+          "text": "Save up to $800 on Serta Perfect Sleeper X mattress + Baselogic Platinum base sets (up to $500 off the mattress + $300 off the base)",
+          "amount": "Up to $800",
+          "fine_print": "Offer valid December 15, 2026 – January 5, 2027 on the models named. $400 savings on Level 1 King size mattresses only; $500 savings on Level 2 King size mattresses only. See store for details.",
+          "start": "2026-12-15",
+          "end": "2027-01-05"
+        },
+        {
+          "id": "NY26-23",
+          "text": "Save up to $700 on Serta iSeries NXG mattress + Baselogic Platinum base sets (up to $400 off the mattress + $300 off the base)",
+          "amount": "Up to $700",
+          "fine_print": "Offer valid December 15, 2026 – January 5, 2027 on the models named. See store for details.",
+          "start": "2026-12-15",
+          "end": "2027-01-05"
+        }
+      ]
+    },
+    {
+      "block": "NY26-KINGKOIL",
+      "vendor": "King Koil",
+      "event": "Holiday & Year-End Sale",
+      "start": "2026-12-15",
+      "end": "2027-01-05",
+      "headline": "Save up to $300 on FLOWT and Handcrafted by King Koil mattresses",
+      "amount": "Up to $300",
+      "fine_print": "Offer valid December 15, 2026 – January 5, 2027. Can't be combined with the Handcrafted by King Koil free adjustable base. See store for details.",
+      "image": "",
+      "stores": [],
+      "items": []
+    },
+    {
+      "block": "NY26-BEAUTYREST-BLACK",
+      "vendor": "Beautyrest",
+      "event": "Holiday & Year-End Sale",
+      "start": "2026-12-15",
+      "end": "2027-01-05",
+      "headline": "Save up to $1,100 on Beautyrest Black",
+      "amount": "Up to $1,100",
+      "fine_print": "Offer valid December 15, 2026 – January 5, 2027. Up to $800 off a Series Four mattress plus $300 off a Beautyrest Black Luxury or Baselogic Platinum base. Series Five not included. See store for details.",
+      "image": "",
+      "stores": [],
+      "items": [
+        {
+          "id": "NY26-26",
+          "text": "$200 off Beautyrest Black Series One",
+          "amount": "$200 off",
+          "fine_print": "Offer valid December 15, 2026 – January 5, 2027 on the models named. See store for details.",
+          "start": "2026-12-15",
+          "end": "2027-01-05"
+        },
+        {
+          "id": "NY26-27",
+          "text": "$400 off Beautyrest Black Series Two",
+          "amount": "$400 off",
+          "fine_print": "Offer valid December 15, 2026 – January 5, 2027 on the models named. See store for details.",
+          "start": "2026-12-15",
+          "end": "2027-01-05"
+        },
+        {
+          "id": "NY26-28",
+          "text": "$600 off Beautyrest Black Series Three",
+          "amount": "$600 off",
+          "fine_print": "Offer valid December 15, 2026 – January 5, 2027 on the models named. See store for details.",
+          "start": "2026-12-15",
+          "end": "2027-01-05"
+        },
+        {
+          "id": "NY26-29",
+          "text": "$800 off Beautyrest Black Series Four",
+          "amount": "$800 off",
+          "fine_print": "Offer valid December 15, 2026 – January 5, 2027 on the models named. See store for details.",
+          "start": "2026-12-15",
+          "end": "2027-01-05"
+        },
+        {
+          "id": "NY26-31",
+          "text": "$300 off Beautyrest Black Luxury and Baselogic Platinum bases",
+          "amount": "$300 off",
+          "fine_print": "Offer valid December 15, 2026 – January 5, 2027 on the models named. See store for details.",
+          "start": "2026-12-15",
+          "end": "2027-01-05"
+        }
+      ]
+    },
+    {
+      "block": "NY26-BEAUTYREST-WC",
+      "vendor": "Beautyrest",
+      "event": "Holiday & Year-End Sale",
+      "start": "2026-12-15",
+      "end": "2027-01-05",
+      "headline": "Save up to $500 on Beautyrest World Class",
+      "amount": "Up to $500",
+      "fine_print": "Offer valid December 15, 2026 – January 5, 2027. $200 off the mattress plus $300 off an adjustable base. See store for details.",
+      "image": "",
+      "stores": [],
+      "items": [
+        {
+          "id": "NY26-33",
+          "text": "$200 off Beautyrest World Class Level 3",
+          "amount": "$200 off",
+          "fine_print": "Offer valid December 15, 2026 – January 5, 2027 on the models named. See store for details.",
+          "start": "2026-12-15",
+          "end": "2027-01-05"
+        },
+        {
+          "id": "NY26-34",
+          "text": "$200 off Beautyrest World Class Level 4",
+          "amount": "$200 off",
+          "fine_print": "Offer valid December 15, 2026 – January 5, 2027 on the models named. See store for details.",
+          "start": "2026-12-15",
+          "end": "2027-01-05"
+        }
+      ]
+    },
+    {
+      "block": "NY26-BROOKLYN-35",
+      "vendor": "Brooklyn Bedding",
+      "event": "Holiday & Year-End Sale",
+      "start": "2026-12-09",
+      "end": "2026-12-18",
+      "headline": "25% off Brooklyn Bedding",
+      "amount": "25% off",
+      "fine_print": "Offer valid December 9 – December 18, 2026 on Brooklyn Bedding products. See store for details.",
+      "image": "",
+      "stores": [],
+      "items": []
+    },
+    {
+      "block": "NY26-BROOKLYN-36",
+      "vendor": "Brooklyn Bedding",
+      "event": "Holiday & Year-End Sale",
+      "start": "2026-12-19",
+      "end": "2026-12-25",
+      "headline": "25% off Brooklyn Bedding",
+      "amount": "25% off",
+      "fine_print": "Offer valid December 19 – December 25, 2026 on Brooklyn Bedding products. See store for details.",
+      "image": "",
+      "stores": [],
+      "items": []
+    },
+    {
+      "block": "NY26-BROOKLYN-37",
+      "vendor": "Brooklyn Bedding",
+      "event": "Holiday & Year-End Sale",
+      "start": "2026-12-26",
+      "end": "2027-01-04",
+      "headline": "30% off Brooklyn Bedding",
+      "amount": "30% off",
+      "fine_print": "Offer valid December 26, 2026 – January 4, 2027 on Brooklyn Bedding products. See store for details.",
+      "image": "",
+      "stores": [],
+      "items": []
+    },
+    {
+      "block": "NY26-HELIX-38",
+      "vendor": "Helix",
+      "event": "Holiday & Year-End Sale",
+      "start": "2026-12-11",
+      "end": "2026-12-13",
+      "headline": "25% off all Helix mattresses",
+      "amount": "25% off",
+      "fine_print": "Offer valid December 11 – December 13, 2026. Can't be combined with the free adjustable base. See store for details.",
+      "image": "",
+      "stores": [],
+      "items": []
+    },
+    {
+      "block": "NY26-HELIX-39",
+      "vendor": "Helix",
+      "event": "Holiday & Year-End Sale",
+      "start": "2026-12-14",
+      "end": "2026-12-23",
+      "headline": "20% off all Helix mattresses",
+      "amount": "20% off",
+      "fine_print": "Offer valid December 14 – December 23, 2026. Can't be combined with the free adjustable base. See store for details.",
+      "image": "",
+      "stores": [],
+      "items": []
+    },
+    {
+      "block": "NY26-HELIX-40",
+      "vendor": "Helix",
+      "event": "Holiday & Year-End Sale",
+      "start": "2026-12-24",
+      "end": "2026-12-31",
+      "headline": "25% off all Helix mattresses",
+      "amount": "25% off",
+      "fine_print": "Offer valid December 24 – December 31, 2026. Can't be combined with the free adjustable base. See store for details.",
+      "image": "",
+      "stores": [],
+      "items": []
+    }
+  ],
+  "always_on": [
+    {
+      "id": "EVG-07",
+      "title": "Free Dream Mapping",
+      "body": "Always free, no purchase needed. See where your body needs support before you choose.",
+      "fine_print": "",
+      "stores": [],
+      "faq": null
+    },
+    {
+      "id": "EVG-01",
+      "title": "365-Night Sleep Guarantee",
+      "body": "Sleep on it at home with our 365-Night Sleep Guarantee.",
+      "fine_print": "See store for details.",
+      "stores": [],
+      "faq": null
+    },
+    {
+      "id": "CTD-06",
+      "title": "Special Financing",
+      "body": "0% interest for up to 60 months, no down payment.\nNo credit check options available.",
+      "fine_print": "0% interest with approved credit. No credit check options are offered separately. See store for details.",
+      "stores": [],
+      "faq": {
+        "q": "Do you offer financing on {brand} mattresses?",
+        "a": "Yes. Special financing is available: 0% interest for up to 60 months with no down payment, with approved credit. No credit check options are also available. See store for details."
+      }
+    },
+    {
+      "id": "EVG-05",
+      "title": "HSA/FSA Accepted",
+      "body": "Put your HSA or FSA dollars toward better sleep on eligible purchases.",
+      "fine_print": "Eligibility depends on your plan.",
+      "stores": [],
+      "faq": {
+        "q": "Can I use my HSA or FSA?",
+        "a": "Snooze Mattress accepts HSA and FSA payments on eligible purchases. Eligibility depends on your plan."
+      }
+    }
+  ],
+  "brands": [
+    {
+      "brand": "Tempur-Pedic",
+      "display_name": "Tempur-Pedic",
+      "logo_file": "/brands/logos/tempur-pedic.svg",
+      "brand_color": "",
+      "brand_page_url": "/tempur-pedic"
+    },
+    {
+      "brand": "Stearns & Foster",
+      "display_name": "Stearns & Foster",
+      "logo_file": "/brands/logos/stearns-foster.svg",
+      "brand_color": "",
+      "brand_page_url": "/stearns-foster"
+    },
+    {
+      "brand": "Sealy",
+      "display_name": "Sealy",
+      "logo_file": "/brands/logos/sealy.svg",
+      "brand_color": "",
+      "brand_page_url": "/sealy"
+    },
+    {
+      "brand": "Serta",
+      "display_name": "Serta",
+      "logo_file": "/brands/logos/serta.svg",
+      "brand_color": "#20374D",
+      "brand_page_url": ""
+    },
+    {
+      "brand": "Beautyrest",
+      "display_name": "Beautyrest",
+      "logo_file": "/brands/logos/beautyrest.svg",
+      "brand_color": "#181D27",
+      "brand_page_url": ""
+    },
+    {
+      "brand": "King Koil",
+      "display_name": "King Koil",
+      "logo_file": "/brands/logos/king-koil.svg",
+      "brand_color": "#231F20",
+      "brand_page_url": ""
+    },
+    {
+      "brand": "Spring Air",
+      "display_name": "Copper by Spring Air",
+      "logo_file": "/brands/logos/copper-by-spring-air.png",
+      "brand_color": "",
+      "brand_page_url": ""
+    },
+    {
+      "brand": "Brooklyn Bedding",
+      "display_name": "Brooklyn Bedding",
+      "logo_file": "/brands/logos/brooklyn-bedding.svg",
+      "brand_color": "#123556",
+      "brand_page_url": ""
+    },
+    {
+      "brand": "Helix",
+      "display_name": "Helix",
+      "logo_file": "/brands/logos/helix.svg",
+      "brand_color": "#002E66",
+      "brand_page_url": ""
+    },
+    {
+      "brand": "Puffy",
+      "display_name": "Puffy",
+      "logo_file": "/brands/logos/puffy.svg",
+      "brand_color": "#2B2F44",
+      "brand_page_url": ""
+    },
+    {
+      "brand": "BedTech",
+      "display_name": "BedTech",
+      "logo_file": "/brands/logos/bedtech.svg",
+      "brand_color": "",
+      "brand_page_url": ""
+    }
+  ]
+}

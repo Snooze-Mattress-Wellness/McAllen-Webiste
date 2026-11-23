@@ -2,9 +2,16 @@
    cannot drift: the accordion renders answerSegments() (the links), the JSON-LD takes plainAnswer() (the same text). */
 import type { AlwaysOnOffer, FaqEntry, Segment } from './types.ts';
 
-/** The page's FAQ: the store's local questions, then the offers' own questions (always_on[].faq), in offer order. */
-export function pageFaq(local: readonly FaqEntry[], offers: readonly AlwaysOnOffer[]): FaqEntry[] {
-  return [...local, ...offers.flatMap((o) => (o.faq ? [{ question: o.faq.q, answer: o.faq.a }] : []))];
+/** "{brand}" in a feed FAQ (the Offer Calendar writes "Do you offer financing on {brand} mattresses?") → the brand name. */
+export const fillBrand = (text: string, brandName: string) => text.split('{brand}').join(brandName);
+
+/** The page's FAQ: the store's local questions, then the offers' own questions (always_on[].faq), in offer order, with
+    "{brand}" replaced by the brand name. The visible accordion and the FAQPage JSON-LD both render this list. */
+export function pageFaq(local: readonly FaqEntry[], offers: readonly AlwaysOnOffer[], brandName: string): FaqEntry[] {
+  return [
+    ...local,
+    ...offers.flatMap((o) => (o.faq ? [{ question: fillBrand(o.faq.q, brandName), answer: fillBrand(o.faq.a, brandName) }] : [])),
+  ];
 }
 
 /** The answer split into text and links. Each link takes the first occurrence of its text after the previous link;

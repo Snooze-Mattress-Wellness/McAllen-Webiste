@@ -52,24 +52,4 @@ export const TEMPUR_PEDIC: BrandConfig = {
     why_lead: 'Tempur-Pedic makes great mattresses, but the right one still depends on your body. Skip the guesswork: get fitted first, then choose with confidence.',
     faq_heading: (l) => `Tempur-Pedic in ${l.city}: Common Questions`,
   },
-  // the static fallback (only when the feed cannot be read and no copy is cached): the package's four always-on tiles
-  // and their two FAQ answers, word for word (mcallen.html)
-  fallback: {
-    always_on: [
-      { title: 'Free Dream Mapping', body: 'Always free, no purchase needed. See where your body needs support before you choose.', fine_print: '', faq: null },
-      { title: '365-Night Sleep Guarantee', body: 'Sleep on it at home with our 365-Night Sleep Guarantee.', fine_print: 'See store for details.', faq: null },
-      {
-        title: 'Special Financing',
-        body: '0% interest for up to 60 months, no down payment.\nNo credit check options available.',
-        fine_print: '0% interest with approved credit. No credit check options are offered separately. See store for details.',
-        faq: { q: 'Do you offer financing on Tempur-Pedic mattresses?', a: 'Yes. Special financing is available: 0% interest for up to 60 months with no down payment, with approved credit. No credit check options are also available. See store for details.' },
-      },
-      {
-        title: 'HSA/FSA Accepted',
-        body: 'Put your HSA or FSA dollars toward better sleep on eligible purchases.',
-        fine_print: 'Eligibility depends on your plan.',
-        faq: { q: 'Can I use my HSA or FSA?', a: 'Snooze Mattress accepts HSA and FSA payments on eligible purchases. Eligibility depends on your plan.' },
-      },
-    ],
-  },
 };
