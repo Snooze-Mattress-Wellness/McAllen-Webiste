@@ -118,5 +118,6 @@ export const BRAND_PAGE_LOCATION = {
   local_intro: "Snooze Mattress on North 10th Street serves the Rio Grande Valley, including Edinburg, Mission, Pharr and Weslaco. Hot Valley nights make the right fit and cooling matter, so start with free Dream Mapping and let a Sleep Coach match you to this month's best deal.",
   brand_pages: {
     'tempur-pedic': { page_path: '/tempur-pedic', asset_base: '/brands/tempur-pedic/' },
+    beautyrest: { page_path: '/beautyrest', asset_base: '/brands/beautyrest/' },
   },
 } satisfies Omit<BrandLocation, 'schema_ids' | 'site_icon'>;

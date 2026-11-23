@@ -1,0 +1,50 @@
+{
+  "slug": "beautyrest",
+  "name": "Beautyrest",
+  "vendor": "Beautyrest",
+  "page_path": "/beautyrest",
+  "title": "Beautyrest Mattresses in {city}, {state} | Snooze Mattress",
+  "h1": "Beautyrest Mattresses in {city}, {state}",
+  "description": "Try Beautyrest Black, Beautyrest World Class, Beautyrest and Beauty Sleep mattresses at Snooze Mattress in {city}. Get a free Dream Mapping fitting for your body.",
+  "og_description": "Try Beautyrest in {city} and get a free Dream Mapping fitting to find the right fit for your body.",
+  "carries": "Beautyrest Black, Beautyrest World Class, Beautyrest and Beauty Sleep mattresses",
+  "visit_intro": "Reading about Pocketed Coil Technology is one thing. Feeling how it supports your body is another.",
+  "try_items": "Beautyrest Black, Beautyrest World Class, Beautyrest and Beauty Sleep mattresses",
+  "fit_tail": ", from Beauty Sleep to Beautyrest Black",
+  "faq_right_for_me": "It depends on your body and how you sleep. Dream Mapping, our pressure mapping technology, shows where your body needs support. Then your Sleep Coach helps you compare Beautyrest Black, Beautyrest World Class, the Beautyrest Collection and Beauty Sleep.",
+  "font_url": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Poppins:wght@400;600;700&display=swap",
+  "styles": [
+    "{brand}css/beautyrest.css",
+    "{shared}css/snooze-brand-local.css"
+  ],
+  "scripts": [
+    "{brand}js/scripts.js",
+    "{shared}js/snooze-promo.js"
+  ],
+  "preload_images": [
+    {
+      "href": "{brand}img/hero.webp",
+      "media": "all"
+    }
+  ],
+  "promo_images": {
+    "black": {
+      "file": "black.webp",
+      "w": 900,
+      "h": 900,
+      "alt": "Beautyrest Black mattress in a bedroom"
+    },
+    "world-class": {
+      "file": "world-class.webp",
+      "w": 900,
+      "h": 900,
+      "alt": "Family on a Beautyrest World Class mattress"
+    },
+    "base": {
+      "file": "adjustable-room.webp",
+      "w": 1400,
+      "h": 791,
+      "alt": "Beautyrest mattress on a baselogic adjustable base"
+    }
+  }
+}

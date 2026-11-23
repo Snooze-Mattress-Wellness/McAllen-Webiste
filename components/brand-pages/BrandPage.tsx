@@ -40,10 +40,10 @@ export function BrandPage({ brand: key, location: l, feed, renderSchema }: Props
   return (
     <>
       {renderSchema?.(brandPageJsonLd(brand, l, faq))}
-      {brand.json.styles.map((s) => <link key={s} rel="stylesheet" href={assetUrl(brand, s)} precedence={brand.key} />)}
+      {brand.json.styles.map((s) => assetUrl(brand, s)).map((href) => <link key={href} rel="stylesheet" href={href} precedence={brand.key} />)}
       {/* brand.json preload_images (the hero image of each layout), fetched early as in the package's <head> */}
-      {(brand.json.preload_images || []).map((p) => (
-        <link key={p.href} rel="preload" as="image" href={assetUrl(brand, p.href)} media={p.media} />
+      {(brand.json.preload_images || []).map((p) => ({ href: assetUrl(brand, p.href), media: p.media })).map((p) => (
+        <link key={p.href} rel="preload" as="image" href={p.href} media={p.media} />
       ))}
       {/* the font's CSS variable for the vendor CSS; data-snz-store-id: public/snz-events.js adds it to phone_click and
           directions_click on this page */}

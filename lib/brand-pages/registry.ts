@@ -17,12 +17,22 @@ const SITE: Readonly<Record<BrandKey, BrandSite>> = {
     // .tempur-wrapper (it styles nothing outside the page)
     style_paths: { '{shared}css/swiper-bundle.min.css': '/brands/tempur-pedic/css/swiper-bundle.min.css' },
   },
+  beautyrest: {
+    wrapper_class: 'beautyrest-wrapper',
+    promo_slot: 'beautyrest_promo',
+    tracking: {
+      // the brand's buttons (.br-btn), the local and offer buttons (.snz-btn) and the links inside the FAQ answers
+      cta_selector: 'a.br-btn, a.snz-btn, .snz-faq details a',
+      cta_sections: [['hero', '.br-hero'], ['visit', '.snz-visit'], ['promo', '.snz-promo'], ['product', '.br-collections'], ['product', '.br-adjust'], ['why', '.snz-why'], ['faq', '.snz-faq']],
+    },
+  },
 };
 
 const brand = (key: BrandKey): BrandConfig => ({ key, json: brandJson<BrandJson>(key), template: brandTemplate(key), site: SITE[key] });
 
 export const BRANDS: Readonly<Record<BrandKey, BrandConfig>> = {
   'tempur-pedic': brand('tempur-pedic'),
+  beautyrest: brand('beautyrest'),
 };
 
 export { BRAND_KEYS, BRAND_PAGE_PATHS, LIVE_BRANDS } from './brand-list.ts';
