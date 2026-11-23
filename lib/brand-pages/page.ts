@@ -16,3 +16,16 @@ export function assetUrl(brand: BrandConfig, p: string): string {
   if (swap) return swap;
   return p.replace('{shared}', '/brands/shared/').replace('{brand}', `/brands/${brand.json.slug}/`);
 }
+
+/** One of a brand's browser scripts, as components/brand-pages/BrandScripts.tsx loads it. */
+export type BrandScript = { src: string; once: boolean };
+
+/** brand.json scripts in order, as URLs, for brands whose vendor scripts run as delivered (Stearns & Foster, Sealy).
+    Left out: the shared snooze-promo.js (the offers are rendered on the server; its browser fallback would fetch the
+    empty data-snz-feed-url). once: a library (the shared Swiper bundle, a vendor *.min.js) that is loaded once per
+    document; the brand's own page script runs again on every mount, on the markup of that mount. */
+export function brandScripts(brand: BrandConfig): BrandScript[] {
+  return brand.json.scripts
+    .filter((p) => !p.endsWith('snooze-promo.js'))
+    .map((p) => ({ src: assetUrl(brand, p), once: p.startsWith('{shared}') || p.endsWith('.min.js') }));
+}

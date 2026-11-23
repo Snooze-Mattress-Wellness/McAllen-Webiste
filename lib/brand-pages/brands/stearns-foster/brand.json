@@ -1,0 +1,37 @@
+{
+  "slug": "stearns-foster",
+  "name": "Stearns & Foster",
+  "vendor": "Stearns & Foster",
+  "page_path": "/stearns-foster",
+  "title": "Stearns & Foster Mattresses in {city}, {state} | Snooze Mattress",
+  "h1": "Stearns & Foster Mattresses in {city}, {state}",
+  "description": "Try Stearns & Foster Estate, Lux Estate, Legacy and Reserve mattresses at Snooze Mattress in {city}. Get a free Dream Mapping fitting to find your fit.",
+  "og_description": "Try Stearns & Foster in {city} and get a free Dream Mapping fitting to find the right fit for your body.",
+  "carries": "Stearns & Foster mattresses and pillows",
+  "visit_intro": "Reading about IntelliCoil innersprings and TEMPUR-Indulge memory foam is one thing. Feeling how they support your body is another.",
+  "try_items": "Stearns & Foster mattresses from the Estate, Lux Estate, Legacy and Reserve collections",
+  "fit_tail": ", whether that's the Estate, Lux Estate, Legacy or Reserve collection",
+  "faq_right_for_me": "It depends on your body and how you sleep. Dream Mapping, our pressure mapping technology, shows where your body needs support. Then your Sleep Coach helps you compare the Estate, Lux Estate, Legacy and Reserve collections, which add more layers of support, pressure relief and cooling as you move up.",
+  "font_url": "https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&family=Poppins:wght@400;600;700&display=swap",
+  "styles": [
+    "{brand}css/stearns-foster.scoped.css",
+    "{brand}css/aos.scoped.css",
+    "{brand}css/snooze-stearns-foster-overrides.css",
+    "{shared}css/snooze-brand-local.css"
+  ],
+  "scripts": [
+    "{shared}js/swiper-bundle.min.js",
+    "{brand}js/aos.min.js",
+    "{brand}js/main.js",
+    "{shared}js/snooze-promo.js"
+  ],
+  "preload_images": [],
+  "promo_images": {
+    "base": {
+      "file": "hero-bg.webp",
+      "w": 1600,
+      "h": 1126,
+      "alt": "Stearns & Foster mattress on an adjustable base"
+    }
+  }
+}

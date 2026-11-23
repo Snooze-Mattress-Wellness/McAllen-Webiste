@@ -9,6 +9,9 @@ import Sales from '../lib/snooze/snooze-sales.js';
 import { BRAND_PAGE_LOCATION as LOC } from '../lib/location.ts';
 import { clearanceForSales, clearanceLabel, savingsPct, withLiveBrandLinks } from '../lib/snooze/sales-site.ts';
 import type { Listing } from '../lib/clearance.ts';
+import { LIVE_BRANDS } from '../lib/brand-pages/brand-list.ts';
+
+const LIVE_NAMES = new Set<string>(LIVE_BRANDS.map((b) => b.name));
 
 const fixture = (name: string) => JSON.parse(readFileSync(new URL(`./fixtures/${name}`, import.meta.url), 'utf8'));
 const FEED = fixture('promo-feed.v2-example.fixture.json');
@@ -71,16 +74,18 @@ test('brand cards link only brand pages live here; the others say "Try {Brand} i
   assert.equal(urls['Tempur-Pedic'], '/tempur-pedic');
   assert.equal(urls['Beautyrest'], '/beautyrest');
   assert.equal(urls['Serta'], '/serta');
-  assert.equal(urls['Sealy'], '');
-  assert.equal(urls['Stearns & Foster'], '');
+  // Sealy and Stearns & Foster: linked once their brand page is live here (lib/brand-pages/brand-list.ts)
+  for (const [name, path] of [['Sealy', '/sealy'], ['Stearns & Foster', '/stearns-foster']]) assert.equal(urls[name], LIVE_NAMES.has(name) ? path : '', name);
   assert.equal(FEED.brands.find((b: { brand: string }) => b.brand === 'Sealy').brand_page_url, '/sealy', 'the original feed is not changed');
   const html = Sales.renderSalesHTML(Sales.buildSalesModel(feed, LOC, { today: '2026-11-21', clearance: [] }), { assetBase: '/brands/' });
   assert.ok(html.includes('href="/tempur-pedic">Explore Tempur-Pedic'));
   assert.ok(html.includes('href="/beautyrest">Explore Beautyrest'));
   assert.ok(html.includes('href="/serta">Explore Serta'));
-  assert.ok(html.includes('href="/booking">Try Sealy in store'));
-  assert.ok(html.includes('href="/booking">Try Stearns &amp; Foster in store'));
-  assert.ok(!html.includes('href="/sealy"') && !html.includes('href="/stearns-foster"'));
+  for (const [name, path] of [['Sealy', '/sealy'], ['Stearns &amp; Foster', '/stearns-foster']]) {
+    const live = LIVE_NAMES.has(name.replace('&amp;', '&'));
+    assert.equal(html.includes(`href="${path}">Explore ${name}`), live, name);
+    assert.equal(html.includes(`href="/booking">Try ${name} in store`), !live, name);
+  }
 });
 
 /* ---------- dates in store time ---------- */
@@ -106,14 +111,14 @@ const bodyOf = (html: string) => {
   const b = '\n\t<!-- ===== Site footer (provided by the Snooze site layout) ===== -->';
   return html.slice(html.indexOf(a) + a.length, html.indexOf(b));
 };
-// the only intended difference: Sealy and Stearns & Foster have no brand page on this site yet
-const LINK_CHANGES: [string, string][] = [
-  ['<a class="snz-s-link" href="/sealy">Explore Sealy <span aria-hidden="true">→</span></a>', '<a class="snz-s-link" href="/booking">Try Sealy in store <span aria-hidden="true">→</span></a>'],
-  ['<a class="snz-s-link" href="/stearns-foster">Explore Stearns &amp; Foster <span aria-hidden="true">→</span></a>', '<a class="snz-s-link" href="/booking">Try Stearns &amp; Foster in store <span aria-hidden="true">→</span></a>'],
-];
+// the only intended difference: a brand whose page is not live on this site yet (Sealy, Stearns & Foster until their
+// pages went live) says "Try {Brand} in store" -> /booking instead of linking its brand page
+const LINK_CHANGES: [string, string][] = ([['Sealy', '/sealy', 'Sealy'], ['Stearns & Foster', '/stearns-foster', 'Stearns &amp; Foster']] as const)
+  .filter(([name]) => !LIVE_NAMES.has(name))
+  .map(([, path, html]) => [`<a class="snz-s-link" href="${path}">Explore ${html} <span aria-hidden="true">→</span></a>`, `<a class="snz-s-link" href="/booking">Try ${html} in store <span aria-hidden="true">→</span></a>`]);
 for (const [file, today, clearance, changes] of [
-  ['mcallen-mattress-sales.html', '2026-11-21', CLEARANCE_EXAMPLE, 2],
-  ['mcallen-mattress-sales-dec20.html', '2026-12-20', CLEARANCE_EXAMPLE, 2],
+  ['mcallen-mattress-sales.html', '2026-11-21', CLEARANCE_EXAMPLE, LINK_CHANGES.length],
+  ['mcallen-mattress-sales-dec20.html', '2026-12-20', CLEARANCE_EXAMPLE, LINK_CHANGES.length],
   ['mcallen-mattress-sales-no-event.html', '2027-02-01', [], 0],
 ] as const) {
   test(`page body = package preview ${file} (today ${today}), except the ${changes} brand links`, { skip: preview(file) === null && 'package not present' }, () => {

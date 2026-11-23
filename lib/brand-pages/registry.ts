@@ -26,6 +26,16 @@ const SITE: Readonly<Record<BrandKey, BrandSite>> = {
       cta_sections: [['hero', '.br-hero'], ['visit', '.snz-visit'], ['promo', '.snz-promo'], ['product', '.br-collections'], ['product', '.br-adjust'], ['why', '.snz-why'], ['faq', '.snz-faq']],
     },
   },
+  'stearns-foster': {
+    // the template's wrapper has no vendor class of its own: all vendor CSS is scoped to .snz-brand--stearns-foster
+    wrapper_class: 'snz-brand--stearns-foster',
+    promo_slot: 'stearns_foster_promo',
+    tracking: {
+      // the vendor buttons (.as-b), the local and offer buttons (.snz-btn) and the links inside the FAQ answers
+      cta_selector: 'a.as-b, a.snz-btn, .snz-faq details a',
+      cta_sections: [['hero', '.hero'], ['visit', '.snz-visit'], ['promo', '.snz-promo'], ['product', '.list'], ['product', '.options'], ['why', '.snz-why'], ['faq', '.snz-faq']],
+    },
+  },
   serta: {
     wrapper_class: 'serta-wrapper',
     promo_slot: 'serta_promo',
@@ -44,6 +54,7 @@ export const BRANDS: Readonly<Record<BrandKey, BrandConfig>> = {
   'tempur-pedic': brand('tempur-pedic'),
   beautyrest: brand('beautyrest'),
   serta: brand('serta'),
+  'stearns-foster': brand('stearns-foster'),
 };
 
 export { BRAND_KEYS, BRAND_PAGE_PATHS, LIVE_BRANDS } from './brand-list.ts';
