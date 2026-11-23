@@ -32,7 +32,7 @@ function navTables(locale: Locale) {
     { label: t.nav.about, href: '/about-us' },
     { label: t.nav.products, href: '/mattresses', menu: 'products' },
     { label: t.nav.financing, href: '/mattress-financing' },
-    { label: t.nav.sales, href: '/mattress-sales' },
+    { label: t.nav.sales, href: '/mattress-sales', noLocale: true }, // Sales (English page only; /es/mattress-sales 308s to it)
     { label: t.nav.clearance, href: '/clearance', noLocale: true }, // Clearance & Floor Models (English page only; /es/clearance 308s to it)
     { label: t.nav.blog, href: BLOG_INDEX.href, menu: 'blog' },
     { label: t.nav.quiz, href: '/sleep-quiz' },

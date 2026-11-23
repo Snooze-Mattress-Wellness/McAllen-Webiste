@@ -5,6 +5,9 @@
 import { blogSlugFor } from './blog-nav';
 import { BRAND_PAGE_PATHS } from './brand-pages/brand-list';
 
+/** English-only pages (no Spanish version; their /es URL 308s to them, next.config.ts): the brand pages and the Sales page. */
+const EN_ONLY_PATHS: readonly string[] = [...BRAND_PAGE_PATHS, '/mattress-sales'];
+
 export type Locale = 'en' | 'es';
 export const LOCALES: Locale[] = ['en', 'es'];
 export const DEFAULT_LOCALE: Locale = 'en';
@@ -28,7 +31,7 @@ export function splitLocale(pathname: string): { locale: Locale; path: string } 
     (/es/tempur-pedic 308s back, next.config.ts), so their ES switch goes to the Spanish homepage. */
 export function alternateHref(pathname: string, target: Locale): string {
   const { path } = splitLocale(pathname);
-  if (target === 'es' && BRAND_PAGE_PATHS.includes(path)) return localizeHref('/', 'es');
+  if (target === 'es' && EN_ONLY_PATHS.includes(path)) return localizeHref('/', 'es');
   const post = path.match(/^\/blog\/([^/]+)$/);
   if (post) return localizeHref(`/blog/${blogSlugFor(post[1], target)}`, target);
   return localizeHref(path, target);

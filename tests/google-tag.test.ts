@@ -19,10 +19,11 @@ test('CALL_CONVERSION: the call-tracking config with the exact visible store num
   assert.equal(CALL_CONVERSION.phone_conversion_number, LOCATION.phone, 'must match the number the header, footer and pages show');
 });
 
-test('contentGroup: every route of the site maps to one of the eleven groups, Spanish copies the same as English', () => {
+test('contentGroup: every route of the site maps to one of the twelve groups, Spanish copies the same as English', () => {
   const cases: Record<string, string[]> = {
     home: ['/', '/es', '/es/'],
-    product: ['/mattresses', '/es/mattresses', '/queen-mattresses', '/king-mattresses', '/full-twin-mattresses', '/cooling-mattresses', '/memory-foam-mattresses', '/mattresses-for-back-pain', '/adjustable-mattress-bases', '/massage-chairs', '/sleep-recliner', '/pillows', '/premium-sheets', '/mattress-protectors', '/at-home-sleep-test-kit-by-sleepcorner', '/mattress-sales', '/es/mattress-sales/'],
+    product: ['/mattresses', '/es/mattresses', '/queen-mattresses', '/king-mattresses', '/full-twin-mattresses', '/cooling-mattresses', '/memory-foam-mattresses', '/mattresses-for-back-pain', '/adjustable-mattress-bases', '/massage-chairs', '/sleep-recliner', '/pillows', '/premium-sheets', '/mattress-protectors', '/at-home-sleep-test-kit-by-sleepcorner'],
+    sales: ['/mattress-sales', '/mattress-sales/', '/es/mattress-sales'],
     brand: ['/tempur-pedic', '/tempur-pedic/', '/es/tempur-pedic'],
     booking: ['/booking', '/es/booking', '/dream-mapping', '/es/dream-mapping', '/dream/map/thank/you', '/es/dream/map/thank/you/'],
     quiz: ['/sleep-quiz', '/es/sleep-quiz'],

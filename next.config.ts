@@ -13,10 +13,13 @@ const nextConfig: NextConfig = {
   experimental: { inlineCss: true },
   // next/image (footer logo, blog images) serves the local files as they are; nothing is optimized per request
   images: { unoptimized: true },
-  // The Tempur-Pedic brand page is English only: the Spanish URL (also what the header's EN | ES switch links to) 308s
-  // to it. Kept here rather than in vercel.json so `next start` applies it too (local checks); Vercel applies both kinds.
+  // The Tempur-Pedic brand page and the Sales page are English only: the Spanish URL 308s to the English page (the
+  // EN | ES switch on them links /es). Kept here rather than in vercel.json so `next start` applies it too (local checks); Vercel applies both kinds.
   async redirects() {
-    return [{ source: '/es/tempur-pedic', destination: '/tempur-pedic', permanent: true }];
+    return [
+      { source: '/es/tempur-pedic', destination: '/tempur-pedic', permanent: true },
+      { source: '/es/mattress-sales', destination: '/mattress-sales', permanent: true },
+    ];
   },
 };
 
