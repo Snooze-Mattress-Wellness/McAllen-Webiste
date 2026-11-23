@@ -1,0 +1,10 @@
+/* serta.css (copied unchanged) names its font in two variables on the wrapper:
+     --br-serif: "Mulish", Helvetica, Arial, sans-serif;
+     --br-sans: "Mulish", Helvetica, Arial, sans-serif;
+   next/font serves the face under its own family name (components/brand-pages/serta/font.ts), so both variables point
+   at it, with the same fallbacks. The outer div carries this class; the selector is more specific than the vendor's
+   ".serta-wrapper" rule, whatever the load order. */
+.fonts :global(.serta-wrapper) {
+  --br-serif: var(--font-serta), Helvetica, Arial, sans-serif;
+  --br-sans: var(--font-serta), Helvetica, Arial, sans-serif;
+}

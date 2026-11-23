@@ -15,9 +15,11 @@ import { Promo, brandOffers } from '../lib/brand-pages/offers.ts';
 import { brandPageMetadata } from '../lib/brand-pages/metadata.ts';
 import { BRAND_PAGE_LOCATION, LOCATION, hoursSentence } from '../lib/location.ts';
 import { BEAUTYREST_VIDEO } from '../components/brand-pages/beautyrest/video.ts';
+import { SERTA_VIDEO } from '../components/brand-pages/serta/video.ts';
 
 const TP = BRANDS['tempur-pedic'];
 const BR = BRANDS.beautyrest;
+const SE = BRANDS.serta;
 const SITE = 'https://mcallen.snoozemattresscompany.com';
 const LOC: BrandLocation = { ...BRAND_PAGE_LOCATION, schema_ids: { organization: `${SITE}/#organization`, website: `${SITE}/#website`, store: `${SITE}/#store` } };
 const fixture = (name: string) => readFileSync(new URL(`./fixtures/${name}`, import.meta.url), 'utf8');
@@ -41,7 +43,7 @@ const ourBody = (key: keyof typeof BRANDS, f: PromoFeed, today: string, l: Brand
 };
 
 test('registry: Tempur-Pedic from its brand.json, vendor spelled as in the feed, assets under /brands/tempur-pedic/', () => {
-  assert.deepEqual(BRAND_KEYS, ['tempur-pedic', 'beautyrest']);
+  assert.deepEqual(BRAND_KEYS, ['tempur-pedic', 'beautyrest', 'serta']);
   assert.equal(TP.json.slug, 'tempur-pedic');
   assert.equal(TP.json.vendor, 'Tempur-Pedic');
   assert.equal(TP.json.page_path, '/tempur-pedic');
@@ -123,6 +125,67 @@ test('Beautyrest offers: both Black Friday blocks with their photos (in the shar
 
 test('Beautyrest hero video: the loader is on exactly when the video file is in the repo', () => {
   assert.equal(existsSync(new URL('../public/brands/beautyrest/video/beautyrest.mp4', import.meta.url)), BEAUTYREST_VIDEO);
+});
+
+test('Serta body: byte for byte the package previews mcallen-serta.html (Nov 23) and -dec20.html (Dec 20)', () => {
+  assert.equal(lf(ourBody('serta', feed('v2-example'), '2026-11-23')), previewBody(lf(fixture('serta.preview.fixture.html'))));
+  assert.equal(lf(ourBody('serta', feed('v2-example'), '2026-12-20')), previewBody(lf(fixture('serta-dec20.preview.fixture.html'))));
+});
+
+test('Serta: brand.json as delivered, wrapper, assets in brand.json order, the hero poster preloaded per breakpoint', () => {
+  assert.equal(SE.json.slug, 'serta');
+  assert.equal(SE.json.vendor, 'Serta');
+  assert.equal(SE.json.page_path, '/serta');
+  assert.equal(SE.site.wrapper_class, 'serta-wrapper');
+  assert.ok(SE.template.includes('<div class="serta-wrapper snz-brand snz-brand--serta">'));
+  assert.deepEqual(SE.json.styles.map((x) => assetUrl(SE, x)), ['/brands/serta/css/serta.css', '/brands/shared/css/snooze-brand-local.css']);
+  assert.deepEqual((SE.json.preload_images || []).map((p) => [assetUrl(SE, p.href), p.media]), [
+    ['/brands/serta/img/hero-poster.webp', '(min-width: 768px)'],
+    ['/brands/serta/img/hero-poster-mobile.webp', '(max-width: 767px)'],
+  ]);
+  assert.equal(brandPage(SE, LOC).url, `${SITE}/serta`);
+  // the hero picture is one link to the store visit section
+  assert.match(SE.template, /<a class="se-hero__media" href="#visit"/);
+  const files = [...SE.template.matchAll(/\{\{brand_base\}\}img\/([\w.-]+)/g)].map((m) => m[1]).concat(Object.values(SE.json.promo_images || {}).map((i) => i.file), 'og-image.jpg');
+  for (const f of files) assert.ok(existsSync(new URL(`../public/brands/serta/img/${f}`, import.meta.url)), f);
+});
+
+test('Serta SEO (SERTA.md step 6): title, H1 in the bar under the hero, description, canonical, OG image, H2s; one H1', () => {
+  const m = brandPageMetadata(SE, LOC);
+  assert.equal(m.title, 'Serta Mattresses in McAllen, TX | Snooze Mattress');
+  assert.equal(m.description, 'Try Serta iComfort, iComfortPro, iSeries NXG and Perfect Sleeper mattresses at Snooze Mattress in McAllen. Get a free Dream Mapping fitting for your body.');
+  assert.deepEqual(m.alternates, { canonical: `${SITE}/serta` });
+  assert.deepEqual(m.openGraph?.images, [{ url: `${SITE}/brands/serta/img/og-image.jpg`, width: 1200, height: 630 }]);
+  const { promos, tiles } = brandOffers(SE.json, 'mcallen', feed('v2-example'), '2026-11-23');
+  const faq = brandFaq(SE.json, LOC, tiles);
+  const html = renderBrandBody({ brand: SE.json, template: SE.template, partials: PARTIALS, location: LOC, promos, tiles, faq });
+  assert.equal(html.match(/<h1\b/g)?.length, 1);
+  const bar = html.slice(html.indexOf('<div class="se-hero__bar">'), html.indexOf('</section>'));
+  assert.ok(bar.includes('<h1 class="snz-h1">Serta Mattresses in McAllen, TX</h1>'), 'the H1 is in the bar under the hero');
+  assert.ok(!/\{\{|\{city\}|\{state\}|\{brand\}/.test(html));
+  const h2s = [...html.matchAll(/<h2[^>]*>(.*?)<\/h2>/g)].map((x) => x[1].replace(/<[^>]+>/g, '').trim());
+  // the offer block has no headline row: the shared markup writes an empty <h2> (reported)
+  assert.deepEqual(h2s, ['Try Serta in McAllen', '', 'The Serta advantage', 'Serta mattress collections', 'Customize your comfort', 'Reassurance so you can rest easy', 'Why Buy Serta at Snooze Mattress in McAllen', 'Serta in McAllen: Common Questions']);
+  const h3s = [...html.matchAll(/<h3[^>]*>(.*?)<\/h3>/g)].map((x) => x[1].replace(/<[^>]+>/g, '').replace(/&reg;|&trade;/g, '').replace(/\s+/g, ' ').trim());
+  assert.deepEqual(h3s.slice(0, 8), ['Zoned comfort', 'Pressure relief', 'Cooling comfort', 'Serta iSeries NXG', 'Serta iComfort', 'Serta iComfortPro', 'Serta Perfect Sleeper', 'Serta Perfect Sleeper X']);
+  const [webPage, , faqPage] = brandPageJsonLd(SE, LOC, faq);
+  assert.deepEqual(webPage.about, [{ '@type': 'Brand', name: 'Serta' }, { '@id': `${SITE}/#store` }]);
+  assert.equal((faqPage.mainEntity as unknown[]).length, (html.match(/<details/g) || []).length, 'FAQPage = the visible FAQ');
+});
+
+test('Serta offers: BF26-SERTA as an item list with no headline and no photo; NY26-SERTA from December 15; no {brand}', () => {
+  const nov = brandOffers(SE.json, 'mcallen', feed('v2-example'), '2026-11-23').promos;
+  assert.deepEqual(nov.map((b) => b.block), ['BF26-SERTA']);
+  assert.equal(nov[0].headline, '');
+  assert.deepEqual(nov[0].items.map((i) => i.text), ['Save up to $700 on Serta Perfect Sleeper', 'Save up to $900 on Serta iComfort', 'Save up to $700 on Serta iSeries NXG']);
+  const html = Promo.renderPromotionsHTML(nov, { imageBase: '/brands/serta/img/', images: SE.json.promo_images });
+  assert.ok(!html.includes('<img'), 'no web_image on the block: no photo');
+  assert.ok(!html.includes('{brand}'));
+  assert.deepEqual(brandOffers(SE.json, 'mcallen', feed('v2-example'), '2026-12-20').promos.map((b) => b.block), ['NY26-SERTA']);
+});
+
+test('Serta hero video: the loader is on exactly when the video file is in the repo', () => {
+  assert.equal(existsSync(new URL('../public/brands/serta/video/serta-hero.mp4', import.meta.url)), SERTA_VIDEO);
 });
 
 test('body: one H1, every token filled, production paths, the promo slot empty when nothing is live', () => {
@@ -234,14 +297,14 @@ test('local FAQ: the package questions and answers word for word, with their lin
 test('every brand key has a page at /<key> in the location config (the language switch and GA4 rely on it)', async () => {
   const { BRAND_PAGE_PATHS, LIVE_BRANDS } = await import('../lib/brand-pages/brand-list.ts');
   for (const b of LIVE_BRANDS) assert.equal(BRAND_PAGE_LOCATION.brand_pages[b.key]?.page_path, b.path, b.key);
-  assert.deepEqual(BRAND_PAGE_PATHS, ['/tempur-pedic', '/beautyrest']);
+  assert.deepEqual(BRAND_PAGE_PATHS, ['/tempur-pedic', '/beautyrest', '/serta']);
 });
 
 test('llms.txt: the hand-written guide plus a "Brand pages" section from the registry; nothing cut off', async () => {
   const { buildLlmsTxt, llmsBrandPagesSection } = await import('../lib/brand-pages/llms.ts');
   const base = readFileSync(new URL('../lib/llms.txt', import.meta.url), 'utf8');
   const out = buildLlmsTxt(base, LOC);
-  const section = '## Brand pages\n- [Tempur-Pedic at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/tempur-pedic)\n- [Beautyrest at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/beautyrest)';
+  const section = '## Brand pages\n- [Tempur-Pedic at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/tempur-pedic)\n- [Beautyrest at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/beautyrest)\n- [Serta at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/serta)';
   assert.equal(llmsBrandPagesSection(LOC), section);
   assert.ok(out.includes(`\n\n${section}\n\n## Financing and offers\n`));
   assert.ok(!out.includes('{{'));
@@ -257,8 +320,8 @@ test('llms.txt: the hand-written guide plus a "Brand pages" section from the reg
 
 test('brand list (lib/brand-pages/brand-list.ts): name, path, order, live; only live brands are linked, in order', async () => {
   const { BRAND_LIST, LIVE_BRANDS, ALL_BRAND_PATHS } = await import('../lib/brand-pages/brand-list.ts');
-  assert.deepEqual(BRAND_LIST.map((b) => [b.name, b.path, b.order, b.live]), [['Tempur-Pedic', '/tempur-pedic', 1, true], ['Beautyrest', '/beautyrest', 2, true], ['Sealy', '/sealy', 3, false], ['Stearns & Foster', '/stearns-foster', 4, false]]);
-  assert.deepEqual(LIVE_BRANDS.map((b) => b.name), ['Tempur-Pedic', 'Beautyrest']);
+  assert.deepEqual(BRAND_LIST.map((b) => [b.name, b.path, b.order, b.live]), [['Tempur-Pedic', '/tempur-pedic', 1, true], ['Beautyrest', '/beautyrest', 2, true], ['Serta', '/serta', 3, true], ['Sealy', '/sealy', 4, false], ['Stearns & Foster', '/stearns-foster', 5, false]]);
+  assert.deepEqual(LIVE_BRANDS.map((b) => b.name), ['Tempur-Pedic', 'Beautyrest', 'Serta']);
   // every live brand is built: a brand.json with the same name and path, and a store entry at its path
   for (const b of LIVE_BRANDS) {
     assert.ok(BRANDS[b.key], b.key);
@@ -267,5 +330,5 @@ test('brand list (lib/brand-pages/brand-list.ts): name, path, order, live; only 
     assert.equal(BRAND_PAGE_LOCATION.brand_pages[b.key]?.page_path, b.path);
   }
   assert.deepEqual(new Set(BRAND_LIST.map((b) => b.order)).size, BRAND_LIST.length, 'orders are unique');
-  assert.deepEqual(ALL_BRAND_PATHS, ['/tempur-pedic', '/beautyrest', '/sealy', '/stearns-foster']);
+  assert.deepEqual(ALL_BRAND_PATHS, ['/tempur-pedic', '/beautyrest', '/serta', '/sealy', '/stearns-foster']);
 });

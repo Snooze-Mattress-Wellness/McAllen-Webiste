@@ -1,0 +1,48 @@
+{
+  "slug": "serta",
+  "name": "Serta",
+  "vendor": "Serta",
+  "page_path": "/serta",
+  "title": "Serta Mattresses in {city}, {state} | Snooze Mattress",
+  "h1": "Serta Mattresses in {city}, {state}",
+  "description": "Try Serta iComfort, iComfortPro, iSeries NXG and Perfect Sleeper mattresses at Snooze Mattress in {city}. Get a free Dream Mapping fitting for your body.",
+  "og_description": "Try Serta in {city} and get a free Dream Mapping fitting to find the right fit for your body.",
+  "carries": "Serta iComfort, iComfortPro, iSeries NXG, Perfect Sleeper and Perfect Sleeper X mattresses",
+  "visit_intro": "Reading about zoned support is one thing. Feeling how it supports your body is another.",
+  "try_items": "Serta iComfort, iComfortPro, iSeries NXG and Perfect Sleeper mattresses",
+  "fit_tail": ", from Perfect Sleeper to iComfortPro",
+  "faq_right_for_me": "It depends on your body and how you sleep. Dream Mapping, our pressure mapping technology, shows where your body needs support. Then your Sleep Coach helps you compare Serta iComfort, iComfortPro, iSeries NXG, Perfect Sleeper and Perfect Sleeper X.",
+  "font_url": "https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap",
+  "styles": [
+    "{brand}css/serta.css",
+    "{shared}css/snooze-brand-local.css"
+  ],
+  "scripts": [
+    "{brand}js/scripts.js",
+    "{shared}js/snooze-promo.js"
+  ],
+  "preload_images": [
+    {
+      "href": "{brand}img/hero-poster.webp",
+      "media": "(min-width: 768px)"
+    },
+    {
+      "href": "{brand}img/hero-poster-mobile.webp",
+      "media": "(max-width: 767px)"
+    }
+  ],
+  "promo_images": {
+    "icomfort": {
+      "file": "icomfort.webp",
+      "w": 493,
+      "h": 402,
+      "alt": "Serta iComfort mattress"
+    },
+    "base": {
+      "file": "adjustable-room.webp",
+      "w": 1400,
+      "h": 791,
+      "alt": "Serta mattress on a baselogic adjustable base"
+    }
+  }
+}

@@ -3,7 +3,7 @@
    snooze-promo.js is not loaded. The video loader is loaded only once the video file is in the repo: until then the
    hero shows hero.webp (the package's intended fallback), and a loader pointing at a missing file would log a 404. */
 import type { BrandParts } from '../types';
-import HeroVideo from './HeroVideo';
+import HeroVideo from '../HeroVideo';
 import { inter, sourceSerif } from './font';
 import styles from './fonts.module.css';
 import { BEAUTYREST_VIDEO } from './video';

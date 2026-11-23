@@ -1,0 +1,222 @@
+/* =====================================================================
+   Snooze Mattress – Serta brand page
+   Built from the Serta OPGP generic landing page mockup (desktop + mobile slices).
+   Everything is scoped to .serta-wrapper so it can't touch the site.
+   Shared local sections (visit, promo, why, FAQ) are styled by
+   shared/css/snooze-brand-local.css.
+   ===================================================================== */
+
+.serta-wrapper {
+  --br-ink: #1B2A3A;
+  --br-text: #3B3F47;
+  --br-cream: #F4F6F9;
+  --br-line: #E6E1D8;
+  --br-serif: "Mulish", Helvetica, Arial, sans-serif;
+  --br-sans: "Mulish", Helvetica, Arial, sans-serif;
+  color: var(--br-text);
+  font-family: var(--br-sans);
+  font-size: 16px;
+  line-height: 1.55;
+  background: #fff;
+}
+.serta-wrapper *, .serta-wrapper *::before, .serta-wrapper *::after { box-sizing: border-box; }
+.serta-wrapper img { max-width: 100%; height: auto; display: block; }
+.serta-wrapper sup { font-size: 0.6em; line-height: 0; }
+.serta-wrapper .br-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+.serta-wrapper .br-h2 {
+  font-family: var(--br-serif);
+  font-weight: 400;
+  color: var(--br-ink);
+  font-size: clamp(1.75rem, 3vw, 2.4rem);
+  line-height: 1.2;
+  text-align: center;
+  margin: 0 0 32px;
+}
+
+/* ---------- Buttons (sentence case) ---------- */
+.serta-wrapper .br-btn {
+  display: inline-block;
+  background: var(--br-ink);
+  color: #fff;
+  font: 600 0.9rem/1 var(--br-sans);
+  letter-spacing: 0.02em;
+  padding: 15px 26px;
+  border: 2px solid var(--br-ink);
+  text-decoration: none;
+  transition: background .2s, color .2s;
+}
+.serta-wrapper .br-btn:hover, .serta-wrapper .br-btn:focus-visible { background: #fff; color: var(--br-ink); }
+.serta-wrapper .br-btn--light { background: #fff; color: var(--br-ink); border-color: #fff; }
+.serta-wrapper .br-btn--light:hover, .serta-wrapper .br-btn--light:focus-visible { background: transparent; color: #fff; }
+.serta-wrapper .br-btn--ghost { background: transparent; color: #fff; border-color: #fff; }
+.serta-wrapper .br-btn--ghost:hover, .serta-wrapper .br-btn--ghost:focus-visible { background: #fff; color: var(--br-ink); }
+
+/* ---------- Hero ---------- */
+.serta-wrapper .br-hero { position: relative; background: #1d2026; color: #fff; overflow: hidden; }
+.serta-wrapper .br-hero__media { position: relative; aspect-ratio: 1920 / 1067; max-height: 720px; width: 100%; }
+.serta-wrapper .br-hero__img,
+.serta-wrapper .br-hero__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 70%; }
+.serta-wrapper .br-hero__video { z-index: 1; opacity: 0; transition: opacity .6s; }
+.serta-wrapper .br-hero__video.is-playing { opacity: 1; }
+.serta-wrapper .br-hero__media::after {
+  content: ""; position: absolute; inset: 0; z-index: 2;
+  background: linear-gradient(180deg, rgba(10,12,16,.55) 0%, rgba(10,12,16,.15) 45%, rgba(10,12,16,0) 70%);
+}
+.serta-wrapper .br-hero__content {
+  position: absolute; z-index: 3; top: 0; left: 0; right: 0;
+  text-align: center; padding: clamp(24px, 5vw, 64px) 20px 0;
+}
+.serta-wrapper .br-hero__eyebrow { font: 400 clamp(1.1rem, 2.2vw, 1.75rem)/1.2 var(--br-serif); margin: 0; }
+.serta-wrapper .br-hero__eyebrow em { font-weight: 600; }
+.serta-wrapper .br-hero__logo { margin: 8px auto 0; }
+.serta-wrapper .br-hero__logo img { width: clamp(200px, 32vw, 440px); margin: 0 auto; }
+.serta-wrapper .br-hero h1.snz-h1 {
+  font: 600 0.8rem/1.3 var(--br-sans);
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: #fff; margin: 18px 0 0;
+}
+.serta-wrapper .br-hero__sub { max-width: 640px; margin: 12px auto 0; font-size: 1rem; color: rgba(255,255,255,.92); }
+.serta-wrapper .br-hero__btns { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+
+/* Under 900px the copy sits below the picture so the mattresses stay visible. */
+@media (max-width: 899px) {
+  .serta-wrapper .br-hero__media::after { display: none; }
+  .serta-wrapper .br-hero__content { position: static; padding: 28px 20px 36px; }
+}
+
+/* ---------- At a glance ---------- */
+.serta-wrapper .br-glance { padding: 64px 0; }
+.serta-wrapper .br-glance .br-inner { background: var(--br-cream); padding: 48px 32px; }
+.serta-wrapper .br-glance__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.serta-wrapper .br-card { background: #fff; }
+.serta-wrapper .br-card img { width: 100%; aspect-ratio: 800 / 541; object-fit: cover; }
+.serta-wrapper .br-card__body { padding: 22px 22px 26px; text-align: center; }
+.serta-wrapper .br-card h3 { font: 500 1.1rem/1.3 var(--br-sans); color: var(--br-ink); margin: 0 0 10px; }
+.serta-wrapper .br-card p { font-size: 0.92rem; margin: 0; }
+@media (max-width: 799px) {
+  .serta-wrapper .br-glance__grid { grid-template-columns: 1fr; }
+  .serta-wrapper .br-glance .br-inner { padding: 36px 20px; }
+}
+
+/* ---------- Collections ---------- */
+.serta-wrapper .br-collections { padding: 24px 0 64px; }
+.serta-wrapper .br-row { display: grid; grid-template-columns: 1fr 1fr; align-items: center; }
+.serta-wrapper .br-row--flip .br-row__text { order: 2; }
+.serta-wrapper .br-row__text { padding: 32px clamp(20px, 5vw, 64px); }
+.serta-wrapper .br-row__img img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+.serta-wrapper .br-logo-h { margin: 0 0 18px; }
+.serta-wrapper .br-logo-h img { width: auto; max-width: 240px; max-height: 92px; }
+.serta-wrapper .br-row p { margin: 0 0 12px; color: var(--br-ink); font-size: 1.05rem; }
+.serta-wrapper .br-row ul { margin: 0 0 14px; padding-left: 20px; }
+.serta-wrapper .br-row li { margin: 0 0 6px; font-size: 0.95rem; }
+.serta-wrapper .br-row .br-note { font-size: 0.78rem; color: #6b6f76; }
+.serta-wrapper .br-row .br-btn { margin-top: 10px; }
+@media (max-width: 799px) {
+  .serta-wrapper .br-row { grid-template-columns: 1fr; margin-bottom: 28px; }
+  .serta-wrapper .br-row--flip .br-row__text { order: 0; }
+  .serta-wrapper .br-row__img { order: -1; }
+  .serta-wrapper .br-row__text { padding: 24px 20px 8px; }
+}
+
+/* ---------- Adjustable bases ---------- */
+.serta-wrapper .br-adjust { padding: 0 0 64px; }
+.serta-wrapper .br-adjust__hero { position: relative; }
+.serta-wrapper .br-adjust__hero img { width: 100%; aspect-ratio: 1400 / 791; object-fit: cover; }
+.serta-wrapper .br-adjust__head {
+  position: absolute; top: 0; left: 0; right: 0; text-align: center; color: #fff;
+  padding: 28px 20px 60px; background: linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,0));
+}
+.serta-wrapper .br-adjust__head .br-h2 { color: #fff; margin-bottom: 10px; }
+.serta-wrapper .br-adjust__head p { max-width: 640px; margin: 0 auto; }
+.serta-wrapper .br-uses { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin: -60px 36px 0; position: relative; }
+.serta-wrapper .br-uses > div { background: var(--br-cream); padding: 20px; }
+.serta-wrapper .br-uses h3 { font: 500 1.05rem/1.3 var(--br-sans); color: var(--br-ink); margin: 0 0 6px; }
+.serta-wrapper .br-uses p { font-size: 0.85rem; margin: 0; }
+.serta-wrapper .br-bases { margin-top: 48px; }
+.serta-wrapper .br-base { display: grid; grid-template-columns: 1fr 1.2fr; gap: 32px; align-items: center; padding: 24px clamp(0px, 4vw, 48px); }
+.serta-wrapper .br-base h3 { font: 300 1.5rem/1.25 var(--br-sans); margin: 0 0 12px; }
+.serta-wrapper .br-tier { display: block; font-size: 1.1rem; font-weight: 400; }
+.serta-wrapper .br-tier--platinum { color: #8f949b; }
+.serta-wrapper .br-tier--gold { color: #A88B4C; }
+.serta-wrapper .br-tier--silver { color: #9aa0a8; }
+.serta-wrapper .br-tier--bronze { color: #A8714A; }
+.serta-wrapper .br-base h3 { color: var(--br-ink); }
+.serta-wrapper .br-base p { font-size: 0.92rem; margin: 0; }
+.serta-wrapper .br-adjust__cta { text-align: center; margin: 24px 0 0; }
+@media (max-width: 899px) {
+  .serta-wrapper .br-adjust__head { position: static; color: var(--br-ink); background: none; padding: 24px 0 0; }
+  .serta-wrapper .br-adjust__head .br-h2 { color: var(--br-ink); }
+  .serta-wrapper .br-adjust__hero { display: flex; flex-direction: column-reverse; }
+  .serta-wrapper .br-uses { grid-template-columns: 1fr 1fr; margin: 20px 0 0; }
+  .serta-wrapper .br-base { grid-template-columns: 1fr; gap: 12px; }
+  .serta-wrapper .br-base img { order: -1; }
+}
+
+/* ---------- The Beautyrest difference ---------- */
+.serta-wrapper .br-diff { padding: 0 0 64px; }
+.serta-wrapper .br-diff__text { background: var(--br-cream); text-align: center; padding: 48px clamp(20px, 8vw, 120px) 40px; }
+.serta-wrapper .br-diff__text p { max-width: 760px; margin: 0 auto 14px; font-size: 0.95rem; }
+.serta-wrapper .br-diff__band { background: #111318; }
+.serta-wrapper .br-diff__img { width: 100%; aspect-ratio: 1600 / 696; object-fit: cover; }
+.serta-wrapper .br-badges {
+  list-style: none; margin: 0; padding: 28px 20px 36px;
+  display: flex; flex-wrap: wrap; justify-content: space-around; align-items: center; gap: 24px;
+  color: #fff; text-align: center;
+}
+.serta-wrapper .br-badges li { display: flex; flex-direction: column; align-items: center; gap: 10px; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; max-width: 150px; }
+.serta-wrapper .br-badges li img, .serta-wrapper .br-badges li svg { height: 44px; width: auto; }
+.serta-wrapper .br-badges .br-badges__100 img { height: 72px; }
+
+/* ---------- Disclaimers ---------- */
+.serta-wrapper .br-disclaimers { padding: 24px 0 40px; font-size: 0.75rem; color: #6b6f76; text-align: center; }
+
+/* =====================================================================
+   Serta-only sections
+   ===================================================================== */
+.serta-wrapper .br-h2 { font-weight: 400; }
+
+/* Hero: Serta's banner video (logo, headline and "Shop Serta" are part of
+   the video), linked to the visit section, with live H1 + buttons below. */
+.serta-wrapper .se-hero { background: #0f1218; }
+.serta-wrapper .se-hero__media { position: relative; display: block; aspect-ratio: 1280 / 544; }
+.serta-wrapper .se-hero__media picture, .serta-wrapper .se-hero__media img,
+.serta-wrapper .se-hero__media video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.serta-wrapper .se-hero__media video { opacity: 0; transition: opacity .6s; }
+.serta-wrapper .se-hero__media video.is-playing { opacity: 1; }
+.serta-wrapper .se-hero__bar { background: #fff; border-bottom: 1px solid var(--br-line); text-align: center; padding: 28px 20px 32px; }
+.serta-wrapper .se-hero__bar h1.snz-h1 { font: 700 0.85rem/1.3 var(--br-sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--br-ink); margin: 0; }
+.serta-wrapper .se-hero__bar p { margin: 10px auto 0; max-width: 620px; font-size: 1.05rem; color: var(--br-ink); }
+.serta-wrapper .se-hero__btns { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+.serta-wrapper .br-btn--outline { background: #fff; color: var(--br-ink); }
+.serta-wrapper .br-btn--outline:hover, .serta-wrapper .br-btn--outline:focus-visible { background: var(--br-ink); color: #fff; }
+@media (max-width: 767px) { .serta-wrapper .se-hero__media { aspect-ratio: 480 / 598; } }
+
+/* The Serta advantage */
+.serta-wrapper .se-adv { padding: 64px 0 32px; }
+.serta-wrapper .se-adv__sub { text-align: center; margin: -20px 0 32px; font-size: 1.05rem; color: var(--br-ink); }
+.serta-wrapper .se-adv .br-card { background: #F7F8FA; }
+.serta-wrapper .se-adv .br-card img { aspect-ratio: 396 / 244; }
+.serta-wrapper .se-adv .br-card__body { text-align: left; }
+.serta-wrapper .se-adv .br-glance__grid { gap: 20px; }
+
+/* Collections: product name as text heading */
+.serta-wrapper .se-name { font: 400 clamp(1.5rem, 2.4vw, 2rem)/1.2 var(--br-sans); color: var(--br-ink); margin: 0 0 14px; }
+.serta-wrapper .se-name sup { font-size: 0.5em; vertical-align: super; line-height: 0; }
+.serta-wrapper .br-row__img img { aspect-ratio: 493 / 402; }
+.serta-wrapper .br-row { gap: 0; max-width: 1040px; margin: 0 auto 28px; }
+
+/* Reassurance */
+.serta-wrapper .se-trust { padding: 0 0 64px; }
+.serta-wrapper .se-trust__box { background: #F9F9FB; display: grid; grid-template-columns: 1fr 1.1fr; align-items: center; }
+.serta-wrapper .se-trust__img img { width: 100%; max-width: 520px; margin: 0 auto; }
+.serta-wrapper .se-trust__text { padding: 32px; }
+.serta-wrapper .se-trust__text h2 { font: 400 1.25rem/1.3 var(--br-sans); letter-spacing: 0.04em; text-transform: uppercase; color: var(--br-ink); text-align: center; margin: 0 0 24px; }
+.serta-wrapper .se-trust ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 28px 16px; }
+.serta-wrapper .se-trust li { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--br-ink); }
+.serta-wrapper .se-trust li img, .serta-wrapper .se-trust li svg { height: 40px; width: auto; filter: invert(1) brightness(0.15); }
+.serta-wrapper .se-trust li svg { filter: none; }
+@media (max-width: 799px) {
+  .serta-wrapper .se-trust__box { grid-template-columns: 1fr; }
+  .serta-wrapper .se-trust__img img { max-width: 320px; }
+}
