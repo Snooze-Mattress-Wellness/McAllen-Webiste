@@ -120,6 +120,7 @@ export const BRAND_PAGE_LOCATION = {
     'tempur-pedic': { page_path: '/tempur-pedic', asset_base: '/brands/tempur-pedic/' },
     beautyrest: { page_path: '/beautyrest', asset_base: '/brands/beautyrest/' },
     serta: { page_path: '/serta', asset_base: '/brands/serta/' },
+    sealy: { page_path: '/sealy', asset_base: '/brands/sealy/' },
     'stearns-foster': { page_path: '/stearns-foster', asset_base: '/brands/stearns-foster/' },
   },
 } satisfies Omit<BrandLocation, 'schema_ids' | 'site_icon'>;

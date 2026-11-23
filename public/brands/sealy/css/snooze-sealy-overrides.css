@@ -1,0 +1,48 @@
+/* =====================================================================
+   Snooze Mattress – Sealy brand page: fixes
+   Load AFTER sealy.scoped.css. Shared local sections are styled by
+   shared/css/snooze-brand-local.css.
+   ===================================================================== */
+
+/* Images now carry width/height attributes (prevents layout shift); keep them fluid. */
+.sealy-wrapper img[width] { max-width: 100%; height: auto; }
+.sealy-wrapper .header .header__content-container > img[alt="Sealy"] { width: 80px; }
+
+/* ---------- Real <img> tags instead of CSS background images ----------
+   The vendor drew the feature icons, the five mattress room scenes and the
+   EASE+ base as CSS backgrounds with the description pushed off-screen, so
+   Google couldn't index them. The HTML now has real <img> tags; these rules
+   switch the backgrounds off and make each <img> fill the same box. */
+.sealy-wrapper .features .swiper-slide .image,
+.sealy-wrapper [class$="__image"] {
+  background: none !important;
+  text-indent: 0 !important;
+  position: relative;
+}
+.sealy-wrapper .features .swiper-slide .image > img[width],
+.sealy-wrapper [class$="__image"] > img[width] {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+.sealy-wrapper .features .swiper-slide.quality .image > img { object-position: top center; }
+
+
+/* ---------- SEO H1 under the Sealy logo ---------- */
+.sealy-wrapper .header .header__inner .header__content-container h1.snz-h1 {
+  color: #004DA8;
+  font-family: "Inter", sans-serif;
+  font-size: 0.875em;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.3;
+  margin: 18px 0 0;
+  text-transform: uppercase;
+}
+
+/* Two hero buttons (vendor had one). */
+.sealy-wrapper .header .snz-hero-btns { margin: 0.5em 0 0; }
+.sealy-wrapper .header .snz-hero-btns .btn { display: inline-block; margin: 0.5em 0 0; }

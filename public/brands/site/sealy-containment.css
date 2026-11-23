@@ -1,0 +1,22 @@
+/* =====================================================================
+   McAllen site: containment for the Sealy brand page (/sealy only).
+   Loaded right after brand.json's styles (lib/brand-pages/registry.ts,
+   site_styles). The vendor files stay unchanged.
+
+   sealy.scoped.css has one rule its scoping missed:
+     @media all and (min-width: 658px) { br { display: none; } }
+   It hides every line break on the page from 658px up: the site footer's
+   store address ("Suite 130McAllen, TX"), and, inside the wrapper, the
+   store card and hours of the shared visit section between 658px and
+   1023px (from 1024px the vendor shows .sealy-wrapper br again).
+   Restored here to the browser's own display for line breaks outside the
+   Sealy wrapper and in the shared local sections (.snz-local). The vendor
+   body keeps its own behaviour. The site sets no display on <br>
+   anywhere, so "revert" only cancels the vendor rule.
+   ===================================================================== */
+@media all and (min-width: 658px) {
+  br:not(.sealy-wrapper br),
+  .sealy-wrapper .snz-local br {
+    display: revert;
+  }
+}

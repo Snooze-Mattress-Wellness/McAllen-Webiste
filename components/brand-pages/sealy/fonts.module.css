@@ -1,0 +1,13 @@
+/* Inter with its size-matched fallback, so the font swap does not move the text (the hero above all). The vendor CSS
+   (sealy.scoped.css, snooze-sealy-overrides.css; copied unchanged) names the font directly: font-family: "Inter",
+   sans-serif, on the wrapper and on the hero H1. next/font registers the face under that same name (the Inter instance
+   Beautyrest already loads, components/brand-pages/beautyrest/font.ts: one copy of the font for both brands), so the
+   text is set in the self-hosted Inter either way; these two rules only put next/font's "Inter Fallback" (a local face
+   size-adjusted to Inter) in front of the vendor's sans-serif. Everything else inherits from the wrapper; the shared
+   local sections set their own Poppins. The doubled class puts both rules above the vendor's, whatever the order. */
+.fonts.fonts :global(.sealy-wrapper) {
+  font-family: var(--font-br-sans), sans-serif;
+}
+.fonts.fonts :global(.sealy-wrapper .header .header__inner .header__content-container h1.snz-h1) {
+  font-family: var(--font-br-sans), sans-serif;
+}
