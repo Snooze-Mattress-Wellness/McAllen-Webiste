@@ -7,7 +7,7 @@ import { BRANDS } from '@/lib/brand-pages/registry';
 import { brandPage } from '@/lib/brand-pages/page';
 import { brandPageJsonLd, type JsonLd } from '@/lib/brand-pages/jsonld';
 import { pageFaq } from '@/lib/brand-pages/faq';
-import { brandOffers } from '@/lib/brand-pages/feed';
+import { brandOffers } from '@/lib/brand-pages/offers';
 import type { BrandKey, BrandLocation, PromoFeed, SectionKey } from '@/lib/brand-pages/types';
 import { BRAND_SECTIONS } from './sections';
 import { Faq, Promo, Visit, WhyBuy } from './local';
@@ -16,8 +16,8 @@ import BrandTracking from './BrandTracking';
 type Props = {
   brand: BrandKey;
   location: BrandLocation;
-  /** the promo feed (lib/brand-pages/feed-loader.ts loadPromoFeed), or null for the static fallback offers */
-  feed: PromoFeed | null;
+  /** the promo feed (lib/snooze/feed.ts getPromoFeed: it throws when the feed can't be read, so there is always one) */
+  feed: PromoFeed;
   /** renders the page's structured data (the site puts it in its one JSON-LD graph) */
   renderSchema?: (items: JsonLd[]) => ReactNode;
 };
@@ -29,7 +29,7 @@ export function BrandPage({ brand: key, location: l, feed, renderSchema }: Props
   // the offers: the vendor promotions live today (store time) and the always-on tiles, in feed order
   const { promos, tiles } = brandOffers(brand, l.store_id, feed);
   // the store's local questions, then the offers' own questions (always_on[].faq)
-  const faq = pageFaq(page.faq, tiles);
+  const faq = pageFaq(page.faq, tiles, brand.name);
   const props = { brand, location: l, img: page.img };
 
   const section = (s: SectionKey): ReactNode => {
