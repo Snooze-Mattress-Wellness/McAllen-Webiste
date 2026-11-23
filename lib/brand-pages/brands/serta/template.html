@@ -1,0 +1,210 @@
+<!-- Serta brand page body. Built by Snooze from the Serta OPGP generic landing page kit (desktop/mobile image slices, hero videos and mockups, Serta Simmons Bedding AEM link share). The vendor slices had all copy set inside images; it is live text here. Tokens are filled by tools/build-page.mjs. -->
+<div class="serta-wrapper snz-brand snz-brand--serta">
+
+	<section class="se-hero">
+		<a class="se-hero__media" href="#visit" aria-label="Serta: We make the World's Best Mattress. Try Serta at Snooze Mattress in {{city}}">
+			<picture>
+				<source media="(max-width: 767px)" srcset="{{brand_base}}img/hero-poster-mobile.webp" width="480" height="598">
+				<img src="{{brand_base}}img/hero-poster.webp" alt="Serta: We make the World's Best Mattress. Designed with zoned comfort for full-body alignment and all-night support." width="1280" height="544" fetchpriority="high">
+			</picture>
+			<video class="se-hero__video" muted loop playsinline preload="none" data-src="{{brand_base}}video/serta-hero.mp4" aria-hidden="true"></video>
+		</a>
+		<div class="se-hero__bar">
+			{{H1}}
+			<p>We Make the World&rsquo;s Best Mattress.&trade; Designed with zoned comfort for full-body alignment and all-night support.</p>
+			<div class="se-hero__btns"><a href="#visit" class="br-btn">Try Serta in {{city}}</a> <a href="{{links.dream_mapping}}" class="br-btn br-btn--outline">Learn about Dream Mapping</a></div>
+		</div>
+	</section>
+
+	{{VISIT}}
+
+	{{PROMO}}
+
+	<section class="se-adv" aria-labelledby="se-adv-h">
+		<div class="br-inner">
+			<h2 id="se-adv-h" class="br-h2">The Serta advantage</h2>
+			<p class="se-adv__sub">Comfortable, supportive, and cooling sleep</p>
+			<div class="br-glance__grid">
+				<div class="br-card">
+					<img src="{{brand_base}}img/adv-zoned.webp" alt="Serta mattress showing five support zones" width="396" height="244" loading="lazy">
+					<div class="br-card__body">
+						<h3>Zoned comfort</h3>
+						<p>Designed for <strong>full-body alignment</strong> throughout the night, providing support where the body naturally curves, ensuring comfort where the body touches the bed the most.</p>
+					</div>
+				</div>
+				<div class="br-card">
+					<img src="{{brand_base}}img/adv-pressure.webp" alt="Family relaxing on a Serta mattress" width="396" height="244" loading="lazy">
+					<div class="br-card__body">
+						<h3>Pressure relief</h3>
+						<p>Contouring foams and coils <strong>respond to movement</strong> throughout the night, cradling your body while <strong>reducing pressure</strong>, as well as minimizing the impact of your partner&rsquo;s movement.</p>
+					</div>
+				</div>
+				<div class="br-card">
+					<img src="{{brand_base}}img/adv-cooling.webp" alt="Couple relaxing on a cooling Serta mattress" width="396" height="244" loading="lazy">
+					<div class="br-card__body">
+						<h3>Cooling comfort</h3>
+						<p>Our cool-to-the-touch fabrics, breathable foams and cooling technologies promote <strong>airflow</strong> and help with <strong>temperature regulation</strong> as you sleep.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="br-collections" aria-labelledby="se-coll-h">
+		<div class="br-inner">
+			<h2 id="se-coll-h" class="br-h2">Serta mattress collections</h2>
+
+			<div class="br-row br-row--flip">
+				<div class="br-row__text">
+					<h3 class="se-name">Serta<sup>&reg;</sup> iSeries<sup>&reg;</sup> NXG<sup>&trade;</sup></h3>
+					<p>Experience <strong>immediate cooling</strong>, <strong>instant pressure relief</strong>, and <strong>ideal support</strong> for a deeper, more restful sleep at a price that makes sense. Available in foam and hybrid constructions.</p>
+					<ul>
+						<li>CoolFeel&trade; Cover</li>
+						<li>Carbon Fiber Memory Foam</li>
+						<li>NXG&trade; Memory Foam</li>
+						<li>Foam Core with Ultimate Edge&trade; Support</li>
+						<li>5-Zone Coil Support System</li>
+					</ul>
+					<a href="#visit" class="br-btn">Try iSeries NXG in {{city}}</a>
+				</div>
+				<div class="br-row__img"><img src="{{brand_base}}img/iseries-nxg.webp" alt="Serta iSeries NXG mattress" width="493" height="402" loading="lazy"></div>
+			</div>
+
+			<div class="br-row">
+				<div class="br-row__text">
+					<h3 class="se-name">Serta<sup>&reg;</sup> iComfort<sup>&reg;</sup></h3>
+					<p>Featuring <strong>5 support zones</strong> designed for <strong>full-body spinal alignment</strong>, with <strong>cool-to-the-touch fabric</strong> and <strong>premium memory foam</strong>.</p>
+					<ul>
+						<li>5 ZoneResponse&trade; Design</li>
+						<li>Perfect Conform&trade; Memory Foam</li>
+						<li>CoolFeel&trade; Fabric</li>
+						<li>EverCool<sup>&reg;</sup> Fuze Gel Memory Foam</li>
+					</ul>
+					<a href="#visit" class="br-btn">Try iComfort in {{city}}</a>
+				</div>
+				<div class="br-row__img"><img src="{{brand_base}}img/icomfort.webp" alt="Serta iComfort mattress" width="493" height="402" loading="lazy"></div>
+			</div>
+
+			<div class="br-row br-row--flip">
+				<div class="br-row__text">
+					<h3 class="se-name">Serta<sup>&reg;</sup> iComfortPro<sup>&trade;</sup></h3>
+					<p>Featuring our exclusive <strong>5 support zones</strong> for <strong>improved spinal alignment</strong>, <strong>professional-grade latex foam</strong> and an <strong>advanced cooling system</strong> for premium all-foam comfort.</p>
+					<ul>
+						<li>5 ZoneResponse&trade; Design</li>
+						<li>True Response&trade; Latex Foam</li>
+						<li>CoolFeel Pro&trade; System</li>
+						<li>PillowSoft<sup>&reg;</sup> Aire</li>
+					</ul>
+					<a href="#visit" class="br-btn">Try iComfortPro in {{city}}</a>
+				</div>
+				<div class="br-row__img"><img src="{{brand_base}}img/icomfort-pro.webp" alt="Serta iComfortPro mattress" width="493" height="402" loading="lazy"></div>
+			</div>
+
+			<div class="br-row">
+				<div class="br-row__text">
+					<h3 class="se-name">Serta<sup>&reg;</sup> Perfect Sleeper<sup>&reg;</sup></h3>
+					<p>Featuring an <strong>825-coil density system</strong>, this supportive mattress offers <strong>3 zoned comfort</strong> and <strong>pressure relief</strong> where you need it.</p>
+					<ul>
+						<li>Gel Support Band</li>
+						<li>PillowSoft<sup>&reg;</sup> Aire</li>
+						<li>825&ndash;850 Edition Custom Support System</li>
+					</ul>
+					<a href="#visit" class="br-btn">Try Perfect Sleeper in {{city}}</a>
+				</div>
+				<div class="br-row__img"><img src="{{brand_base}}img/perfect-sleeper.webp" alt="Serta Perfect Sleeper mattress" width="493" height="402" loading="lazy"></div>
+			</div>
+
+			<div class="br-row br-row--flip">
+				<div class="br-row__text">
+					<h3 class="se-name">Serta<sup>&reg;</sup> Perfect Sleeper X<sup>&trade;</sup></h3>
+					<p>Featuring <strong>5 support zones</strong> designed for full-body alignment with a combination of <strong>responsive coils</strong> and <strong>graphite-infused memory foam</strong>, plus cooling technology.</p>
+					<ul>
+						<li>5 ZoneActive&trade; Design</li>
+						<li>Perfect Conform&trade; Memory Foam</li>
+						<li>Cool Twist&trade; Gel Memory Foam</li>
+						<li>EverCool<sup>&reg;</sup> Supreme Memory Foam</li>
+					</ul>
+					<a href="#visit" class="br-btn">Try Perfect Sleeper X in {{city}}</a>
+				</div>
+				<div class="br-row__img"><img src="{{brand_base}}img/perfect-sleeper-x.webp" alt="Serta Perfect Sleeper X mattress" width="493" height="402" loading="lazy"></div>
+			</div>
+		</div>
+	</section>
+
+	<section class="br-adjust" aria-labelledby="se-adjust-h">
+		<div class="br-inner">
+			<div class="br-adjust__hero">
+				<img src="{{brand_base}}img/adjustable-room.webp" alt="Woman resting on a baselogic adjustable base" width="1400" height="791" loading="lazy">
+				<div class="br-adjust__head">
+					<h2 id="se-adjust-h" class="br-h2">Customize your comfort</h2>
+					<p>Take your rest to the next level with our range of adjustable bases that put comfort and relaxation at your fingertips.</p>
+				</div>
+			</div>
+			<div class="br-uses">
+				<div><h3>Sleeping</h3><p>One-touch presets set the mattress to your favorite sleeping positions</p></div>
+				<div><h3>Lounging</h3><p>Adjust your mattress to suit your comfort preference, whether you&rsquo;re reading or watching TV</p></div>
+				<div><h3>Baby Bonding</h3><p>Feed or soothe your little one from the comfort of bed</p></div>
+				<div><h3>Recovering</h3><p>Rest in the position of your choice</p></div>
+			</div>
+
+			<div class="br-bases">
+				<div class="br-base">
+					<div class="br-base__text">
+						<h3><span class="br-tier br-tier--platinum">baselogic&trade;</span> Platinum Adjustable Base</h3>
+						<p>Customize your comfort with <strong>integrated sound therapy</strong>, featuring white, pink, or brown noise, <strong>ambient underbed lighting</strong> to light your way in the dark, whisper-quiet <strong>dual massage</strong> to help you drift to sleep, and <strong>one-touch presets</strong> to better your sleep with the touch of a button.</p>
+					</div>
+					<img src="{{brand_base}}img/base-platinum.webp" alt="baselogic Platinum adjustable base" width="900" height="452" loading="lazy">
+				</div>
+				<div class="br-base">
+					<div class="br-base__text">
+						<h3><span class="br-tier br-tier--gold">baselogic&trade;</span> Gold Adjustable Base</h3>
+						<p>Equipped with calming, <strong>underbed lighting</strong>, a whisper-quiet <strong>single massage</strong> setting to help you drift to sleep, and <strong>3 memory presets</strong> to set and return to your favorite sleep positions.</p>
+					</div>
+					<img src="{{brand_base}}img/base-gold.webp" alt="baselogic Gold adjustable base" width="900" height="436" loading="lazy">
+				</div>
+				<div class="br-base">
+					<div class="br-base__text">
+						<h3><span class="br-tier br-tier--silver">baselogic&trade;</span> Silver Adjustable Base</h3>
+						<p>Features <strong>head and foot adjustability</strong>, a <strong>zero-gravity preset</strong>, and a <strong>one-touch flat preset</strong> controlled by a convenient <strong>wireless remote</strong>.</p>
+					</div>
+					<img src="{{brand_base}}img/base-silver.webp" alt="baselogic Silver adjustable base" width="900" height="506" loading="lazy">
+				</div>
+				<div class="br-base">
+					<div class="br-base__text">
+						<h3><span class="br-tier br-tier--bronze">baselogic&trade;</span> Bronze Adjustable Base</h3>
+						<p>Offering essential support + ease with <strong>head adjustability</strong> controlled by a convenient <strong>wired remote</strong> and a <strong>zero-clearance design</strong>.</p>
+					</div>
+					<img src="{{brand_base}}img/base-bronze.webp" alt="baselogic Bronze adjustable base" width="900" height="518" loading="lazy">
+				</div>
+			</div>
+			<p class="br-adjust__cta"><a href="#visit" class="br-btn">Ask about adjustable bases in {{city}}</a></p>
+		</div>
+	</section>
+
+	<section class="se-trust" aria-labelledby="se-trust-h">
+		<div class="br-inner">
+			<div class="se-trust__box">
+				<div class="se-trust__img"><img src="{{brand_base}}img/sheep.webp" alt="The Serta counting sheep holding a checklist" width="600" height="558" loading="lazy"></div>
+				<div class="se-trust__text">
+					<h2 id="se-trust-h">Reassurance so you can rest easy</h2>
+					<ul>
+						<li><img src="{{brand_base}}img/icon-usa.png" alt="" width="193" height="148" loading="lazy"><span>100% USA assembled</span></li>
+						<li><svg viewBox="0 0 64 40" width="64" height="40" aria-hidden="true"><g fill="none" stroke="#1B2A3A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 30h22l10-10h24"/><path d="M4 22h20l10-10h26"/><path d="M8 30v6M56 20v16"/></g></svg><span>Adjustable base compatible</span></li>
+						<li><img src="{{brand_base}}img/icon-warranty.png" alt="" width="146" height="188" loading="lazy"><span>10-year warranty</span></li>
+						<li><img src="{{brand_base}}img/icon-certipur.png" alt="" width="252" height="160" loading="lazy"><span>CertiPUR-US<sup>&reg;</sup> certified</span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{{WHY}}
+
+	{{FAQ}}
+
+	<section class="br-disclaimers">
+		<div class="br-inner">
+			<p>Serta<sup>&reg;</sup> and related marks are trademarks of their respective owners. Features vary by model. See store for details.</p>
+		</div>
+	</section>
+</div>

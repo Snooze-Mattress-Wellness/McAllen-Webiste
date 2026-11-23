@@ -64,18 +64,20 @@ test('clearance: the page shows the top 4 by savings', () => {
 
 /* ---------- brand card links (B5) ---------- */
 test('brand cards link only brand pages live here; the others say "Try {Brand} in store" -> /booking', () => {
-  // the example feed leaves Beautyrest's brand_page_url empty; the live Offer Calendar feed carries /beautyrest
-  const feed = withLiveBrandLinks({ ...FEED, brands: FEED.brands.map((b: { brand: string }) => (b.brand === 'Beautyrest' ? { ...b, brand_page_url: '/beautyrest' } : b)) });
+  // the example feed leaves Beautyrest's and Serta's brand_page_url empty; the live Offer Calendar feed carries them
+  const LIVE_URLS: Record<string, string> = { Beautyrest: '/beautyrest', Serta: '/serta' };
+  const feed = withLiveBrandLinks({ ...FEED, brands: FEED.brands.map((b: { brand: string }) => (LIVE_URLS[b.brand] ? { ...b, brand_page_url: LIVE_URLS[b.brand] } : b)) });
   const urls = Object.fromEntries(feed.brands.map((b: { brand: string; brand_page_url: string }) => [b.brand, b.brand_page_url]));
   assert.equal(urls['Tempur-Pedic'], '/tempur-pedic');
   assert.equal(urls['Beautyrest'], '/beautyrest');
-  assert.equal(urls['Serta'], '');
+  assert.equal(urls['Serta'], '/serta');
   assert.equal(urls['Sealy'], '');
   assert.equal(urls['Stearns & Foster'], '');
   assert.equal(FEED.brands.find((b: { brand: string }) => b.brand === 'Sealy').brand_page_url, '/sealy', 'the original feed is not changed');
   const html = Sales.renderSalesHTML(Sales.buildSalesModel(feed, LOC, { today: '2026-11-21', clearance: [] }), { assetBase: '/brands/' });
   assert.ok(html.includes('href="/tempur-pedic">Explore Tempur-Pedic'));
   assert.ok(html.includes('href="/beautyrest">Explore Beautyrest'));
+  assert.ok(html.includes('href="/serta">Explore Serta'));
   assert.ok(html.includes('href="/booking">Try Sealy in store'));
   assert.ok(html.includes('href="/booking">Try Stearns &amp; Foster in store'));
   assert.ok(!html.includes('href="/sealy"') && !html.includes('href="/stearns-foster"'));

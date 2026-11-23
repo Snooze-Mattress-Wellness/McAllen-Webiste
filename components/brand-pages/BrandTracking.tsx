@@ -70,7 +70,9 @@ export default function BrandTracking({ storeId, brand, wrapperClass, promoSlot,
       }
       if (a.matches(ctaSelector)) {
         const section = ctaSections.find(([, sel]) => a.closest(sel))?.[0] || 'other';
-        dl.push({ event: 'cta_click', store_id: storeId, brand, cta_text: (a.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 100), cta_url: url, cta_section: section, page_type: 'brand' });
+        // a link with no text of its own (the Serta hero picture) reports its aria-label
+        const text = (a.textContent || '').replace(/\s+/g, ' ').trim() || a.getAttribute('aria-label') || '';
+        dl.push({ event: 'cta_click', store_id: storeId, brand, cta_text: text.slice(0, 100), cta_url: url, cta_section: section, page_type: 'brand' });
       }
     };
     root.addEventListener('click', onClick, true);

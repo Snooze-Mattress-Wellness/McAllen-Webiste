@@ -19,15 +19,16 @@ function withDreamMappingLink(c: PageCopy, slug: string, locale: Locale): PageCo
 
 /* Brand pages (lib/brand-pages/, English only): on these English pages the first mention of each brand in the body copy
    links to its brand page, same tab, one link per brand per page (the intro and sections; not headings, not the FAQ).
-   /memory-foam-mattresses names no Beautyrest model, so it links Tempur-Pedic only. */
+   /memory-foam-mattresses names no Beautyrest or Serta model, /cooling-mattresses no Serta model. */
 const TEMPUR_PEDIC = { phrase: 'Tempur-Pedic', href: '/tempur-pedic' };
 const BEAUTYREST = { phrase: 'Beautyrest', href: '/beautyrest' };
+const SERTA = { phrase: 'Serta', href: '/serta' };
 const BRAND_PAGE_MENTIONS: Record<string, readonly { phrase: string; href: string }[]> = {
   '/cooling-mattresses': [TEMPUR_PEDIC, BEAUTYREST],
   '/memory-foam-mattresses': [TEMPUR_PEDIC],
-  '/mattress-store-edinburg': [TEMPUR_PEDIC, BEAUTYREST],
-  '/mattress-store-mission': [TEMPUR_PEDIC, BEAUTYREST],
-  '/mattress-store-pharr': [TEMPUR_PEDIC, BEAUTYREST],
+  '/mattress-store-edinburg': [TEMPUR_PEDIC, BEAUTYREST, SERTA],
+  '/mattress-store-mission': [TEMPUR_PEDIC, BEAUTYREST, SERTA],
+  '/mattress-store-pharr': [TEMPUR_PEDIC, BEAUTYREST, SERTA],
 };
 function withBrandPageLink(c: PageCopy, slug: string, locale: Locale): PageCopy {
   const mentions = locale === 'en' ? BRAND_PAGE_MENTIONS[slug] || [] : [];

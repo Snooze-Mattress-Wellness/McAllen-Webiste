@@ -55,7 +55,8 @@ export function BrandPage({ brand: key, location: l, feed, renderSchema }: Props
         brand={brand.json.vendor}
         wrapperClass={brand.site.wrapper_class}
         promoSlot={brand.site.promo_slot}
-        promos={promos.map((b) => ({ block: b.block, headline: b.headline, event: b.event }))}
+        // promotion_name: the block's headline; a block with no headline row (Serta's) reports "<vendor> <event>"
+        promos={promos.map((b) => ({ block: b.block, headline: b.headline || `${b.vendor} ${b.event}`, event: b.event }))}
         ctaSelector={brand.site.tracking.cta_selector}
         ctaSections={brand.site.tracking.cta_sections}
       />

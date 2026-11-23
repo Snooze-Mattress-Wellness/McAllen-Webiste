@@ -51,7 +51,7 @@ export const LOCATION = {
   ],
 } as const;
 
-/* ---------- Brand pages (/tempur-pedic, /beautyrest; lib/brand-pages/) ----------
+/* ---------- Brand pages (/tempur-pedic, /beautyrest, /serta; lib/brand-pages/) ----------
    The dev handoff's location config (section 4), in its field names, for this store. Every value is derived from
    LOCATION above (or is a route of this site), so the brand pages can never disagree with the header, footer and
    structured data. The package's config/locations/mcallen.json has the same values; where the two ever differ, this
@@ -119,5 +119,6 @@ export const BRAND_PAGE_LOCATION = {
   brand_pages: {
     'tempur-pedic': { page_path: '/tempur-pedic', asset_base: '/brands/tempur-pedic/' },
     beautyrest: { page_path: '/beautyrest', asset_base: '/brands/beautyrest/' },
+    serta: { page_path: '/serta', asset_base: '/brands/serta/' },
   },
 } satisfies Omit<BrandLocation, 'schema_ids' | 'site_icon'>;
