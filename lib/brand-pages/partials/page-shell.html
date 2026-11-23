@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- ===================== SEO (filled per brand + location) ===================== -->
+	<title>{{TITLE}}</title>
+	<meta name="description" content="{{DESCRIPTION}}">
+	<link rel="canonical" href="{{page_url}}">
+	<meta name="robots" content="index, follow, max-image-preview:large">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="{{site_name}}">
+	<meta property="og:title" content="{{TITLE}}">
+	<meta property="og:description" content="{{OG_DESCRIPTION}}">
+	<meta property="og:url" content="{{page_url}}">
+	<meta property="og:image" content="{{site_url}}{{brand_asset_base}}img/og-image.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta name="twitter:card" content="summary_large_image">
+	<script type="application/ld+json">
+{{JSONLD}}
+	</script>
+	<!-- ============================================================================= -->
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<!-- Vendor font for this brand (use next/font in production). Poppins is listed only so this file previews on its own; the site already loads it. -->
+	<link href="{{FONT_URL}}" rel="stylesheet">
+{{PRELOADS}}
+{{STYLES}}
+</head>
+<body>
+	<!-- ===== Site header goes here (provided by the Snooze site layout) ===== -->
+
+{{BODY}}
+
+	<!-- ===== Site footer goes here (provided by the Snooze site layout) ===== -->
+
+{{SCRIPTS}}
+</body>
+</html>

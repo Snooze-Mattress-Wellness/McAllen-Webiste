@@ -10,7 +10,7 @@ export const LLMS_PLACEHOLDER = '{{BRAND_PAGES}}';
 export function llmsBrandPagesSection(loc: BrandLocation): string {
   const lines = BRAND_KEYS.flatMap((key) => {
     const page = loc.brand_pages[key];
-    return page ? [`- [${BRANDS[key].name} at ${loc.site_name}](${loc.site_url}${page.page_path})`] : [];
+    return page ? [`- [${BRANDS[key].json.name} at ${loc.site_name}](${loc.site_url}${page.page_path})`] : [];
   });
   return lines.length ? ['## Brand pages', ...lines].join('\n') : '';
 }

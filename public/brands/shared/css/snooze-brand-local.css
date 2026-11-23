@@ -1,0 +1,125 @@
+/* =====================================================================
+   Snooze Mattress brand pages – shared local sections
+   Used by every brand page (Tempur-Pedic, Stearns & Foster, Sealy, ...).
+   The brand page wrapper must carry class "snz-brand". Everything here is
+   scoped to it, so it can't touch the site header/footer.
+   Sections: visit (.snz-visit), dated promo (.snz-promo), why-buy tiles
+   (.snz-why), local FAQ (.snz-faq), shared H1 (.snz-h1).
+   ===================================================================== */
+.snz-brand .snz-local {
+  --snz-navy: #001489;
+  --snz-ink: #1e223c;
+  --snz-orange: #F07B2E;
+  --snz-soft: #e9edff;
+  font-family: Poppins, -apple-system, "Segoe UI", sans-serif;
+  color: var(--snz-ink);
+  font-size: 16px;
+  line-height: 1.6;
+}
+.snz-brand .snz-local h2 {
+  color: var(--snz-navy);
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 14px;
+}
+.snz-brand .snz-local h3 { color: var(--snz-navy); font-size: 18px; font-weight: 600; line-height: 1.3; margin: 0 0 6px; }
+.snz-brand .snz-local p { margin: 0 0 14px; }
+.snz-brand .snz-local a { color: var(--snz-navy); }
+.snz-brand .snz-inner { max-width: 1240px; margin: 0 auto; padding: clamp(36px, 5vw, 64px) 20px; }
+.snz-brand .snz-btn {
+  display: inline-block;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1;
+  padding: 15px 26px;
+  text-decoration: none;
+  transition: transform 100ms ease-in-out;
+}
+.snz-brand .snz-btn:hover { transform: scale(1.04); }
+.snz-brand .snz-btn--orange { background: var(--snz-orange); color: #fff !important; }
+.snz-brand .snz-btn--line { border: 2px solid var(--snz-navy); color: var(--snz-navy) !important; padding: 13px 24px; }
+.snz-brand .snz-btns { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+.snz-brand .snz-fine { font-size: 13px; color: #5b6690; margin: 12px 0 0; }
+
+/* 5a. Try it in McAllen (under the hero) */
+.snz-brand .snz-visit { background: #fff; border-bottom: 1px solid #e6e9f5; }
+.snz-brand .snz-visit .snz-inner { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 40px; align-items: center; }
+.snz-brand .snz-store {
+  background: var(--snz-soft);
+  border-radius: 18px;
+  padding: 26px 28px;
+  font-size: 15px;
+}
+.snz-brand .snz-store dl { margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px 18px; }
+.snz-brand .snz-store dt { font-weight: 600; color: var(--snz-navy); }
+.snz-brand .snz-store dd { margin: 0; }
+.snz-brand .snz-store .tel { font-weight: 700; white-space: nowrap; }
+
+/* 5b. Dated vendor promotion slot */
+.snz-brand .snz-promo { background: var(--snz-navy); color: #fff; }
+.snz-brand .snz-promo[hidden] { display: none; }
+.snz-brand .snz-promo .snz-inner { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 32px; align-items: center; padding-top: 40px; padding-bottom: 40px; }
+.snz-brand .snz-promo .snz-event { color: #ffb98a; font-weight: 600; font-size: 14px; margin: 0 0 6px; }
+.snz-brand .snz-promo h2 { color: #fff; }
+.snz-brand .snz-promo ul { margin: 0 0 6px; padding-left: 20px; }
+.snz-brand .snz-promo li { margin: 4px 0; }
+.snz-brand .snz-promo .snz-fine { color: #c9d0f5; }
+.snz-brand .snz-promo img { width: 100%; height: auto; display: block; }
+
+/* 5c. Why buy at Snooze Mattress in McAllen */
+.snz-brand .snz-why { background: #fff; }
+.snz-brand .snz-why .lead { max-width: 720px; }
+.snz-brand .snz-why .snz-btns { margin-top: 22px; }
+.snz-brand .snz-tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; margin: 26px 0 8px; }
+.snz-brand .snz-tile { background: var(--snz-soft); border-radius: 16px; padding: 22px; }
+.snz-brand .snz-tile p { font-size: 15px; margin: 0; }
+.snz-brand .snz-tile .snz-fine { margin-top: 8px; }
+
+/* 5d. Local FAQ */
+.snz-brand .snz-faq { background: #f6f7fc; }
+.snz-brand .snz-faq details { background: #fff; border-radius: 14px; margin: 0 0 12px; padding: 0 22px; border: 1px solid #e6e9f5; }
+.snz-brand .snz-faq summary { cursor: pointer; font-weight: 600; color: var(--snz-navy); padding: 18px 0; list-style: none; position: relative; padding-right: 30px; }
+.snz-brand .snz-faq summary::-webkit-details-marker { display: none; }
+.snz-brand .snz-faq summary::after { content: "+"; position: absolute; right: 0; top: 14px; font-size: 24px; color: var(--snz-orange); }
+.snz-brand .snz-faq details[open] summary::after { content: "–"; }
+.snz-brand .snz-faq details p { padding-bottom: 6px; }
+
+@media (max-width: 1023px) {
+  .snz-brand .snz-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .snz-brand .snz-visit .snz-inner,
+  .snz-brand .snz-promo .snz-inner { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .snz-brand .snz-tiles { grid-template-columns: minmax(0, 1fr); }
+  .snz-brand .snz-btns .snz-btn { flex: 1 1 100%; text-align: center; }
+}
+
+/* Hero button row used by every brand template */
+.snz-brand .snz-hero-btns { display: flex; flex-wrap: wrap; gap: 0 12px; }
+.snz-brand .snz-answer { font-weight: 600; }
+
+/* ---------- Typography reset for local sections ----------
+   Some vendor stylesheets style bare h2/h3/p/a/ul inside the brand wrapper
+   (serif headings, uppercase letter-spaced h3, block links). Local sections
+   always use the Snooze look, whatever the brand. */
+.snz-brand .snz-local h2,
+.snz-brand .snz-local h3,
+.snz-brand .snz-local p,
+.snz-brand .snz-local li,
+.snz-brand .snz-local dt,
+.snz-brand .snz-local dd,
+.snz-brand .snz-local summary {
+  font-family: Poppins, -apple-system, "Segoe UI", sans-serif;
+  letter-spacing: normal;
+  text-transform: none;
+}
+.snz-brand .snz-local h2 { font-weight: 700; }
+.snz-brand .snz-local h3 { font-weight: 600; }
+.snz-brand .snz-promo h2 { color: #fff; }
+.snz-brand .snz-local h2 sup, .snz-brand .snz-local h3 sup { font-size: 55%; vertical-align: super; line-height: 0; }
+.snz-brand .snz-store a,
+.snz-brand .snz-faq details a { display: inline; margin: 0; padding: 0; font: inherit; color: var(--snz-navy); text-decoration: underline; background: none; }
+.snz-brand .snz-local ul { list-style: disc; }
+.snz-brand .snz-store dt, .snz-brand .snz-store dd { margin: 0; padding: 0; line-height: 1.6; }

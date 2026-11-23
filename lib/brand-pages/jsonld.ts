@@ -4,6 +4,7 @@
 import type { BrandConfig, BrandLocation, FaqEntry } from './types.ts';
 import { answerSegments, plainText } from './faq.ts';
 import { brandPage } from './page.ts';
+import { brandText } from './render.ts';
 
 export type JsonLd = Record<string, unknown>;
 
@@ -14,12 +15,12 @@ export function brandPageJsonLd(brand: BrandConfig, loc: BrandLocation, faq: rea
       '@type': 'WebPage',
       '@id': `${url}#webpage`,
       url,
-      name: brand.seo.title(loc),
-      description: brand.seo.description(loc),
+      name: brandText(brand.json.title, loc),
+      description: brandText(brand.json.description, loc),
       inLanguage: 'en-US',
       isPartOf: { '@id': loc.schema_ids.website },
       // the brand, and the store that carries it (the site's own LocalBusiness node, #store)
-      about: [{ '@type': 'Brand', name: brand.name }, { '@id': loc.schema_ids.store }],
+      about: [{ '@type': 'Brand', name: brand.json.name }, { '@id': loc.schema_ids.store }],
       publisher: { '@id': loc.schema_ids.organization },
       breadcrumb: { '@id': `${url}#breadcrumb` },
     },
@@ -29,7 +30,7 @@ export function brandPageJsonLd(brand: BrandConfig, loc: BrandLocation, faq: rea
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Home', item: `${loc.site_url}${loc.links.home}` },
         { '@type': 'ListItem', position: 2, name: 'Mattresses', item: `${loc.site_url}${loc.links.mattresses}` },
-        { '@type': 'ListItem', position: 3, name: brand.name, item: url },
+        { '@type': 'ListItem', position: 3, name: brand.json.name, item: url },
       ],
     },
     {

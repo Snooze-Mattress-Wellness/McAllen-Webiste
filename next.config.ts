@@ -13,6 +13,10 @@ const nextConfig: NextConfig = {
   experimental: { inlineCss: true },
   // next/image (footer logo, blog images) serves the local files as they are; nothing is optimized per request
   images: { unoptimized: true },
+  // The brand pages render from the package's files, read from disk on the server (lib/brand-pages/files.ts): each
+  // brand's brand.json + template.html and the shared partials. Every route that may import the brand registry gets
+  // them in its function bundle, so an ISR regeneration on Vercel can read them.
+  outputFileTracingIncludes: { '/**': ['./lib/brand-pages/brands/**/*', './lib/brand-pages/partials/*.html'] },
   // The Tempur-Pedic brand page and the Sales page are English only: the Spanish URL 308s to the English page (the
   // EN | ES switch on them links /es). Kept here rather than in vercel.json so `next start` applies it too (local checks); Vercel applies both kinds.
   async redirects() {

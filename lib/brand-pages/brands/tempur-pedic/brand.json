@@ -1,0 +1,45 @@
+{
+  "slug": "tempur-pedic",
+  "name": "Tempur-Pedic",
+  "vendor": "Tempur-Pedic",
+  "page_path": "/tempur-pedic",
+  "title": "Tempur-Pedic Mattresses in {city}, {state} | Snooze Mattress",
+  "h1": "Tempur-Pedic Mattresses in {city}, {state}",
+  "description": "Try Tempur-Pedic Adapt, Breeze and smart adjustable bases at Snooze Mattress in {city}. Get a free Dream Mapping fitting to find the right fit for your body.",
+  "og_description": "Try Tempur-Pedic in {city} and get a free Dream Mapping fitting to find the right fit for your body.",
+  "carries": "Tempur-Pedic mattresses, adjustable bases and pillows",
+  "visit_intro": "Reading about TEMPUR-Material is one thing. Feeling how it supports your body is another.",
+  "try_items": "Tempur-Pedic mattresses and adjustable bases",
+  "fit_tail": ", whether that's the cooling Breeze collection or the pressure-relieving Adapt collection",
+  "faq_right_for_me": "It depends on your body and how you sleep. Dream Mapping, our pressure mapping technology, shows where your body needs support. Then your Sleep Coach helps you compare models, like the Breeze collection if you sleep hot or the Adapt collection for pressure relief.",
+  "font_url": "https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&family=Poppins:wght@400;600;700&display=swap",
+  "styles": [
+    "{shared}css/swiper-bundle.min.css",
+    "{brand}css/tempur-pedic.scoped.css",
+    "{brand}css/snooze-tempur-overrides.css",
+    "{shared}css/snooze-brand-local.css"
+  ],
+  "scripts": [
+    "{shared}js/swiper-bundle.min.js",
+    "{brand}js/scripts.js",
+    "{shared}js/snooze-promo.js"
+  ],
+  "preload_images": [
+    {
+      "href": "{brand}img/bg_header.webp",
+      "media": "(min-width: 1024px)"
+    },
+    {
+      "href": "{brand}img/bg_mobile_header.webp",
+      "media": "(max-width: 1023px)"
+    }
+  ],
+  "promo_images": {
+    "base": {
+      "file": "base.webp",
+      "w": 1592,
+      "h": 948,
+      "alt": "TEMPUR-Ergo ProSmart adjustable base"
+    }
+  }
+}
