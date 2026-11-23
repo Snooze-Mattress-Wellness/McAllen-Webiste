@@ -51,7 +51,7 @@ export const LOCATION = {
   ],
 } as const;
 
-/* ---------- Brand pages (/tempur-pedic; lib/brand-pages/) ----------
+/* ---------- Brand pages (/tempur-pedic, /beautyrest; lib/brand-pages/) ----------
    The dev handoff's location config (section 4), in its field names, for this store. Every value is derived from
    LOCATION above (or is a route of this site), so the brand pages can never disagree with the header, footer and
    structured data. The package's config/locations/mcallen.json has the same values; where the two ever differ, this

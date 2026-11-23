@@ -17,18 +17,21 @@ function withDreamMappingLink(c: PageCopy, slug: string, locale: Locale): PageCo
   return withFirstMentionLink(c, 'Dream Mapping', localizeHref('/dream-mapping', locale));
 }
 
-/* Brand pages (lib/brand-pages/, English only): on these English pages the first "Tempur-Pedic" in the body copy links
-   to /tempur-pedic, same tab, one link per page (the intro and sections; not headings, not the FAQ). */
-const BRAND_PAGE_MENTIONS: Record<string, { phrase: string; href: string }> = {
-  '/cooling-mattresses': { phrase: 'Tempur-Pedic', href: '/tempur-pedic' },
-  '/memory-foam-mattresses': { phrase: 'Tempur-Pedic', href: '/tempur-pedic' },
-  '/mattress-store-edinburg': { phrase: 'Tempur-Pedic', href: '/tempur-pedic' },
-  '/mattress-store-mission': { phrase: 'Tempur-Pedic', href: '/tempur-pedic' },
-  '/mattress-store-pharr': { phrase: 'Tempur-Pedic', href: '/tempur-pedic' },
+/* Brand pages (lib/brand-pages/, English only): on these English pages the first mention of each brand in the body copy
+   links to its brand page, same tab, one link per brand per page (the intro and sections; not headings, not the FAQ).
+   /memory-foam-mattresses names no Beautyrest model, so it links Tempur-Pedic only. */
+const TEMPUR_PEDIC = { phrase: 'Tempur-Pedic', href: '/tempur-pedic' };
+const BEAUTYREST = { phrase: 'Beautyrest', href: '/beautyrest' };
+const BRAND_PAGE_MENTIONS: Record<string, readonly { phrase: string; href: string }[]> = {
+  '/cooling-mattresses': [TEMPUR_PEDIC, BEAUTYREST],
+  '/memory-foam-mattresses': [TEMPUR_PEDIC],
+  '/mattress-store-edinburg': [TEMPUR_PEDIC, BEAUTYREST],
+  '/mattress-store-mission': [TEMPUR_PEDIC, BEAUTYREST],
+  '/mattress-store-pharr': [TEMPUR_PEDIC, BEAUTYREST],
 };
 function withBrandPageLink(c: PageCopy, slug: string, locale: Locale): PageCopy {
-  const m = locale === 'en' ? BRAND_PAGE_MENTIONS[slug] : undefined;
-  return m ? withFirstMentionLink(c, m.phrase, m.href) : c;
+  const mentions = locale === 'en' ? BRAND_PAGE_MENTIONS[slug] || [] : [];
+  return mentions.reduce((copy, m) => withFirstMentionLink(copy, m.phrase, m.href), c);
 }
 
 /** The first mention of `phrase` in the body copy (intro, then each section's paragraphs, bullets and subsections, in

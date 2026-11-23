@@ -24,7 +24,7 @@ test('contentGroup: every route of the site maps to one of the twelve groups, Sp
     home: ['/', '/es', '/es/'],
     product: ['/mattresses', '/es/mattresses', '/queen-mattresses', '/king-mattresses', '/full-twin-mattresses', '/cooling-mattresses', '/memory-foam-mattresses', '/mattresses-for-back-pain', '/adjustable-mattress-bases', '/massage-chairs', '/sleep-recliner', '/pillows', '/premium-sheets', '/mattress-protectors', '/at-home-sleep-test-kit-by-sleepcorner'],
     sales: ['/mattress-sales', '/mattress-sales/', '/es/mattress-sales'],
-    brand: ['/tempur-pedic', '/tempur-pedic/', '/es/tempur-pedic'],
+    brand: ['/tempur-pedic', '/tempur-pedic/', '/es/tempur-pedic', '/beautyrest', '/beautyrest/', '/es/beautyrest'],
     booking: ['/booking', '/es/booking', '/dream-mapping', '/es/dream-mapping', '/dream/map/thank/you', '/es/dream/map/thank/you/'],
     quiz: ['/sleep-quiz', '/es/sleep-quiz'],
     clearance: ['/clearance'],
