@@ -134,14 +134,15 @@ export function rowsToListings(rows: string[][], location = LOCATION, now = Date
 /* ---- the feed ---------------------------------------------------------------------------------------------- */
 
 /** The store's clearance data from the published sheet. `noStore` reads it fresh (the request route); otherwise
-    Next's data cache serves it and refreshes it in the background every 60 s. Never throws: no env or any failure
-    → no listings. */
-export async function getClearance(opts: { noStore?: boolean } = {}): Promise<ClearanceData> {
+    Next's data cache serves it and refreshes it in the background every `revalidate` seconds (60 for /clearance; the
+    hourly Sales page asks for 3600, so its own ISR period stays an hour). Never throws: no env or any failure → no
+    listings. */
+export async function getClearance(opts: { noStore?: boolean; revalidate?: number } = {}): Promise<ClearanceData> {
   const base: ClearanceData = { store: STORE, settings: SETTINGS, listings: [] };
   const url = process.env.CLEARANCE_URL;
   if (!url) return base;
   try {
-    const res = await fetch(url, opts.noStore ? { cache: 'no-store' } : { next: { revalidate: 60 } });
+    const res = await fetch(url, opts.noStore ? { cache: 'no-store' } : { next: { revalidate: opts.revalidate ?? 60 } });
     if (!res.ok) { console.warn(`[clearance] feed responded ${res.status}`); return base; }
     const { listings, skipped } = rowsToListings(parseCsv(await res.text()));
     for (const s of skipped) console.warn(`[clearance] sheet row ${s.line}${s.id ? ` (${s.id})` : ''} skipped: ${s.reason}`);

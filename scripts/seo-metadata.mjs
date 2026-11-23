@@ -19,8 +19,8 @@ export const META = {
          es: ['Colchones en McAllen | Dream Mapping | Snooze Mattress', 'Tienda de colchones en McAllen, TX con Dream Mapping gratis, marcas líderes y financiamiento en 7913 N 10th St, Suite 130. Abrimos domingos 12–6.'] },
   '/mattresses': { en: ['Mattresses in McAllen, TX: Top Brands | Snooze Mattress', 'Mattresses in McAllen, TX: Tempur-Pedic, Sealy, Stearns & Foster, Beautyrest, Helix, King Koil and more, fitted to you in a free Dream Mapping session.'],
          es: ['Colchones en McAllen, TX: Marcas Líderes | Snooze Mattress', 'Colchones en McAllen, TX: Tempur-Pedic, Sealy, Stearns & Foster, Beautyrest, Helix, King Koil y más, ajustados a ti en una sesión gratis de Dream Mapping.'] },
-  '/mattress-sales': { en: ['Mattress Sales & Deals in McAllen, TX | Snooze Mattress', 'Current mattress deals at Snooze Mattress in McAllen, TX: brand savings, special financing and a free Dream Mapping fitting. See store for details.'],
-         es: ['Ofertas de Colchones en McAllen, TX | Snooze Mattress', 'Ofertas de colchones en Snooze Mattress, McAllen, TX: ahorros por marca, financiamiento especial y Dream Mapping gratis. Detalles en tienda.'] },
+  // /mattress-sales: not here since November 23, 2026 — the hand-written Sales page builds its title and description from
+  // the promo feed (lib/snooze/snooze-sales.js salesSEO), and /es/mattress-sales redirects to it
   '/about-us': { en: ['About Us: Locally Owned in McAllen, TX | Snooze Mattress', 'Snooze Mattress + Wellness, McAllen, TX: science-backed Dream Mapping fittings, real Sleep Coaches and no commission pressure to find your right mattress.'],
          es: ['Nosotros: Tienda Local en McAllen, TX | Snooze Mattress', 'Snooze Mattress + Wellness, McAllen, TX: Dream Mapping respaldado por la ciencia, Sleep Coaches reales y sin presión de comisiones para elegir tu colchón.'] },
   /* the contact page (the builder's opt-in page, moved to /contact-us on October 29, 2026: indexable now) */

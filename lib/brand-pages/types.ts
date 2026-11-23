@@ -27,7 +27,7 @@ export type BrandLocation = {
   /** Open Graph site name */
   site_name: string;
   /** the street address without the suite ("7913 N 10th St"), for the plain-answer sentence */
-  street_short: string;
+  address_short: string;
   address_line1: string;
   address_line2: string;
   hours_lines: readonly string[];
@@ -48,7 +48,14 @@ export type BrandLocation = {
     pillows: string;
     contact: string;
     financing: string;
+    clearance: string;
   };
+  /** the store's IANA time zone (which day it is for dated offers) */
+  timezone: string;
+  /** the Sales page path */
+  sales_path: string;
+  /** the Sales page's local introduction */
+  local_intro: string;
   /** per brand page: its path, its asset folder and the store's local FAQ for it */
   brand_pages: Partial<Record<BrandKey, { page_path: string; asset_base: string; faq: readonly FaqEntry[] }>>;
   /** the site's structured-data node ids (publisher, website, the store's LocalBusiness) */
