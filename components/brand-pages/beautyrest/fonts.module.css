@@ -1,0 +1,10 @@
+/* beautyrest.css (copied unchanged) names its fonts in two variables on the wrapper:
+     --br-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+     --br-sans: "Inter", Helvetica, Arial, sans-serif;
+   next/font serves the faces under its own family names (components/brand-pages/beautyrest/font.ts), so the two
+   variables point at those, with the same fallbacks. The outer div carries this class; the selector is more specific
+   than the vendor's ".beautyrest-wrapper" rule, whatever the load order. */
+.fonts :global(.beautyrest-wrapper) {
+  --br-serif: var(--font-br-serif), Georgia, "Times New Roman", serif;
+  --br-sans: var(--font-br-sans), Helvetica, Arial, sans-serif;
+}

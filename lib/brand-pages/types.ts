@@ -1,4 +1,4 @@
-/* Brand pages (/tempur-pedic now; Sealy and Stearns & Foster to follow): the types every part of the module shares.
+/* Brand pages (/tempur-pedic, /beautyrest; more to follow): the types every part of the module shares.
    The module is self-contained: lib/brand-pages/ (data, logic) and components/brand-pages/ (rendering) import nothing
    from the rest of the site except through lib/brand-pages/site.ts, the one adapter that reads this site's location
    data. Written so the two folders could later move into a package that every store site installs. */
@@ -56,8 +56,8 @@ export type BrandLocation = {
   sales_path: string;
   /** the Sales page's local introduction */
   local_intro: string;
-  /** per brand page: its path, its asset folder and the store's local FAQ for it */
-  brand_pages: Partial<Record<BrandKey, { page_path: string; asset_base: string; faq: readonly FaqEntry[] }>>;
+  /** per brand page: its path and asset folder, and any local questions this store adds to the brand's FAQ */
+  brand_pages: Partial<Record<BrandKey, { page_path: string; asset_base: string; extra_faq?: readonly FaqEntry[] }>>;
   /** the site's structured-data node ids (publisher, website, the store's LocalBusiness) */
   schema_ids: { organization: string; website: string; store: string };
   /** the site's tab icon (metadata icons) */
@@ -98,51 +98,50 @@ export type PromoFeed = {
   always_on: AlwaysOnOffer[];
 };
 
-/* ---------- per-brand configuration ---------- */
+/* ---------- a brand: the package's brand.json (unchanged) + this site's settings for it ---------- */
 export type PromoImage = { file: string; w: number; h: number; alt: string };
 
-/** The page's sections in order. The brand supplies 'hero', 'vendor' and 'disclaimers' (components/brand-pages/<brand>/);
-    'visit', 'promo', 'why-buy' and 'faq' are the shared local and offer sections. */
-export type SectionKey = 'hero' | 'visit' | 'promo' | 'vendor' | 'why-buy' | 'faq' | 'disclaimers';
-
-export type BrandConfig = {
-  key: BrandKey;
+/** brands/<slug>/brand.json of the package (snooze-local-pages v4), exactly as delivered. */
+export type BrandJson = {
+  slug: string;
+  name: string;
   /** the brand name exactly as the feed writes it (promotions[].vendor, stores[].brands) */
   vendor: string;
-  /** the class every selector of the brand's stylesheets is scoped to */
+  page_path: string;
+  title: string;
+  h1: string;
+  description: string;
+  og_description: string;
+  carries: string;
+  visit_intro: string;
+  try_items: string;
+  fit_tail: string;
+  faq_right_for_me: string;
+  font_url: string;
+  styles: string[];
+  scripts: string[];
+  preload_images?: { href: string; media: string }[];
+  promo_images?: Record<string, PromoImage>;
+};
+
+/** How this site renders a brand: what brand.json doesn't say. */
+export type BrandSite = {
+  /** the class the template's outer wrapper carries (its vendor CSS is scoped to it) */
   wrapper_class: string;
-  /** breadcrumb and Brand node name */
-  name: string;
-  /** images, CSS and JS under /public (the path ends with a slash) */
-  asset_base: string;
-  /** stylesheets under <asset_base>css/, in load order; every selector in them is scoped to the page wrapper */
-  stylesheets: readonly string[];
-  /** hero backgrounds fetched early, per layout */
-  preloads: readonly { file: string; media: string }[];
   /** GA4 creative_slot of the promo block */
   promo_slot: string;
   /** dataLayer events (components/brand-pages/BrandTracking.tsx): what counts as a CTA, and the section each CTA
       reports (the first entry whose selector contains the CTA wins) */
   tracking: { cta_selector: string; cta_sections: readonly (readonly [section: string, selector: string])[] };
-  /** promotions[].image key -> file under <asset_base>img/ */
-  images: Readonly<Record<string, PromoImage>>;
-  sections: readonly SectionKey[];
-  seo: {
-    title: (loc: BrandLocation) => string;
-    description: (loc: BrandLocation) => string;
-    og_description: (loc: BrandLocation) => string;
-    /** under <asset_base>img/ */
-    og_image: { file: string; width: number; height: number };
-  };
-  copy: {
-    h1: (loc: BrandLocation) => string;
-    visit_heading: (loc: BrandLocation) => string;
-    /** the one-sentence plain answer that opens the visit section (who carries what, where) */
-    plain_answer: (loc: BrandLocation) => string;
-    visit_paragraphs: (loc: BrandLocation) => string[];
-    floor_note: string;
-    why_heading: (loc: BrandLocation) => string;
-    why_lead: string;
-    faq_heading: (loc: BrandLocation) => string;
-  };
+  /** a brand.json styles entry -> the file this site serves instead (e.g. our scoped Swiper CSS) */
+  style_paths?: Readonly<Record<string, string>>;
+};
+
+export type BrandConfig = {
+  key: BrandKey;
+  /** brand.json as delivered */
+  json: BrandJson;
+  /** template.html as delivered (the vendor body with the five tokens) */
+  template: string;
+  site: BrandSite;
 };

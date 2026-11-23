@@ -1,0 +1,25 @@
+<!-- ===== Local: Try {{brand_name}} in {{city}} (shared partial; values from location + brand config) ===== -->
+		<section class="snz-local snz-visit" id="visit">
+			<div class="snz-inner">
+				<div>
+					<h2>Try {{brand_name}} in {{city}}</h2>
+					<p class="snz-answer">Snooze Mattress + Wellness at {{address_short}} in {{city}} carries {{brand_carries}}.</p>
+					<p>{{brand_visit_intro}} Visit Snooze Mattress in {{city}} to lie down on {{brand_try_items}}, and start with a free Dream Mapping fitting.</p>
+					<p>Dream Mapping, our pressure mapping technology, shows where your body needs support. Your Sleep Coach then helps you find the {{brand_name}} that fits how you sleep{{brand_fit_tail}}.</p>
+					<div class="snz-btns">
+						<a class="snz-btn snz-btn--orange" href="{{links.booking}}">Book Free Dream Mapping</a>
+						<a class="snz-btn snz-btn--line" href="{{links.dream_mapping}}">Learn About Dream Mapping</a>
+						<a class="snz-btn snz-btn--line" href="{{maps_url}}" rel="noopener">Get Directions</a>
+					</div>
+				</div>
+				<div class="snz-store">
+					<dl>
+						<dt>Visit</dt><dd>{{address_line1}}<br>{{address_line2}}</dd>
+						<dt>Hours</dt><dd>{{HOURS_HTML}}</dd>
+						<dt>Call</dt><dd><a class="tel" href="tel:{{phone_e164}}">{{phone_display}}</a></dd>
+{{SERVING_ROW}}
+					</dl>
+					<p class="snz-fine">Floor models vary. Call ahead to check which {{brand_name}} models are on display.</p>
+				</div>
+			</div>
+		</section>

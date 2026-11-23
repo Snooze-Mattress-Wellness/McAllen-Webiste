@@ -4,7 +4,7 @@
    7913 N 10th St, Suite 130, McAllen, TX 78504 · (956) 586-5646 · Mon–Sat 10 AM–7 PM, Sun 12–6 PM
    (scripts/brand-nap.mjs applies the same wording to the generated pages). No legal entity name is asserted anywhere:
    the registered name is NEEDS CLIENT INPUT. */
-import type { BrandLocation, FaqEntry } from './brand-pages/types';
+import type { BrandLocation } from './brand-pages/types';
 
 export const LOCATION = {
   name: 'Snooze Mattress + Wellness',
@@ -51,7 +51,7 @@ export const LOCATION = {
   ],
 } as const;
 
-/* ---------- Brand pages (/tempur-pedic; lib/brand-pages/) ----------
+/* ---------- Brand pages (/tempur-pedic, /beautyrest; lib/brand-pages/) ----------
    The dev handoff's location config (section 4), in its field names, for this store. Every value is derived from
    LOCATION above (or is a route of this site), so the brand pages can never disagree with the header, footer and
    structured data. The package's config/locations/mcallen.json has the same values; where the two ever differ, this
@@ -71,7 +71,6 @@ export function hoursSentence(openingHours: readonly { days: readonly string[]; 
     return `${d} ${o.ampm === c.ampm ? `${o.h} to ${c.h} ${c.ampm}` : `${o.h} ${o.ampm} to ${c.h} ${c.ampm}`}`;
   }).join(' and ');
 }
-const and = (items: readonly string[]) => (items.length < 2 ? items.join('') : `${items.slice(0, -1).join(', ')} and ${items[items.length - 1]}`);
 
 const L = LOCATION;
 /* the towns served besides McAllen, each with its service-area page (/mattress-store-edinburg, -mission, -pharr) */
@@ -90,34 +89,6 @@ const LINKS = {
   financing: '/mattress-financing',
   clearance: '/clearance',
 };
-
-/* The local FAQ of the Tempur-Pedic page: one entry per question, rendered to both the visible accordion and the
-   FAQPage JSON-LD (a new question = one entry here). `links` names the pieces of the answer that link (first match
-   after the previous link). The offer FAQs (financing, HSA/FSA) are not here: they come with the offers from the promo
-   feed and follow these. */
-const TEMPUR_PEDIC_FAQ: FaqEntry[] = [
-  {
-    question: `Where can I try a Tempur-Pedic mattress in ${L.city}?`,
-    answer: `At Snooze Mattress, ${L.street}, ${ADDRESS_LINE2}. We're open ${hoursSentence(L.openingHours)}. Floor models vary, so call ${L.phone} to check which Tempur-Pedic models are on display.`,
-    links: [{ text: L.phone, href: L.phoneHref }],
-  },
-  {
-    question: 'Which Tempur-Pedic mattress is right for me?',
-    answer: 'It depends on your body and how you sleep. Dream Mapping, our pressure mapping technology, shows where your body needs support. Then your Sleep Coach helps you compare models, like the Breeze collection if you sleep hot or the Adapt collection for pressure relief.',
-    links: [{ text: 'Dream Mapping', href: LINKS.dream_mapping }],
-  },
-  {
-    question: 'Is Dream Mapping free?',
-    answer: 'Yes. Dream Mapping is always free and no purchase is needed. Every guest gets the same fitting, whatever they plan to spend.',
-  },
-  ...(NEARBY.length
-    ? [{
-        question: `Do you serve ${and(NEARBY.map((t) => t.name))}?`,
-        answer: `Yes. Our ${L.city} store also serves shoppers from ${and(NEARBY.map((t) => t.name))}.`,
-        links: NEARBY.map((t) => ({ text: t.name, href: t.path })),
-      }]
-    : []),
-];
 
 export const BRAND_PAGE_LOCATION = {
   /* The store's id in the promo feed: must match the Offer Calendar's Stores tab exactly ("mcallen"), or the store gets
@@ -146,6 +117,7 @@ export const BRAND_PAGE_LOCATION = {
   sales_path: '/mattress-sales',
   local_intro: "Snooze Mattress on North 10th Street serves the Rio Grande Valley, including Edinburg, Mission, Pharr and Weslaco. Hot Valley nights make the right fit and cooling matter, so start with free Dream Mapping and let a Sleep Coach match you to this month's best deal.",
   brand_pages: {
-    'tempur-pedic': { page_path: '/tempur-pedic', asset_base: '/brands/tempur-pedic/', faq: TEMPUR_PEDIC_FAQ },
+    'tempur-pedic': { page_path: '/tempur-pedic', asset_base: '/brands/tempur-pedic/' },
+    beautyrest: { page_path: '/beautyrest', asset_base: '/brands/beautyrest/' },
   },
 } satisfies Omit<BrandLocation, 'schema_ids' | 'site_icon'>;

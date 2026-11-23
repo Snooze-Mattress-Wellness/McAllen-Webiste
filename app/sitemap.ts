@@ -3,6 +3,7 @@ import type { MetadataRoute } from 'next';
 // static export (next.config output: 'export'): generated once at build time, served as a plain file
 export const dynamic = 'force-static';
 import { altBlogPath, postsFor } from '@/lib/blog-posts';
+import { BRAND_PAGE_PATHS } from '@/lib/brand-pages/brand-list';
 import { localizeHref } from '@/lib/i18n';
 import LASTMOD from '@/lib/lastmod.json';
 
@@ -71,8 +72,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       out.push({ url: abs(localizeHref(own, locale)), lastModified: new Date(p.dateModified || p.datePublished), changeFrequency: 'yearly', priority: 0.6, alternates: { languages: { 'en-US': abs(en), 'es-US': abs(es), 'x-default': abs(en) } } });
     }
   }
-  // Tempur-Pedic brand page: English only (no /es twin, no hreflang alternates; /es/tempur-pedic redirects here)
-  out.push({ url: abs('/tempur-pedic'), lastModified: lastmod('/tempur-pedic', now), changeFrequency: 'monthly', priority: 0.8 });
+  // the brand pages (lib/brand-pages/brand-list.ts, live ones: /tempur-pedic, /beautyrest): English only (no /es twin,
+  // no hreflang alternates; /es/<brand> redirects to them)
+  for (const p of BRAND_PAGE_PATHS) out.push({ url: abs(p), lastModified: lastmod(p, now), changeFrequency: 'monthly', priority: 0.8 });
   // Sales page: English only (no /es twin, no hreflang alternates; /es/mattress-sales redirects here); offers change
   // with the Offer Calendar
   out.push({ url: abs('/mattress-sales'), lastModified: lastmod('/mattress-sales', now), changeFrequency: 'daily', priority: 0.8 });
