@@ -30,7 +30,7 @@ function navTables(locale: Locale) {
   const PRIMARY: NavItem[] = [
     { label: t.nav.home, href: '/', match: ['/', '/home-page', '/main-page'] },
     { label: t.nav.about, href: '/about-us' },
-    { label: t.nav.products, href: '/mattresses', menu: 'products' },
+    { label: t.nav.products, href: '/mattresses', menu: 'products' }, // not a link any more (client request, November 25, 2026): the desktop button and the mobile toggle only open the menu; href kept for the active-state fallback
     { label: t.nav.financing, href: '/mattress-financing' },
     { label: t.nav.sales, href: '/mattress-sales', noLocale: true }, // Sales (English page only; /es/mattress-sales 308s to it)
     { label: t.nav.clearance, href: '/clearance', noLocale: true }, // Clearance & Floor Models (English page only; /es/clearance 308s to it)
@@ -211,6 +211,15 @@ export function SiteHeader({ locale = 'en' }: { locale?: Locale }) {
       window.setTimeout(() => panelRefs.current[key]?.querySelector<HTMLElement>('a')?.focus(), 30);
     }
   };
+  /* the "Products & Brands" button: ArrowDown opens the menu and moves focus to its first link; Enter and Space are
+     the button's own click (toggle), focus stays on the button and Tab then moves into the menu */
+  const onMegaKey = (e: ReactKeyboardEvent<HTMLButtonElement>) => {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      open('products');
+      window.setTimeout(() => panelRefs.current.products?.querySelector<HTMLElement>('a')?.focus(), 30);
+    }
+  };
   const onItemBlur = (e: React.FocusEvent<HTMLLIElement>) => {
     if (!e.currentTarget.contains(e.relatedTarget as Node)) close();
   };
@@ -339,21 +348,41 @@ export function SiteHeader({ locale = 'en' }: { locale?: Locale }) {
                   onMouseLeave={onLeave}
                   onBlur={onItemBlur}
                 >
-                  <a href={hrefOf(item)} className={`${styles.link} ${isActive(item) ? styles.active : ''}`} aria-current={isActive(item) ? 'page' : undefined}>
-                    {item.label}
-                  </a>
-                  <button
-                    ref={(el) => { triggerRefs.current[item.menu as MenuKey] = el; }}
-                    type="button"
-                    className={styles.chevron}
-                    aria-expanded={openMenu === item.menu}
-                    aria-controls={panelIds[item.menu]}
-                    aria-label={openMenu === item.menu ? t.menu.closeMenu(item.label) : t.menu.openMenu(item.label)}
-                    onClick={() => (openMenu === item.menu ? close() : open(item.menu as MenuKey))}
-                    onKeyDown={onTriggerKey(item.menu)}
-                  >
-                    <Chevron />
-                  </button>
+                  {item.menu === 'products' ? (
+                    /* "Products & Brands" (client request, November 25, 2026): not a link, one button that only opens
+                       and closes the mega menu, dressed as the other top-level items with the chevron inside;
+                       hover intent, outside click and Escape (focus back here) as before */
+                    <button
+                      ref={(el) => { triggerRefs.current.products = el; }}
+                      type="button"
+                      className={`${styles.link} ${styles.navButton} ${isActive(item) ? styles.active : ''}`}
+                      aria-expanded={openMenu === 'products'}
+                      aria-controls={panelIds.products}
+                      onClick={() => (openMenu === 'products' ? close() : open('products'))}
+                      onKeyDown={onMegaKey}
+                    >
+                      <span className={styles.navLabel}>{item.label}</span>
+                      <span className={styles.navChevron}><Chevron /></span>
+                    </button>
+                  ) : (
+                    <>
+                      <a href={hrefOf(item)} className={`${styles.link} ${isActive(item) ? styles.active : ''}`} aria-current={isActive(item) ? 'page' : undefined}>
+                        {item.label}
+                      </a>
+                      <button
+                        ref={(el) => { triggerRefs.current[item.menu as MenuKey] = el; }}
+                        type="button"
+                        className={styles.chevron}
+                        aria-expanded={openMenu === item.menu}
+                        aria-controls={panelIds[item.menu]}
+                        aria-label={openMenu === item.menu ? t.menu.closeMenu(item.label) : t.menu.openMenu(item.label)}
+                        onClick={() => (openMenu === item.menu ? close() : open(item.menu as MenuKey))}
+                        onKeyDown={onTriggerKey(item.menu)}
+                      >
+                        <Chevron />
+                      </button>
+                    </>
+                  )}
                   <div
                     id={panelIds[item.menu]}
                     ref={(el) => { panelRefs.current[item.menu as MenuKey] = el; }}

@@ -80,7 +80,8 @@ export type ProductKey = (typeof PRODUCT_KEYS)[number];
 
 const en: UiStrings = {
   langName: 'English',
-  nav: { home: 'Home', about: 'About Us', products: 'Our Products', financing: 'Financing', sales: 'Sales', clearance: 'Clearance', blog: 'Blog', quiz: 'Sleep Quiz', allArticles: 'All articles' },
+  // "About" and "Products & Brands" (client request, November 25, 2026; the About page itself keeps its title)
+  nav: { home: 'Home', about: 'About', products: 'Products & Brands', financing: 'Financing', sales: 'Sales', clearance: 'Clearance', blog: 'Blog', quiz: 'Sleep Quiz', allArticles: 'All articles' },
   menu: { products: 'Products', accessories: 'Sleep Accessories', latest: 'Latest articles', openMenu: (l) => `Open ${l} menu`, closeMenu: (l) => `Close ${l} menu`, openSite: 'Open menu', closeSite: 'Close menu', siteMenu: 'Site menu', homeAria: 'Snooze Mattress + Wellness — home', call: (p) => `Call ${p}`, switchTo: 'Ver en español',
     brands: 'Brands',
     infoBySize: 'Mattress Info by Size',
@@ -127,7 +128,7 @@ const en: UiStrings = {
 
 const es: UiStrings = {
   langName: 'Español',
-  nav: { home: 'Inicio', about: 'Nosotros', products: 'Productos', financing: 'Financiamiento', sales: 'Ofertas', clearance: 'Liquidación', blog: 'Blog', quiz: 'Quiz de Sueño', allArticles: 'Todos los artículos' }, // nav label kept short so the desktop row fits on one line; the full 'Nuestros Productos' stays in the footer
+  nav: { home: 'Inicio', about: 'Nosotros', products: 'Productos y marcas', financing: 'Financiamiento', sales: 'Ofertas', clearance: 'Liquidación', blog: 'Blog', quiz: 'Quiz de Sueño', allArticles: 'Todos los artículos' }, // "Nosotros" was already the short About label; "Productos y marcas" per the client (November 25, 2026); the full 'Nuestros Productos' stays in the footer
   menu: { products: 'Productos', accessories: 'Accesorios para Dormir', latest: 'Artículos recientes', openMenu: (l) => `Abrir menú ${l}`, closeMenu: (l) => `Cerrar menú ${l}`, openSite: 'Abrir menú', closeSite: 'Cerrar menú', siteMenu: 'Menú del sitio', homeAria: 'Snooze Mattress + Wellness — inicio', call: (p) => `Llamar al ${p}`, switchTo: 'View in English',
     brands: 'Marcas',
     infoBySize: 'Información de colchones por tamaño',
