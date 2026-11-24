@@ -88,6 +88,25 @@ test('brand cards link only brand pages live here; the others say "Try {Brand} i
   }
 });
 
+test('brand cards: Copper by Spring Air (feed row "Spring Air") and King Koil link their pages once the Brands tab sets the URL; a URL that is not a live page here is dropped', () => {
+  // the example and live feeds leave both URLs empty until the pages are live (COPPER.md / KING-KOIL.md step 6)
+  assert.equal(FEED.brands.find((b: { brand: string }) => b.brand === 'Spring Air').brand_page_url, '');
+  const SET: Record<string, string> = { 'Spring Air': '/copper-by-spring-air', 'King Koil': '/king-koil', Helix: '/helix' };
+  const feed = withLiveBrandLinks({ ...FEED, brands: FEED.brands.map((b: { brand: string }) => (SET[b.brand] ? { ...b, brand_page_url: SET[b.brand] } : b)) });
+  const urls = Object.fromEntries(feed.brands.map((b: { brand: string; brand_page_url: string }) => [b.brand, b.brand_page_url]));
+  assert.equal(urls['Spring Air'], '/copper-by-spring-air');
+  assert.equal(urls['King Koil'], '/king-koil');
+  assert.equal(urls['Helix'], '', 'no Helix page here');
+  const html = Sales.renderSalesHTML(Sales.buildSalesModel(feed, LOC, { today: '2026-11-21', clearance: [] }), { assetBase: '/brands/' });
+  assert.ok(html.includes('href="/copper-by-spring-air">Explore Copper by Spring Air'));
+  assert.ok(html.includes('href="/king-koil">Explore King Koil'));
+  assert.ok(html.includes('href="/booking">Try Helix in store'));
+  // as the live feed has it today (no URL yet): "Try … in store" -> /booking
+  const today = Sales.renderSalesHTML(Sales.buildSalesModel(withLiveBrandLinks(FEED), LOC, { today: '2026-11-21', clearance: [] }), { assetBase: '/brands/' });
+  assert.ok(today.includes('href="/booking">Try Copper by Spring Air in store'));
+  assert.ok(today.includes('href="/booking">Try King Koil in store'));
+});
+
 /* ---------- dates in store time ---------- */
 test('dates: an offer that ended yesterday is gone, one starting tomorrow is not shown (America/Chicago)', () => {
   const blocks = (today: string) => [...new Set(Sales.selectSalesOffers(FEED, { storeId: 'mcallen', today }).map((o: { block: string }) => o.block))];

@@ -19,18 +19,23 @@ function withDreamMappingLink(c: PageCopy, slug: string, locale: Locale): PageCo
 
 /* Brand pages (lib/brand-pages/, English only): on these English pages the first mention of each brand in the body copy
    links to its brand page, same tab, one link per brand per page (the intro and sections; not headings, not the FAQ).
-   /memory-foam-mattresses names no Beautyrest, Serta, Sealy or Stearns & Foster model, /cooling-mattresses no Serta model. */
+   /memory-foam-mattresses names no Beautyrest, Serta, Sealy, Stearns & Foster, Copper or King Koil model (its one
+   "Spring Air" is inside a card that already links /cooling-mattresses), /cooling-mattresses no Serta model. Copper's
+   first mention is "Copper by Spring Air" on the city pages and "Copper Collection by Spring Air" on /cooling-mattresses;
+   King Koil's is "King Koil" (on the city pages, inside "FLOWT by King Koil"). */
 const TEMPUR_PEDIC = { phrase: 'Tempur-Pedic', href: '/tempur-pedic' };
 const BEAUTYREST = { phrase: 'Beautyrest', href: '/beautyrest' };
 const SERTA = { phrase: 'Serta', href: '/serta' };
 const SEALY = { phrase: 'Sealy', href: '/sealy' };
 const STEARNS_FOSTER = { phrase: 'Stearns & Foster', href: '/stearns-foster' };
+const COPPER = { phrase: 'Copper by Spring Air', href: '/copper-by-spring-air' };
+const KING_KOIL = { phrase: 'King Koil', href: '/king-koil' };
 const BRAND_PAGE_MENTIONS: Record<string, readonly { phrase: string; href: string }[]> = {
-  '/cooling-mattresses': [TEMPUR_PEDIC, BEAUTYREST, SEALY, STEARNS_FOSTER],
+  '/cooling-mattresses': [TEMPUR_PEDIC, BEAUTYREST, SEALY, STEARNS_FOSTER, { ...COPPER, phrase: 'Copper Collection by Spring Air' }, KING_KOIL],
   '/memory-foam-mattresses': [TEMPUR_PEDIC],
-  '/mattress-store-edinburg': [TEMPUR_PEDIC, BEAUTYREST, SERTA, SEALY, STEARNS_FOSTER],
-  '/mattress-store-mission': [TEMPUR_PEDIC, BEAUTYREST, SERTA, SEALY, STEARNS_FOSTER],
-  '/mattress-store-pharr': [TEMPUR_PEDIC, BEAUTYREST, SERTA, SEALY, STEARNS_FOSTER],
+  '/mattress-store-edinburg': [TEMPUR_PEDIC, BEAUTYREST, SERTA, SEALY, STEARNS_FOSTER, KING_KOIL, COPPER],
+  '/mattress-store-mission': [TEMPUR_PEDIC, BEAUTYREST, SERTA, SEALY, STEARNS_FOSTER, KING_KOIL, COPPER],
+  '/mattress-store-pharr': [TEMPUR_PEDIC, BEAUTYREST, SERTA, SEALY, STEARNS_FOSTER, KING_KOIL, COPPER],
 };
 function withBrandPageLink(c: PageCopy, slug: string, locale: Locale): PageCopy {
   const mentions = locale === 'en' ? BRAND_PAGE_MENTIONS[slug] || [] : [];
