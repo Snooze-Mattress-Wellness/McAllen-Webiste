@@ -46,7 +46,10 @@ export function alternateHref(pathname: string, target: Locale): string {
   return localizeHref(path, target);
 }
 
-type ProductItem = { label: string; desc: string };
+/* desc: the product's one-line description. The desktop Products menu shows labels only since the column layout
+   (mega-menu brief, November 24, 2026); the descriptions are kept here, optional and unused in the menu, for a layout
+   that wants them back. */
+type ProductItem = { label: string; desc?: string };
 export type UiStrings = {
   langName: string;
   nav: { home: string; about: string; products: string; financing: string; sales: string; clearance: string; blog: string; quiz: string; allArticles: string };
@@ -55,7 +58,7 @@ export type UiStrings = {
   feature: { eyebrow: string; title: string; cta: string; imgAlt: string };
   drawerBook: string;
   drawerQuiz: string;
-  /* Sleep Fit Quiz row at the bottom of the Our Products dropdown */
+  /* Sleep Fit Quiz card in the Our Products dropdown (under the Dream Mapping card: title + cta; desc kept, unused there) */
   quizCard: { title: string; desc: string; cta: string };
   /* Sleep Fit Quiz call to action under sections that had no next step (blog posts; the GoHighLevel pages carry the same copy in overrides/) */
   quizCta: { line: string; button: string; aria: string };

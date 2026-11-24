@@ -10,7 +10,7 @@ import { alternateHref, localizeHref, splitLocale, ui, MENU_INFO_GROUPS, PRODUCT
 
 type MenuKey = 'products' | 'blog';
 type NavItem = { label: string; href: string; match?: string[]; menu?: MenuKey; noLocale?: boolean }; // noLocale: one URL for both languages (no /es twin)
-type MenuLink = { label: string; href: string; desc: string; icon: keyof typeof ICONS; noLocale?: boolean }; // noLocale: English page linked from both languages
+type MenuLink = { label: string; href: string; desc?: string; icon: keyof typeof ICONS; noLocale?: boolean }; // noLocale: English page linked from both languages; desc: shown in the Blog dropdown only
 
 
 const PRODUCT_HREFS: Record<(typeof PRODUCT_KEYS)[number], { href: string; icon: keyof typeof ICONS }> = {
@@ -38,10 +38,15 @@ function navTables(locale: Locale) {
     { label: t.nav.quiz, href: '/sleep-quiz' },
   ];
   const item = (key: (typeof PRODUCT_KEYS)[number]): MenuLink => ({ label: t.products[key].label, desc: t.products[key].desc, href: PRODUCT_HREFS[key].href, icon: PRODUCT_HREFS[key].icon });
+  /* the mobile menu keeps its two untitled runs of product links; the desktop column lists all eight under "Products" */
   const PRODUCT_GROUPS: { title: string; items: MenuLink[] }[] = [
     { title: t.menu.products, items: (['mattresses', 'bases', 'chairs', 'pillows'] as const).map(item) },
     { title: t.menu.accessories, items: (['protectors', 'sheets', 'recliner', 'kit'] as const).map(item) },
   ];
+  const PRODUCT_ITEMS: MenuLink[] = PRODUCT_KEYS.map(item);
+  /* Brands column of the desktop menu: one logo tile per live brand, registry order (lib/brand-pages/brand-list.ts);
+     a brand with no logo file shows its name */
+  const BRAND_TILES = LIVE_BRANDS.map((b) => ({ name: b.name, href: b.path, logo: 'logo' in b ? b.logo : undefined }));
   const BLOG_GROUP: { title: string; items: MenuLink[] } = {
     title: t.menu.latest,
     items: blogNav(locale).map((p) => ({ label: p.label, href: p.href, desc: p.blurb, icon: 'article' as const })),
@@ -64,7 +69,7 @@ function navTables(locale: Locale) {
     { title: t.menu.infoBySize, items: MENU_INFO_GROUPS.size.map(sizeLink) },
     { title: t.menu.infoByType, items: MENU_INFO_GROUPS.type.map(sizeLink) },
   ];
-  return { t, PRIMARY, PRODUCT_GROUPS, BRAND_GROUP, INFO_GROUPS, BLOG_GROUP, blogIndex: { label: t.nav.allArticles, href: BLOG_INDEX.href } };
+  return { t, PRIMARY, PRODUCT_GROUPS, PRODUCT_ITEMS, BRAND_GROUP, BRAND_TILES, INFO_GROUPS, BLOG_GROUP, blogIndex: { label: t.nav.allArticles, href: BLOG_INDEX.href } };
 }
 
 /* Minimal line icons (24px grid, stroke inherits currentColor) */
@@ -125,7 +130,7 @@ const menuActive = (key: MenuKey, pathname: string) => (key === 'products' ? PRO
 export function SiteHeader({ locale = 'en' }: { locale?: Locale }) {
   const rawPath = normalize(usePathname() || '/');
   const pathname = splitLocale(rawPath).path; // English path used for the active states
-  const { t, PRIMARY, PRODUCT_GROUPS, BRAND_GROUP, INFO_GROUPS, BLOG_GROUP, blogIndex } = navTables(locale);
+  const { t, PRIMARY, PRODUCT_GROUPS, PRODUCT_ITEMS, BRAND_GROUP, BRAND_TILES, INFO_GROUPS, BLOG_GROUP, blogIndex } = navTables(locale);
   const L = (href: string) => localizeHref(href, locale);
   const hrefOf = (item: NavItem) => (item.noLocale ? item.href : L(item.href));
   const langSwitch = (cls: string) => (
@@ -210,6 +215,22 @@ export function SiteHeader({ locale = 'en' }: { locale?: Locale }) {
     if (!e.currentTarget.contains(e.relatedTarget as Node)) close();
   };
 
+  /* The Products panel is centred on the header bar (its nav item is position: static on desktop, so the wide panel
+     can never run off the viewport); its pointer arrow is placed under the nav item: the item's centre as an offset
+     from the panel's left edge, in a CSS variable, measured when the menu opens and on resize. */
+  useEffect(() => {
+    if (openMenu !== 'products') return;
+    const place = () => {
+      const item = itemRefs.current.products, panel = panelRefs.current.products;
+      if (!item || !panel) return;
+      const i = item.getBoundingClientRect(), p = panel.getBoundingClientRect();
+      panel.style.setProperty('--mm-arrow', `${Math.round(i.left + i.width / 2 - p.left)}px`);
+    };
+    place();
+    window.addEventListener('resize', place);
+    return () => window.removeEventListener('resize', place);
+  }, [openMenu]);
+
   /* mobile drawer: scroll lock, Escape, focus management, simple focus trap */
   const openMobile = () => setMobileOpen(true);
   const closeMobile = useCallback(() => { setMobileOpen(false); burgerRef.current?.focus(); }, []);
@@ -281,7 +302,7 @@ export function SiteHeader({ locale = 'en' }: { locale?: Locale }) {
               <span className={styles.menuIcon}><Icon name={p.icon} /></span>
               <span className={styles.menuText}>
                 <span className={styles.menuLabel}>{p.label}</span>
-                <span className={styles.menuDesc}>{p.desc}</span>
+                {p.desc && <span className={styles.menuDesc}>{p.desc}</span>}
               </span>
             </a>
           </li>
@@ -313,7 +334,7 @@ export function SiteHeader({ locale = 'en' }: { locale?: Locale }) {
                 <li
                   key={item.label}
                   ref={(el) => { itemRefs.current[item.menu as MenuKey] = el; }}
-                  className={`${styles.item} ${openMenu === item.menu ? styles.open : ''}`}
+                  className={`${styles.item} ${item.menu === 'products' ? styles.itemMega : ''} ${openMenu === item.menu ? styles.open : ''}`}
                   onMouseEnter={() => onEnter(item.menu as MenuKey)}
                   onMouseLeave={onLeave}
                   onBlur={onItemBlur}
@@ -336,45 +357,71 @@ export function SiteHeader({ locale = 'en' }: { locale?: Locale }) {
                   <div
                     id={panelIds[item.menu]}
                     ref={(el) => { panelRefs.current[item.menu as MenuKey] = el; }}
-                    className={`${styles.panel} ${item.menu === 'blog' ? styles.panelSmall : ''}`}
+                    className={`${styles.panel} ${item.menu === 'blog' ? styles.panelSmall : styles.panelMega}`}
                     aria-label={item.label}
                   >
                     {item.menu === 'products' ? (
+                      /* Four columns (the approved layout, November 24, 2026), in tab order: Products, Brands,
+                         Mattress Info by Size + by Type, then the Dream Mapping card with the Sleep Fit Quiz under it.
+                         Every label is one line (white-space: nowrap; the columns take their width from the longest
+                         label); plain <a href> links in the server HTML. */
                       <>
-                        {PRODUCT_GROUPS.map(renderGroup)}
-                        <a href={L('/booking')} className={styles.feature}>
-                          <img src={SITE.featureImage} alt={t.feature.imgAlt} loading="lazy" />
-                          <span className={styles.featureEyebrow}>{t.feature.eyebrow}</span>
-                          <span className={styles.featureTitle}>{t.feature.title}</span>
-                          <span className={styles.featureCta}>{t.feature.cta} <Arrow /></span>
-                        </a>
-                        {/* Brands (live brand pages, English URLs in both languages): the same link row as the info groups */}
-                        {BRAND_GROUP.items.length > 0 && (
-                          <div className={styles.sizeRow} aria-label={BRAND_GROUP.title}>
-                            <span className={styles.sizeRowLabel}>{BRAND_GROUP.title}</span>
-                            {BRAND_GROUP.items.map((p) => (
-                              <a key={p.href} href={p.href} className={`${styles.sizeChip} ${pathname === p.href ? styles.sizeChipActive : ''}`} aria-current={pathname === p.href ? 'page' : undefined}>{p.label}</a>
+                        <div className={styles.col}>
+                          <p className={styles.colTitle} id={`${panelIds.products}-h1`}>{t.menu.products}</p>
+                          <ul className={styles.productList} aria-labelledby={`${panelIds.products}-h1`}>
+                            {PRODUCT_ITEMS.map((p) => (
+                              <li key={p.href}>
+                                <a href={L(p.href)} className={`${styles.productLink} ${pathname === p.href ? styles.activeMenuLink : ''}`} aria-current={pathname === p.href ? 'page' : undefined}>
+                                  <span className={styles.menuIcon}><Icon name={p.icon} /></span>
+                                  <span className={styles.menuLabel}>{p.label}</span>
+                                </a>
+                              </li>
                             ))}
+                          </ul>
+                        </div>
+                        {BRAND_TILES.length > 0 && (
+                          <div className={styles.col}>
+                            <p className={styles.colTitle} id={`${panelIds.products}-h2`}>{BRAND_GROUP.title}</p>
+                            {/* logo tiles, two per row, as many rows as there are live brands; the English brand pages are linked from both languages */}
+                            <ul className={styles.brandGrid} aria-labelledby={`${panelIds.products}-h2`}>
+                              {BRAND_TILES.map((b) => (
+                                <li key={b.href}>
+                                  <a href={b.href} className={`${styles.brandTile} ${pathname === b.href ? styles.brandTileActive : ''}`} aria-current={pathname === b.href ? 'page' : undefined} title={b.name}>
+                                    {b.logo ? <img src={b.logo} alt={b.name} loading="lazy" decoding="async" /> : <span className={styles.brandName}>{b.name}</span>}
+                                  </a>
+                                </li>
+                              ))}
+                            </ul>
                           </div>
                         )}
-                        {/* Mattress Info by Size, then by Type (section E pages): compact link rows across the panel */}
-                        {INFO_GROUPS.map((group) => (
-                          <div key={group.title} className={styles.sizeRow} aria-label={group.title}>
-                            <span className={styles.sizeRowLabel}>{group.title}</span>
-                            {group.items.map((p) => (
-                              <a key={p.href} href={L(p.href)} className={`${styles.sizeChip} ${pathname === p.href ? styles.sizeChipActive : ''}`} aria-current={pathname === p.href ? 'page' : undefined}>{p.label}</a>
-                            ))}
-                          </div>
-                        ))}
-                        {/* Sleep Fit Quiz: highlighted row across the bottom of the panel (the top-level nav item is hidden where it cannot fit) */}
-                        <a href={L('/sleep-quiz')} className={styles.quizRow}>
-                          <span className={styles.quizRowIcon}><QuizIcon /></span>
-                          <span className={styles.quizRowText}>
+                        <div className={styles.col}>
+                          {INFO_GROUPS.map((group, gi) => (
+                            <div key={group.title} className={styles.infoGroup}>
+                              <p className={styles.colTitle} id={`${panelIds.products}-h${3 + gi}`}>{group.title}</p>
+                              <ul className={styles.infoList} aria-labelledby={`${panelIds.products}-h${3 + gi}`}>
+                                {group.items.map((p) => (
+                                  <li key={p.href}>
+                                    <a href={L(p.href)} className={`${styles.infoLink} ${pathname === p.href ? styles.infoLinkActive : ''}`} aria-current={pathname === p.href ? 'page' : undefined}>{p.label}</a>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          ))}
+                        </div>
+                        <div className={styles.aside}>
+                          <a href={L('/booking')} className={styles.feature}>
+                            <img src={SITE.featureImage} alt={t.feature.imgAlt} loading="lazy" />
+                            <span className={styles.featureEyebrow}>{t.feature.eyebrow}</span>
+                            <span className={styles.featureTitle}>{t.feature.title}</span>
+                            <span className={styles.featureCta}>{t.feature.cta} <Arrow /></span>
+                          </a>
+                          {/* Sleep Fit Quiz: a compact card under the Dream Mapping card (the top-level nav item is hidden where it cannot fit) */}
+                          <a href={L('/sleep-quiz')} className={styles.quizCard}>
+                            <span className={styles.quizRowIcon}><QuizIcon /></span>
                             <span className={styles.quizRowTitle}>{t.quizCard.title}</span>
-                            <span className={styles.quizRowDesc}>{t.quizCard.desc}</span>
-                          </span>
-                          <span className={styles.quizRowCta}>{t.quizCard.cta} <Arrow /></span>
-                        </a>
+                            <span className={styles.quizRowCta}>{t.quizCard.cta} <Arrow /></span>
+                          </a>
+                        </div>
                       </>
                     ) : (
                       <>
@@ -456,6 +503,8 @@ export function SiteHeader({ locale = 'en' }: { locale?: Locale }) {
                     <div className={styles.mSubInner}>
                       {item.menu === 'products' ? (
                         <>
+                          {/* the same four groups as the desktop columns, as text links: Products, Brands, Info by Size, Info by Type */}
+                          <p className={styles.mGroupTitle}>{t.menu.products}</p>
                           {PRODUCT_GROUPS.map((group) => (
                             <div key={group.title}>
                               {renderMobileLinks(group.items)}
