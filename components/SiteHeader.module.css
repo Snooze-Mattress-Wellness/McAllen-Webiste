@@ -134,7 +134,7 @@
 .panel::before {
   content: '';
   position: absolute;
-  left: 50%;
+  left: var(--mm-arrow, 50%);
   top: -7px;
   width: 12px;
   height: 12px;
@@ -619,7 +619,7 @@
 /* ---- Sleep Quiz nav item: fits at every English desktop width with the tighter link spacing above; the Spanish label
    ("Quiz de Sueño") is longer, so it needs tighter padding on narrow desktops and in the compact (scrolled) pill, and
    it is hidden in the 1025–1099px band where it cannot fit. The quiz stays reachable there through the Our Products
-   dropdown row (.quizRow), the footer and the page CTAs. ---- */
+   dropdown card (.quizCard), the footer and the page CTAs. ---- */
 @media (min-width: 1025px) and (max-width: 1200px) {
   .header[data-locale="es"] .link { padding: 0 7px; }
 }
@@ -630,37 +630,123 @@
   .header[data-locale="es"] .quizItem { display: none; }
 }
 
-/* ---- Our Products dropdown: highlighted Sleep Fit Quiz row across the bottom of the panel (same navy treatment as
-   the Dream Mapping card) ---- */
-.quizRow {
-  grid-column: 1 / -1;
-  display: flex; align-items: center; gap: 14px;
-  margin-top: 2px; padding: 12px 16px 12px 12px;
+/* ---- Our Products dropdown: the column layout (option A, approved November 24, 2026) ----
+   Four columns in one row: Products (icon + label), Brands (logo tiles, two per row), Mattress Info by Size + by Type
+   (plain links), and the Dream Mapping card with the Sleep Fit Quiz card under it. The panel takes its width from
+   the columns (max-content: no label ever wraps; white-space: nowrap on every label and heading) and is centred on
+   the header bar, not on the nav item, so it stays inside the viewport at every desktop width (the item is
+   position: static here, so the bar is the panel's containing block; the arrow is placed under the item by the
+   component, --mm-arrow). The spacing variables are the knobs the narrow-desktop rules below turn. */
+@media (min-width: 1025px) { .itemMega { position: static; } }
+.panelMega {
+  --mm-gap: 24px;   /* between columns (each divider sits this far from both neighbours) */
+  --mm-pad: 26px;   /* panel padding */
+  --mm-card: 240px; /* the Dream Mapping / quiz column */
+  --mm-tile: 112px; /* a brand tile's width (two per row) */
+  --mm-ls: 0.18em;  /* heading letter-spacing */
+  top: calc(100% + 6px);
+  width: max-content;
+  max-width: calc(100vw - 48px);
+  padding: var(--mm-pad) var(--mm-pad) calc(var(--mm-pad) - 2px);
+  grid-template-columns: max-content max-content max-content var(--mm-card);
+  column-gap: var(--mm-gap);
+  row-gap: 0;
+}
+.panelMega::after { top: -30px; height: 30px; } /* the hover bridge spans the gap between the nav item and the panel */
+/* a short window: the panel scrolls inside itself instead of running off the screen */
+@media (min-width: 1025px) and (max-height: 599px) {
+  .panelMega { max-height: calc(100vh - 110px); overflow-y: auto; overscroll-behavior: contain; }
+}
+.col { min-width: 0; }
+.col + .col { padding-left: var(--mm-gap); border-left: 1px solid var(--snz-line); }
+.colTitle {
+  margin: 0 0 10px;
+  padding: 0 10px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: var(--mm-ls);
+  text-transform: uppercase;
+  color: var(--snz-muted);
+  white-space: nowrap;
+}
+/* column 1: the product links, icon + label (the one-line descriptions stay in lib/i18n.ts, unused here) */
+.productList { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; }
+.productLink {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 10px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--snz-navy);
+  white-space: nowrap;
+  transition: background-color 200ms var(--snz-ease), transform 200ms var(--snz-ease);
+}
+.productLink:hover,
+.productLink:focus-visible { background: var(--snz-tint); transform: translateX(3px); }
+.productLink:hover .menuIcon,
+.productLink:focus-visible .menuIcon { color: var(--snz-orange); border-color: rgba(245, 132, 51, 0.45); }
+.productLink .menuIcon { width: 34px; height: 34px; }
+.productLink .menuIcon svg { width: 18px; height: 18px; }
+.productLink .menuLabel { white-space: nowrap; }
+/* column 2: brand logo tiles, two per row, all the same size; the logo at a fixed height, contained and centred */
+.brandGrid { margin: 0 0 0 10px; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, var(--mm-tile)); gap: 8px; }
+.brandTile {
+  display: grid;
+  place-items: center;
+  height: 48px;
+  padding: 0 10px;
+  border: 1px solid var(--snz-line);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--snz-navy);
+  text-decoration: none;
+  transition: border-color 200ms var(--snz-ease), background-color 200ms var(--snz-ease), transform 200ms var(--snz-ease);
+}
+.brandTile img { display: block; height: 24px; width: 100%; object-fit: contain; }
+.brandTile:hover,
+.brandTile:focus-visible { border-color: rgba(0, 20, 137, 0.32); background: #fbfbfe; transform: translateY(-1px); }
+.brandTileActive { border-color: rgba(0, 20, 137, 0.35); background: rgba(0, 20, 137, 0.05); }
+.brandName { font-size: 12px; font-weight: 600; white-space: nowrap; } /* a brand with no logo file */
+/* column 3: the size and type pages as plain links, lighter than the product links */
+.infoGroup + .infoGroup { margin-top: 16px; }
+.infoList { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; }
+.infoLink {
+  display: block;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--snz-ink);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 200ms var(--snz-ease), background-color 200ms var(--snz-ease);
+}
+.infoLink:hover,
+.infoLink:focus-visible { color: var(--snz-orange); background: var(--snz-tint); }
+.infoLinkActive { color: var(--snz-orange); }
+/* column 4: the Dream Mapping card (as before) and, under it, the Sleep Fit Quiz as a compact card (icon, title, cta) */
+.aside { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.aside .feature { flex: 1 1 auto; min-height: 196px; }
+.quizCard {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  align-items: center;
+  column-gap: 10px;
+  padding: 10px 12px;
   border-radius: 12px;
   background: linear-gradient(135deg, #001489 0%, #0b2aa8 100%);
-  color: #fff; text-decoration: none;
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
   transition: transform 220ms var(--snz-ease), box-shadow 220ms var(--snz-ease);
 }
-.quizRow:hover { transform: translateY(-1px); box-shadow: 0 14px 28px -16px rgba(0, 20, 137, 0.6); }
-.quizRowIcon { flex: 0 0 40px; width: 40px; height: 40px; display: grid; place-items: center; border-radius: 10px; background: rgba(245, 132, 51, 0.2); color: #ffb26b; }
-.quizRowIcon svg { width: 20px; height: 20px; }
-.quizRowText { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.quizRowTitle { font-size: 14px; font-weight: 700; line-height: 1.2; }
-.quizRowDesc { font-size: 12.5px; line-height: 1.35; color: rgba(255, 255, 255, 0.84); }
-.quizRowCta { margin-left: auto; flex: 0 0 auto; display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #ffb26b; white-space: nowrap; }
-.quizRowCta svg { width: 14px; height: 14px; transition: transform 220ms var(--snz-ease); }
-.quizRow:hover .quizRowCta svg { transform: translateX(3px); }
-
-/* ---- Our Products dropdown: the chip rows "Brands", "Mattress Info by Size", "Mattress Info by Type" (section E pages) ----
-   Three chip rows since the size/type row was split in two (November 24, 2026): the Products panel's rows sit 16px apart
-   instead of 24px (columns unchanged), so the taller panel still ends inside a 1366x768 or 1280x800 window; on shorter
-   windows it scrolls inside itself instead of running off the screen. Every chip row keeps the same heading and spacing. */
-.panel:not(.panelSmall) { row-gap: 16px; }
-@media (min-width: 1025px) and (max-height: 759px) {
-  .panel:not(.panelSmall) { max-height: calc(100vh - 124px); overflow-y: auto; overscroll-behavior: contain; }
-}
-.sizeRow { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 2px; padding: 0 2px; }
-.sizeRowLabel { margin-right: 4px; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--snz-muted); }
-.sizeChip { display: inline-flex; align-items: center; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--snz-line); font-size: 13px; font-weight: 600; color: var(--snz-navy); text-decoration: none; transition: background-color 200ms var(--snz-ease), border-color 200ms var(--snz-ease); }
-.sizeChip:hover, .sizeChip:focus-visible { background: rgba(0, 20, 137, 0.06); border-color: rgba(0, 20, 137, 0.3); }
-.sizeChipActive { background: rgba(0, 20, 137, 0.08); border-color: rgba(0, 20, 137, 0.35); }
+.quizCard:hover { transform: translateY(-1px); box-shadow: 0 14px 28px -16px rgba(0, 20, 137, 0.6); }
+.quizRowIcon { grid-row: 1 / 3; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 10px; background: rgba(245, 132, 51, 0.2); color: #ffb26b; }
+.quizRowIcon svg { width: 18px; height: 18px; }
+.quizRowTitle { font-size: 13.5px; font-weight: 700; line-height: 1.25; }
+.quizRowCta { display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; font-weight: 600; line-height: 1.25; color: #ffb26b; white-space: nowrap; }
+.quizRowCta svg { width: 13px; height: 13px; transition: transform 220ms var(--snz-ease); }
+.quizCard:hover .quizRowCta svg { transform: translateX(3px); }
