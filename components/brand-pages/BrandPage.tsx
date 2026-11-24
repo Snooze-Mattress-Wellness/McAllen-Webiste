@@ -57,8 +57,9 @@ export function BrandPage({ brand: key, location: l, feed, renderSchema }: Props
         brand={brand.json.vendor}
         wrapperClass={brand.site.wrapper_class}
         promoSlot={brand.site.promo_slot}
-        // promotion_name: the block's headline; a block with no headline row (Serta's) reports "<vendor> <event>"
-        promos={promos.map((b) => ({ block: b.block, headline: b.headline || `${b.vendor} ${b.event}`, event: b.event }))}
+        // promotion_name: the block's heading as the shared promo code shows it (a block with no headline row, e.g.
+        // Serta's: "<event>: <vendor> savings", snooze-promo.js since the fix of 2026-11-23)
+        promos={promos.map((b) => ({ block: b.block, headline: b.headline || `${b.event}: ${b.vendor} savings`, event: b.event }))}
         ctaSelector={brand.site.tracking.cta_selector}
         ctaSections={brand.site.tracking.cta_sections}
       />

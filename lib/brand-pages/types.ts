@@ -66,7 +66,8 @@ export type BrandLocation = {
 
 /* ---------- the promo feed (the JSON the Offer Calendar's Apps Script publishes; dev handoff, section 5) ---------- */
 export type FeedStore = { city: string; brands: string[] };
-export type PromotionItem = { id?: string; text: string; start: string; end: string };
+/** fine_print: an item's own disclosure (the shared promo code shows the items' fine print when the block has none) */
+export type PromotionItem = { id?: string; text: string; start: string; end: string; fine_print?: string };
 export type Promotion = {
   block: string;
   vendor: string;

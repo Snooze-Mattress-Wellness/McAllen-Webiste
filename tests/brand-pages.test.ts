@@ -131,12 +131,9 @@ test('Beautyrest hero video: the loader is on exactly when the video file is in 
   assert.equal(existsSync(new URL('../public/brands/beautyrest/video/beautyrest.mp4', import.meta.url)), BEAUTYREST_VIDEO);
 });
 
-test('Serta body: the package previews mcallen-serta.html (Nov 23) and -dec20.html (Dec 20)', () => {
-  // brand.json now carries promo_images.default (fixes of 2026-11-23), which the promo slot lists in data-snz-images;
-  // the previews with it come with the shared promo-code fix (next commit), so this commit compares without it
-  const noImages = (x: string) => x.replace(/data-snz-images="[^"]*"/, 'data-snz-images=""');
-  assert.equal(noImages(lf(ourBody('serta', feed('v2-example'), '2026-11-23'))), noImages(previewBody(lf(fixture('serta.preview.fixture.html')))));
-  assert.equal(noImages(lf(ourBody('serta', feed('v2-example'), '2026-12-20'))), noImages(previewBody(lf(fixture('serta-dec20.preview.fixture.html')))));
+test('Serta body: byte for byte the package previews mcallen-serta.html (Nov 23) and -dec20.html (Dec 20), fixes of 2026-11-23', () => {
+  assert.equal(lf(ourBody('serta', feed('v2-example'), '2026-11-23')), previewBody(lf(fixture('serta.preview.fixture.html'))));
+  assert.equal(lf(ourBody('serta', feed('v2-example'), '2026-12-20')), previewBody(lf(fixture('serta-dec20.preview.fixture.html'))));
 });
 
 test('Serta: brand.json as delivered, wrapper, assets in brand.json order, the hero poster preloaded per breakpoint', () => {
@@ -173,8 +170,8 @@ test('Serta SEO (SERTA.md step 6): title, H1 in the bar under the hero, descript
   assert.ok(bar.includes('<h1 class="snz-h1">Serta Mattresses in McAllen, TX</h1>'), 'the H1 is in the bar under the hero');
   assert.ok(!/\{\{|\{city\}|\{state\}|\{brand\}/.test(html));
   const h2s = [...html.matchAll(/<h2[^>]*>(.*?)<\/h2>/g)].map((x) => x[1].replace(/<[^>]+>/g, '').trim());
-  // the offer block has no headline row: the shared markup writes an empty <h2> (reported)
-  assert.deepEqual(h2s, ['Try Serta in McAllen', '', 'The Serta advantage', 'Serta mattress collections', 'Customize your comfort', 'Reassurance so you can rest easy', 'Why Buy Serta at Snooze Mattress in McAllen', 'Serta in McAllen: Common Questions']);
+  // the offer block has no headline row: since the fix of 2026-11-23 the shared code writes "<event>: <vendor> savings"
+  assert.deepEqual(h2s, ['Try Serta in McAllen', 'Black Friday Sale: Serta savings', 'The Serta advantage', 'Serta mattress collections', 'Customize your comfort', 'Reassurance so you can rest easy', 'Why Buy Serta at Snooze Mattress in McAllen', 'Serta in McAllen: Common Questions']);
   const h3s = [...html.matchAll(/<h3[^>]*>(.*?)<\/h3>/g)].map((x) => x[1].replace(/<[^>]+>/g, '').replace(/&reg;|&trade;/g, '').replace(/\s+/g, ' ').trim());
   assert.deepEqual(h3s.slice(0, 8), ['Zoned comfort', 'Pressure relief', 'Cooling comfort', 'Serta iSeries NXG', 'Serta iComfort', 'Serta iComfortPro', 'Serta Perfect Sleeper', 'Serta Perfect Sleeper X']);
   const [webPage, , faqPage] = brandPageJsonLd(SE, LOC, faq);
@@ -182,13 +179,15 @@ test('Serta SEO (SERTA.md step 6): title, H1 in the bar under the hero, descript
   assert.equal((faqPage.mainEntity as unknown[]).length, (html.match(/<details/g) || []).length, 'FAQPage = the visible FAQ');
 });
 
-test('Serta offers: BF26-SERTA as an item list with no headline and no photo; NY26-SERTA from December 15; no {brand}', () => {
+test('Serta offers: BF26-SERTA (no headline row) with its derived heading, the items\' fine print and the default iComfort photo; NY26-SERTA from December 15; no {brand}', () => {
   const nov = brandOffers(SE.json, 'mcallen', feed('v2-example'), '2026-11-23').promos;
   assert.deepEqual(nov.map((b) => b.block), ['BF26-SERTA']);
   assert.equal(nov[0].headline, '');
   assert.deepEqual(nov[0].items.map((i) => i.text), ['Save up to $700 on Serta Perfect Sleeper', 'Save up to $900 on Serta iComfort', 'Save up to $700 on Serta iSeries NXG']);
   const html = Promo.renderPromotionsHTML(nov, { imageBase: '/brands/serta/img/', images: SE.json.promo_images });
-  assert.ok(!html.includes('<img'), 'no web_image on the block: no photo');
+  assert.ok(html.includes('<h2>Black Friday Sale: Serta savings</h2>'));
+  assert.ok(html.includes('<p class="snz-fine">Offer valid November 3 – December 1, 2026 on the models named. See store for details.</p>'));
+  assert.ok(html.includes('<img src="/brands/serta/img/icomfort.webp" width="493" height="402" loading="lazy" alt="Serta iComfort mattress">'), 'no web_image on the block: the default photo');
   assert.ok(!html.includes('{brand}'));
   assert.deepEqual(brandOffers(SE.json, 'mcallen', feed('v2-example'), '2026-12-20').promos.map((b) => b.block), ['NY26-SERTA']);
 });
