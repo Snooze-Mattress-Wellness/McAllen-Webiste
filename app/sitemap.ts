@@ -72,7 +72,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       out.push({ url: abs(localizeHref(own, locale)), lastModified: new Date(p.dateModified || p.datePublished), changeFrequency: 'yearly', priority: 0.6, alternates: { languages: { 'en-US': abs(en), 'es-US': abs(es), 'x-default': abs(en) } } });
     }
   }
-  // the brand pages (lib/brand-pages/brand-list.ts, live ones: /tempur-pedic, /beautyrest, /serta, /sealy, /stearns-foster, /copper-by-spring-air, /king-koil): English only (no /es twin,
+  // the brand pages (lib/brand-pages/brand-list.ts, live ones: /tempur-pedic, /beautyrest, /serta, /sealy, /stearns-foster, /copper-by-spring-air, /king-koil, /snooze-o-pedic): English only (no /es twin,
   // no hreflang alternates; /es/<brand> redirects to them)
   for (const p of BRAND_PAGE_PATHS) out.push({ url: abs(p), lastModified: lastmod(p, now), changeFrequency: 'monthly', priority: 0.8 });
   // Sales page: English only (no /es twin, no hreflang alternates; /es/mattress-sales redirects here); offers change

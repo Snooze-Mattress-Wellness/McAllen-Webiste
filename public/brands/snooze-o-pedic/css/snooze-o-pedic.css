@@ -1,0 +1,106 @@
+/* =====================================================================
+   Snooze Mattress – Snooze-o-Pedic brand page (Snooze's own line)
+   Written by Snooze from the Snooze-o-Pedic product spec cards.
+   Everything is scoped to .sop-wrapper so it can't touch the site.
+   Shared local sections (visit, promo, why, FAQ) are styled by
+   shared/css/snooze-brand-local.css.
+   Colors: spec-card navy #13113C, Snooze navy #001489, Snooze orange
+   #F07B2E (snooze-brand). Font: Poppins (already loaded for the shared
+   local sections).
+   ===================================================================== */
+
+.sop-wrapper {
+  --sop-navy: #13113C;
+  --sop-blue: #001489;
+  --sop-orange: #F07B2E;
+  --sop-orange-dark: #B9520E;
+  --sop-ink: #1e223c;
+  --sop-soft: #eef0f8;
+  --sop-line: #e2e5f1;
+  --sop-font: "Poppins", -apple-system, "Segoe UI", sans-serif;
+  color: var(--sop-ink);
+  font-family: var(--sop-font);
+  font-size: 16px;
+  line-height: 1.6;
+  background: #fff;
+}
+.sop-wrapper *, .sop-wrapper *::before, .sop-wrapper *::after { box-sizing: border-box; }
+.sop-wrapper img { max-width: 100%; height: auto; display: block; }
+.sop-wrapper .sop-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+.sop-wrapper .sop-h2 { font: 700 clamp(1.7rem, 3vw, 2.3rem)/1.2 var(--sop-font); color: var(--sop-blue); text-align: center; margin: 0 0 12px; }
+.sop-wrapper .sop-sub { text-align: center; max-width: 720px; margin: 0 auto 32px; font-size: 1.02rem; }
+.sop-wrapper .sop-note { font-size: 0.82rem; color: #5b6690; text-align: center; margin: 8px 0 0; }
+
+/* ---------- Buttons (Snooze pill buttons) ---------- */
+.sop-wrapper .sop-btn {
+  display: inline-block; border-radius: 999px; font: 600 0.95rem/1 var(--sop-font);
+  padding: 15px 26px; text-decoration: none; background: var(--sop-blue); color: #fff;
+  border: 2px solid var(--sop-blue); transition: transform 100ms ease-in-out;
+}
+.sop-wrapper .sop-btn:hover, .sop-wrapper .sop-btn:focus-visible { transform: scale(1.04); }
+.sop-wrapper .sop-btn--orange { background: var(--sop-orange); border-color: var(--sop-orange); color: #fff; }
+.sop-wrapper .sop-btn--ghost { background: transparent; border-color: #fff; color: #fff; }
+
+/* ---------- Hero ---------- */
+.sop-wrapper .sop-hero { background: var(--sop-navy); color: #fff; }
+.sop-wrapper .sop-hero__media { position: relative; display: block; aspect-ratio: 1600 / 480; }
+.sop-wrapper .sop-hero__media picture, .sop-wrapper .sop-hero__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.sop-wrapper .sop-hero__bar { text-align: center; padding: 8px 20px 44px; }
+.sop-wrapper .sop-hero__logo { width: clamp(240px, 34vw, 440px); margin: 0 auto 16px; }
+.sop-wrapper .sop-hero__bar h1.snz-h1 { font: 600 0.85rem/1.3 var(--sop-font); letter-spacing: 0.14em; text-transform: uppercase; color: #fff; margin: 0; }
+.sop-wrapper .sop-hero__tag { font: 700 clamp(1.25rem, 2.4vw, 1.75rem)/1.25 var(--sop-font); color: var(--sop-orange); margin: 12px 0 0; }
+.sop-wrapper .sop-hero__bar p { margin: 10px auto 0; max-width: 640px; color: rgba(255,255,255,.92); }
+.sop-wrapper .sop-hero__btns { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+@media (max-width: 767px) { .sop-wrapper .sop-hero__media { aspect-ratio: 480 / 420; } }
+
+/* ---------- Comfort scale ---------- */
+.sop-wrapper .sop-scale { padding: 64px 0 48px; background: var(--sop-soft); }
+.sop-wrapper .sop-scale__track { list-style: none; margin: 0 auto; padding: 0; max-width: 1000px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; position: relative; }
+.sop-wrapper .sop-scale__track::before { content: ""; position: absolute; left: 4%; right: 4%; top: 50%; height: 4px; background: linear-gradient(90deg, var(--sop-navy), var(--sop-blue) 45%, var(--sop-orange)); border-radius: 4px; z-index: 0; }
+.sop-wrapper .sop-scale__track a { position: relative; z-index: 1; display: block; background: #fff; border: 2px solid var(--sop-line); border-radius: 14px; padding: 16px 10px; text-align: center; text-decoration: none; color: var(--sop-ink); transition: border-color .15s, transform .15s; }
+.sop-wrapper .sop-scale__track a:hover, .sop-wrapper .sop-scale__track a:focus-visible { border-color: var(--sop-orange); transform: translateY(-2px); }
+.sop-wrapper .sop-scale__level { display: block; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: #5b6690; }
+.sop-wrapper .sop-scale__model { display: block; font-weight: 700; font-size: 1.15rem; color: var(--sop-blue); margin-top: 2px; }
+.sop-wrapper .sop-scale__ends { display: flex; justify-content: space-between; max-width: 1000px; margin: 10px auto 0; font-size: 0.8rem; font-weight: 600; color: #5b6690; }
+@media (max-width: 699px) {
+  .sop-wrapper .sop-scale__track { grid-template-columns: 1fr; }
+  .sop-wrapper .sop-scale__track::before { left: 50%; right: auto; top: 4%; bottom: 4%; width: 4px; height: auto; background: linear-gradient(180deg, var(--sop-navy), var(--sop-blue) 45%, var(--sop-orange)); }
+  .sop-wrapper .sop-scale__ends { display: none; }
+}
+
+/* ---------- Shared construction ---------- */
+.sop-wrapper .sop-shared { padding: 64px 0; }
+.sop-wrapper .sop-shared__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.sop-wrapper .sop-shared__item { background: var(--sop-soft); border-radius: 16px; padding: 22px 20px 24px; border-top: 4px solid var(--sop-orange); }
+.sop-wrapper .sop-shared__item h3 { font: 700 1.02rem/1.3 var(--sop-font); color: var(--sop-blue); margin: 0 0 8px; }
+.sop-wrapper .sop-shared__item p { font-size: 0.92rem; margin: 0; }
+@media (max-width: 899px) { .sop-wrapper .sop-shared__grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 559px) { .sop-wrapper .sop-shared__grid { grid-template-columns: 1fr; } }
+
+/* ---------- Models ---------- */
+.sop-wrapper .sop-models { padding: 24px 0 64px; scroll-margin-top: 80px; }
+.sop-wrapper .sop-row { display: grid; grid-template-columns: 0.9fr 1.1fr; align-items: center; gap: 24px; max-width: 1080px; margin: 0 auto 28px; padding: 24px; border: 1px solid var(--sop-line); border-radius: 20px; scroll-margin-top: 90px; }
+.sop-wrapper .sop-row--flip .sop-row__img { order: 2; }
+.sop-wrapper .sop-row__img { background: radial-gradient(circle at 50% 45%, #f4f5fb, #e6e9f5); border-radius: 14px; padding: 24px; }
+.sop-wrapper .sop-row__img img { width: 100%; max-width: 380px; margin: 0 auto; }
+.sop-wrapper .sop-level { display: inline-block; background: var(--sop-navy); color: #fff; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 6px 12px; border-radius: 999px; margin: 0 0 10px; }
+.sop-wrapper .sop-name { font: 700 clamp(1.45rem, 2.4vw, 1.85rem)/1.2 var(--sop-font); color: var(--sop-blue); margin: 0 0 10px; }
+.sop-wrapper .sop-row p { margin: 0 0 12px; }
+.sop-wrapper .sop-layers { margin: 0 0 18px; padding-left: 22px; font-size: 0.93rem; }
+.sop-wrapper .sop-layers li { margin: 0 0 5px; }
+.sop-wrapper .sop-layers li::marker { color: var(--sop-orange-dark); font-weight: 700; }
+@media (max-width: 799px) {
+  .sop-wrapper .sop-row { grid-template-columns: 1fr; padding: 18px; }
+  .sop-wrapper .sop-row--flip .sop-row__img { order: 0; }
+}
+
+/* ---------- At a glance badges ---------- */
+.sop-wrapper .sop-trust { background: var(--sop-navy); color: #fff; }
+.sop-wrapper .sop-badges { list-style: none; margin: 0; padding: 32px 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
+.sop-wrapper .sop-badges li { display: flex; flex-direction: column; align-items: center; gap: 10px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+.sop-wrapper .sop-badges svg { color: var(--sop-orange); }
+@media (max-width: 699px) { .sop-wrapper .sop-badges { grid-template-columns: 1fr 1fr; gap: 28px 12px; } }
+
+/* ---------- Disclaimers ---------- */
+.sop-wrapper .sop-disclaimers { padding: 24px 0 40px; font-size: 0.75rem; color: #5b6690; text-align: center; }
+.sop-wrapper .sop-disclaimers p { max-width: 900px; margin: 0 auto; }

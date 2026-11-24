@@ -1,0 +1,177 @@
+<!-- Snooze-o-Pedic brand page body (Snooze's own mattress line). Written by Snooze from the five Snooze-o-Pedic product spec cards (Snooze Drive, 3Z > Snooze-o-Pedic; same cards as the 3Z Brands MediaValet library). Model renders and the wordmark are taken from those cards. No prices and no offers in the body: offers come only from the promo feed (the promo slot below). Tokens are filled by tools/build-page.mjs. -->
+<div class="sop-wrapper snz-brand snz-brand--snooze-o-pedic">
+
+	<section class="sop-hero">
+		<a class="sop-hero__media" href="#models" aria-label="See all five Snooze-o-Pedic mattresses">
+			<picture>
+				<source media="(max-width: 767px)" srcset="{{brand_base}}img/hero-mobile.webp" width="480" height="420">
+				<img src="{{brand_base}}img/hero.webp" alt="The five Snooze-o-Pedic mattresses with their layers shown: Ease, Calm, Balance, Thrive and Renew" width="1600" height="480" fetchpriority="high">
+			</picture>
+		</a>
+		<div class="sop-hero__bar">
+			<img class="sop-hero__logo" src="{{brand_base}}img/logo-white.png" alt="Snooze-o-Pedic" width="900" height="116">
+			{{H1}}
+			<p class="sop-hero__tag">Fitted for your body. Priced for your budget.</p>
+			<p>Five Snooze-o-Pedic mattresses, from extra firm to plush, designed and built in the USA for Snooze Mattress.</p>
+			<div class="sop-hero__btns"><a href="#models" class="sop-btn sop-btn--orange">See all five mattresses</a> <a href="#visit" class="sop-btn sop-btn--ghost">Try them in {{city}}</a></div>
+		</div>
+	</section>
+
+	{{VISIT}}
+
+	{{PROMO}}
+
+	<section class="sop-scale" aria-labelledby="sop-scale-h">
+		<div class="sop-inner">
+			<h2 id="sop-scale-h" class="sop-h2">Find your feel</h2>
+			<p class="sop-sub">Every Snooze-o-Pedic sits at a different spot on the comfort scale. Start with how you like to sleep, then let Dream Mapping confirm the fit.</p>
+			<ol class="sop-scale__track">
+				<li><a href="#renew"><span class="sop-scale__level">Extra Firm</span><span class="sop-scale__model">Renew</span></a></li>
+				<li><a href="#ease"><span class="sop-scale__level">Firm</span><span class="sop-scale__model">Ease</span></a></li>
+				<li><a href="#calm"><span class="sop-scale__level">Plush Euro Top</span><span class="sop-scale__model">Calm</span></a></li>
+				<li><a href="#balance"><span class="sop-scale__level">Plush Euro Top</span><span class="sop-scale__model">Balance</span></a></li>
+				<li><a href="#thrive"><span class="sop-scale__level">Plush</span><span class="sop-scale__model">Thrive</span></a></li>
+			</ol>
+			<p class="sop-scale__ends"><span>Firmer</span><span>Softer</span></p>
+		</div>
+	</section>
+
+	<section class="sop-shared" aria-labelledby="sop-shared-h">
+		<div class="sop-inner">
+			<h2 id="sop-shared-h" class="sop-h2">What every Snooze-o-Pedic shares</h2>
+			<div class="sop-shared__grid">
+				<div class="sop-shared__item">
+					<h3>HD quilt foam</h3>
+					<p>Additional high-density foam is quilted into the cover for an exceptional sleep surface.</p>
+				</div>
+				<div class="sop-shared__item">
+					<h3>Comfort-lock&reg; HD comfort foam</h3>
+					<p>High-density comfort foams made with the Comfort-lock&reg; process for longer-lasting comfort.</p>
+				</div>
+				<div class="sop-shared__item">
+					<h3>8&Prime; coil support</h3>
+					<p>Responsive coil support with reduced motion transfer: 800 Series coils with PowerEdge&reg; edge support on four models, and the heavy-gauge Titan HD Support Core on Renew.</p>
+				</div>
+				<div class="sop-shared__item">
+					<h3>HD base support foam</h3>
+					<p>A shock-absorbing high-density base foam reduces motion transfer and provides long-lasting support.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="sop-models" id="models" aria-labelledby="sop-models-h">
+		<div class="sop-inner">
+			<h2 id="sop-models-h" class="sop-h2">The Snooze-o-Pedic lineup</h2>
+
+			<article class="sop-row" id="renew">
+				<div class="sop-row__img"><img src="{{brand_base}}img/renew.webp" alt="Snooze-o-Pedic Renew Extra Firm mattress layers" width="733" height="760" loading="lazy"></div>
+				<div class="sop-row__text">
+					<p class="sop-level">Extra Firm &middot; 13&Prime;</p>
+					<h3 class="sop-name">Snooze-o-Pedic Renew</h3>
+					<p>The firmest Snooze-o-Pedic. A heavy-gauge Titan HD Support Core creates maximum support for a firm bed, under a cool-to-the-touch cover and gel-infused memory foam.</p>
+					<ol class="sop-layers">
+						<li><strong>Cooling cover</strong> with cool-to-the-touch fabrics</li>
+						<li><strong>HD quilt foam</strong></li>
+						<li><strong>&frac34;&Prime; quilted gel-infused memory foam</strong></li>
+						<li><strong>2&frac12;&Prime; HD comfort foam</strong> (Comfort-lock&reg;)</li>
+						<li><strong>8&Prime; Titan HD Support Core</strong>, heavy-gauge wrapped coils</li>
+						<li><strong>HD base support foam</strong></li>
+					</ol>
+					<a href="#visit" class="sop-btn">Try Renew in {{city}}</a>
+				</div>
+			</article>
+
+			<article class="sop-row sop-row--flip" id="ease">
+				<div class="sop-row__img"><img src="{{brand_base}}img/ease.webp" alt="Snooze-o-Pedic Ease Firm mattress layers" width="760" height="749" loading="lazy"></div>
+				<div class="sop-row__text">
+					<p class="sop-level">Firm &middot; 11&Prime;</p>
+					<h3 class="sop-name">Snooze-o-Pedic Ease</h3>
+					<p>A firm, tight-top mattress with a premium knit cover and responsive coil support with enhanced edge support.</p>
+					<ol class="sop-layers">
+						<li><strong>Premium knit cover</strong></li>
+						<li><strong>HD quilt foam</strong></li>
+						<li><strong>1&Prime; HD comfort foam</strong> (Comfort-lock&reg;)</li>
+						<li><strong>8&Prime; 800 Series coils with PowerEdge&reg;</strong></li>
+						<li><strong>HD base support foam</strong></li>
+					</ol>
+					<a href="#visit" class="sop-btn">Try Ease in {{city}}</a>
+				</div>
+			</article>
+
+			<article class="sop-row" id="calm">
+				<div class="sop-row__img"><img src="{{brand_base}}img/calm.webp" alt="Snooze-o-Pedic Calm Plush Euro Top mattress layers" width="750" height="760" loading="lazy"></div>
+				<div class="sop-row__text">
+					<p class="sop-level">Plush Euro Top &middot; 11&frac12;&Prime;</p>
+					<h3 class="sop-name">Snooze-o-Pedic Calm</h3>
+					<p>A plush Euro top over responsive coils, with a premium knit cover and high-density comfort foam.</p>
+					<ol class="sop-layers">
+						<li><strong>Premium knit cover</strong></li>
+						<li><strong>HD quilt foam</strong></li>
+						<li><strong>1&frac12;&Prime; HD comfort foam</strong> (Comfort-lock&reg;)</li>
+						<li><strong>8&Prime; 800 Series coils with PowerEdge&reg;</strong></li>
+						<li><strong>HD base support foam</strong></li>
+					</ol>
+					<a href="#visit" class="sop-btn">Try Calm in {{city}}</a>
+				</div>
+			</article>
+
+			<article class="sop-row sop-row--flip" id="balance">
+				<div class="sop-row__img"><img src="{{brand_base}}img/balance.webp" alt="Snooze-o-Pedic Balance Plush Euro Top mattress layers" width="731" height="760" loading="lazy"></div>
+				<div class="sop-row__text">
+					<p class="sop-level">Plush Euro Top &middot; 12&frac12;&Prime;</p>
+					<h3 class="sop-name">Snooze-o-Pedic Balance</h3>
+					<p>A taller plush Euro top with 2&Prime; of high-density comfort foam for a little more cushioning than Calm.</p>
+					<ol class="sop-layers">
+						<li><strong>Premium knit cover</strong></li>
+						<li><strong>HD quilt foam</strong></li>
+						<li><strong>2&Prime; HD comfort foam</strong> (Comfort-lock&reg;)</li>
+						<li><strong>8&Prime; 800 Series coils with PowerEdge&reg;</strong></li>
+						<li><strong>HD base support foam</strong></li>
+					</ol>
+					<a href="#visit" class="sop-btn">Try Balance in {{city}}</a>
+				</div>
+			</article>
+
+			<article class="sop-row" id="thrive">
+				<div class="sop-row__img"><img src="{{brand_base}}img/thrive.webp" alt="Snooze-o-Pedic Thrive Plush mattress layers" width="713" height="760" loading="lazy"></div>
+				<div class="sop-row__text">
+					<p class="sop-level">Plush &middot; 16&Prime;</p>
+					<h3 class="sop-name">Snooze-o-Pedic Thrive</h3>
+					<p>The tallest and softest Snooze-o-Pedic. A jumbo pillow top with a cooling cover, gel-infused memory foam and 4&frac12;&Prime; of high-density comfort foam.</p>
+					<ol class="sop-layers">
+						<li><strong>Cooling cover</strong> with cool-to-the-touch fabrics</li>
+						<li><strong>HD quilt foam</strong></li>
+						<li><strong>&frac34;&Prime; quilted gel-infused memory foam</strong></li>
+						<li><strong>4&frac12;&Prime; HD comfort foam</strong> (Comfort-lock&reg;)</li>
+						<li><strong>8&Prime; 800 Series coils with PowerEdge&reg;</strong></li>
+						<li><strong>HD base support foam</strong></li>
+					</ol>
+					<a href="#visit" class="sop-btn">Try Thrive in {{city}}</a>
+				</div>
+			</article>
+			<p class="sop-note">Overall heights are plus or minus &frac12;&Prime;. Layer images are for illustrative purposes only.</p>
+		</div>
+	</section>
+
+	<section class="sop-trust" aria-label="Snooze-o-Pedic at a glance">
+		<div class="sop-inner">
+			<ul class="sop-badges">
+				<li><svg viewBox="0 0 48 48" width="44" height="44" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"><path d="M24 4l16 6v12c0 10-7 18-16 22C15 40 8 32 8 22V10z"/><path d="M17 24l5 5 9-10" stroke-linecap="round"/></g></svg><span>10-year non-prorated warranty</span></li>
+				<li><svg viewBox="0 0 48 48" width="44" height="44" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"><path d="M6 12h36v24H6z"/><path d="M6 18h36M6 24h36M6 30h36"/><path d="M6 12h16v12H6z" fill="currentColor" fill-opacity=".15"/></g></svg><span>Designed &amp; built in the USA*</span></li>
+				<li><svg viewBox="0 0 48 48" width="44" height="44" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M8 34h32M8 26h32M8 18h32"/><path d="M14 14v24M24 14v24M34 14v24"/></g></svg><span>Five comfort levels</span></li>
+				<li><svg viewBox="0 0 48 48" width="44" height="44" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M34 8a16 16 0 1 0 6 18 13 13 0 0 1-6-18z"/><path d="M14 40h20"/></g></svg><span>365-Night Sleep Guarantee</span></li>
+			</ul>
+		</div>
+	</section>
+
+	{{WHY}}
+
+	{{FAQ}}
+
+	<section class="sop-disclaimers">
+		<div class="sop-inner">
+			<p>*Designed and built in the USA using domestically and globally sourced materials. Comfort-lock&reg;, PowerEdge&reg; and related marks are trademarks of their respective owners. Overall heights are plus or minus &frac12;&Prime;; layer images are for illustrative purposes only. Warranty is the manufacturer&rsquo;s 10-year non-prorated warranty; the 365-Night Sleep Guarantee is Snooze Mattress&rsquo;s. See store for details.</p>
+		</div>
+	</section>
+</div>

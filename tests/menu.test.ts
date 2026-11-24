@@ -39,11 +39,14 @@ test('the split: every size/type link in exactly one group, nothing added or dro
 test('Brands column: every live brand has a logo file in public/brands/logos/, the file the Offer Calendar feed names for it', () => {
   const feed = JSON.parse(readFileSync(new URL('./fixtures/promo-feed.v2-example.fixture.json', import.meta.url), 'utf8'));
   const feedLogo = new Map<string, string>(feed.brands.map((b: { display_name: string; logo_file: string }) => [b.display_name, b.logo_file]));
-  assert.ok(LIVE_BRANDS.length >= 7);
+  assert.ok(LIVE_BRANDS.length >= 8);
   for (const b of LIVE_BRANDS) {
     assert.ok(b.logo, `${b.key}: logo`);
     assert.ok(existsSync(new URL(`../public${b.logo}`, import.meta.url)), `${b.key}: ${b.logo} exists`);
-    assert.equal(b.logo, feedLogo.get(b.name), `${b.key}: the feed's logo file`);
+    // the example feed predates Snooze-o-Pedic's Brands row (added to the Offer Calendar 2026-11-24: logo_file
+    // /brands/logos/snooze-o-pedic.png, the file shipped in the package)
+    if (feedLogo.has(b.name)) assert.equal(b.logo, feedLogo.get(b.name), `${b.key}: the feed's logo file`);
+    else assert.equal(b.key, 'snooze-o-pedic');
   }
   // registry order = menu order
   assert.deepEqual(LIVE_BRANDS.map((b) => b.key), BRAND_LIST.filter((b) => b.live).sort((a, b) => a.order - b.order).map((b) => b.key));

@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
   // brand's brand.json + template.html and the shared partials. Every route that may import the brand registry gets
   // them in its function bundle, so an ISR regeneration on Vercel can read them.
   outputFileTracingIncludes: { '/**': ['./lib/brand-pages/brands/**/*', './lib/brand-pages/partials/*.html'] },
-  // The brand pages (/tempur-pedic, /beautyrest, /serta, /sealy, /stearns-foster, /copper-by-spring-air, /king-koil) and the Sales page are English only: the Spanish URL 308s to the
+  // The brand pages (/tempur-pedic, /beautyrest, /serta, /sealy, /stearns-foster, /copper-by-spring-air, /king-koil, /snooze-o-pedic) and the Sales page are English only: the Spanish URL 308s to the
   // English page (the EN | ES switch on them links /es). Kept here rather than in vercel.json so `next start` applies it too (local checks); Vercel applies both kinds.
   async redirects() {
     return [
@@ -28,6 +28,7 @@ const nextConfig: NextConfig = {
       { source: '/es/stearns-foster', destination: '/stearns-foster', permanent: true },
       { source: '/es/copper-by-spring-air', destination: '/copper-by-spring-air', permanent: true },
       { source: '/es/king-koil', destination: '/king-koil', permanent: true },
+      { source: '/es/snooze-o-pedic', destination: '/snooze-o-pedic', permanent: true },
       { source: '/es/mattress-sales', destination: '/mattress-sales', permanent: true },
     ];
   },

@@ -22,7 +22,9 @@ function withDreamMappingLink(c: PageCopy, slug: string, locale: Locale): PageCo
    /memory-foam-mattresses names no Beautyrest, Serta, Sealy, Stearns & Foster, Copper or King Koil model (its one
    "Spring Air" is inside a card that already links /cooling-mattresses), /cooling-mattresses no Serta model. Copper's
    first mention is "Copper by Spring Air" on the city pages and "Copper Collection by Spring Air" on /cooling-mattresses;
-   King Koil's is "King Koil" (on the city pages, inside "FLOWT by King Koil"). */
+   King Koil's is "King Koil" (on the city pages, inside "FLOWT by King Koil"). Snooze-o-Pedic is spelled
+   "Snooze-O-Pedic" in this copy (the phrase as written; no copy change): its first mention is in the intro of
+   /memory-foam-mattresses and in the brand list of the city pages; /cooling-mattresses never names it. */
 const TEMPUR_PEDIC = { phrase: 'Tempur-Pedic', href: '/tempur-pedic' };
 const BEAUTYREST = { phrase: 'Beautyrest', href: '/beautyrest' };
 const SERTA = { phrase: 'Serta', href: '/serta' };
@@ -30,12 +32,13 @@ const SEALY = { phrase: 'Sealy', href: '/sealy' };
 const STEARNS_FOSTER = { phrase: 'Stearns & Foster', href: '/stearns-foster' };
 const COPPER = { phrase: 'Copper by Spring Air', href: '/copper-by-spring-air' };
 const KING_KOIL = { phrase: 'King Koil', href: '/king-koil' };
+const SNOOZE_O_PEDIC = { phrase: 'Snooze-O-Pedic', href: '/snooze-o-pedic' };
 const BRAND_PAGE_MENTIONS: Record<string, readonly { phrase: string; href: string }[]> = {
   '/cooling-mattresses': [TEMPUR_PEDIC, BEAUTYREST, SEALY, STEARNS_FOSTER, { ...COPPER, phrase: 'Copper Collection by Spring Air' }, KING_KOIL],
-  '/memory-foam-mattresses': [TEMPUR_PEDIC],
-  '/mattress-store-edinburg': [TEMPUR_PEDIC, BEAUTYREST, SERTA, SEALY, STEARNS_FOSTER, KING_KOIL, COPPER],
-  '/mattress-store-mission': [TEMPUR_PEDIC, BEAUTYREST, SERTA, SEALY, STEARNS_FOSTER, KING_KOIL, COPPER],
-  '/mattress-store-pharr': [TEMPUR_PEDIC, BEAUTYREST, SERTA, SEALY, STEARNS_FOSTER, KING_KOIL, COPPER],
+  '/memory-foam-mattresses': [TEMPUR_PEDIC, SNOOZE_O_PEDIC],
+  '/mattress-store-edinburg': [TEMPUR_PEDIC, BEAUTYREST, SERTA, SEALY, STEARNS_FOSTER, KING_KOIL, COPPER, SNOOZE_O_PEDIC],
+  '/mattress-store-mission': [TEMPUR_PEDIC, BEAUTYREST, SERTA, SEALY, STEARNS_FOSTER, KING_KOIL, COPPER, SNOOZE_O_PEDIC],
+  '/mattress-store-pharr': [TEMPUR_PEDIC, BEAUTYREST, SERTA, SEALY, STEARNS_FOSTER, KING_KOIL, COPPER, SNOOZE_O_PEDIC],
 };
 function withBrandPageLink(c: PageCopy, slug: string, locale: Locale): PageCopy {
   const mentions = locale === 'en' ? BRAND_PAGE_MENTIONS[slug] || [] : [];

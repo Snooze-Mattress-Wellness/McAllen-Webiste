@@ -8,6 +8,7 @@ import { SEALY_PARTS } from './sealy';
 import { STEARNS_FOSTER_PARTS } from './stearns-foster';
 import { COPPER_PARTS } from './copper-by-spring-air';
 import { KING_KOIL_PARTS } from './king-koil';
+import { SNOOZE_O_PEDIC_PARTS } from './snooze-o-pedic';
 
 export const BRAND_PARTS: Readonly<Record<BrandKey, BrandParts>> = {
   'tempur-pedic': TEMPUR_PEDIC_PARTS,
@@ -17,4 +18,5 @@ export const BRAND_PARTS: Readonly<Record<BrandKey, BrandParts>> = {
   'stearns-foster': STEARNS_FOSTER_PARTS,
   'copper-by-spring-air': COPPER_PARTS,
   'king-koil': KING_KOIL_PARTS,
+  'snooze-o-pedic': SNOOZE_O_PEDIC_PARTS,
 };
