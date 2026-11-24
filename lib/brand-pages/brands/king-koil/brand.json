@@ -1,0 +1,53 @@
+{
+  "slug": "king-koil",
+  "name": "King Koil",
+  "vendor": "King Koil",
+  "page_path": "/king-koil",
+  "title": "King Koil Mattresses in {city}, {state} | Snooze Mattress",
+  "h1": "King Koil Mattresses in {city}, {state}",
+  "description": "Try King Koil FLOWT Nova and Snooze Handcrafted Preston, Paisley and Parker mattresses at Snooze Mattress in {city}. Get a free Dream Mapping fitting.",
+  "og_description": "Try King Koil FLOWT and Snooze Handcrafted mattresses in {city} and get a free Dream Mapping fitting to find the right fit for your body.",
+  "carries": "King Koil FLOWT Nova and Snooze Handcrafted by King Koil mattresses (Preston, Paisley and Parker)",
+  "visit_intro": "Reading about spiral gel and hand tufting is one thing. Feeling how they support your body is another.",
+  "try_items": "the FLOWT Nova and the Snooze Handcrafted Preston, Paisley and Parker",
+  "fit_tail": ", from the cooling FLOWT Nova to the hand-tufted Snooze Handcrafted models",
+  "faq_right_for_me": "It depends on your body and how you sleep. Dream Mapping, our pressure mapping technology, shows where your body needs support. Then your Sleep Coach helps you compare the FLOWT Nova in Firm or Plush with the Snooze Handcrafted Preston, Paisley and Parker.",
+  "font_url": "https://fonts.googleapis.com/css2?family=Marcellus&family=Mulish:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap",
+  "styles": [
+    "{brand}css/king-koil.css",
+    "{shared}css/snooze-brand-local.css"
+  ],
+  "scripts": [
+    "{shared}js/snooze-promo.js"
+  ],
+  "preload_images": [
+    {
+      "href": "{brand}img/hero.webp",
+      "media": "(min-width: 768px)"
+    },
+    {
+      "href": "{brand}img/hero-mobile.webp",
+      "media": "(max-width: 767px)"
+    }
+  ],
+  "promo_images": {
+    "default": {
+      "file": "promo.webp",
+      "w": 986,
+      "h": 804,
+      "alt": "King Koil FLOWT mattress"
+    },
+    "flowt": {
+      "file": "flowt-nova.webp",
+      "w": 900,
+      "h": 640,
+      "alt": "King Koil FLOWT Nova mattress"
+    },
+    "handcrafted": {
+      "file": "handcrafted.webp",
+      "w": 900,
+      "h": 640,
+      "alt": "Snooze Handcrafted by King Koil mattress"
+    }
+  }
+}

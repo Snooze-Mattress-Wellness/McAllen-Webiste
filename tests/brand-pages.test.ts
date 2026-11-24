@@ -3,6 +3,7 @@
 // its tools/build-page.mjs from the example feed). Node's built-in test runner: `npm test`.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { existsSync, readFileSync } from 'node:fs';
 import type { BrandLocation, PromoFeed } from '../lib/brand-pages/types.ts';
 import { BRANDS, BRAND_KEYS } from '../lib/brand-pages/registry.ts';
@@ -22,6 +23,8 @@ const BR = BRANDS.beautyrest;
 const SE = BRANDS.serta;
 const SF = BRANDS['stearns-foster'];
 const SY = BRANDS.sealy;
+const CP = BRANDS['copper-by-spring-air'];
+const KK = BRANDS['king-koil'];
 const SITE = 'https://mcallen.snoozemattresscompany.com';
 const LOC: BrandLocation = { ...BRAND_PAGE_LOCATION, schema_ids: { organization: `${SITE}/#organization`, website: `${SITE}/#website`, store: `${SITE}/#store` } };
 const fixture = (name: string) => readFileSync(new URL(`./fixtures/${name}`, import.meta.url), 'utf8');
@@ -45,7 +48,7 @@ const ourBody = (key: keyof typeof BRANDS, f: PromoFeed, today: string, l: Brand
 };
 
 test('registry: Tempur-Pedic from its brand.json, vendor spelled as in the feed, assets under /brands/tempur-pedic/', () => {
-  assert.deepEqual(BRAND_KEYS, ['tempur-pedic', 'beautyrest', 'serta', 'sealy', 'stearns-foster']);
+  assert.deepEqual(BRAND_KEYS, ['tempur-pedic', 'beautyrest', 'serta', 'sealy', 'stearns-foster', 'copper-by-spring-air', 'king-koil']);
   assert.equal(TP.json.slug, 'tempur-pedic');
   assert.equal(TP.json.vendor, 'Tempur-Pedic');
   assert.equal(TP.json.page_path, '/tempur-pedic');
@@ -309,6 +312,189 @@ test('Sealy offers: BF26-SEALY in November, NY26-SEALY from December 15 (example
   assert.deepEqual(brandOffers(SY.json, 'mcallen', feed('v2-example'), '2026-12-20').promos.map((b) => b.block), ['NY26-SEALY']);
 });
 
+/** A lossy WebP's pixel size (the VP8 frame header). */
+const webpSize = (b: Buffer) => {
+  assert.equal(b.toString('ascii', 0, 4) + b.toString('ascii', 8, 16), 'RIFFWEBPVP8 ', 'lossy WebP');
+  return [b.readUInt16LE(26) & 0x3fff, b.readUInt16LE(28) & 0x3fff];
+};
+/** The text a visitor reads in a template: no comments, no tags (so no attributes), entities as written. */
+const visibleText = (html: string) => html.replace(/<!--[\s\S]*?-->/g, ' ').replace(/<svg[\s\S]*?<\/svg>/g, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+
+test('Copper by Spring Air body: byte for byte the package previews mcallen-copper-by-spring-air.html (Nov 24) and -dec20.html (Dec 20: empty promo slot)', () => {
+  assert.equal(lf(ourBody('copper-by-spring-air', feed('v2-example'), '2026-11-24')), previewBody(lf(fixture('copper-by-spring-air.preview.fixture.html'))));
+  assert.equal(lf(ourBody('copper-by-spring-air', feed('v2-example'), '2026-12-20')), previewBody(lf(fixture('copper-by-spring-air-dec20.preview.fixture.html'))));
+});
+
+test('Copper by Spring Air: brand.json as delivered (feed vendor "Spring Air"), wrapper, assets in brand.json order, the hero preloaded per breakpoint, every image present', () => {
+  assert.equal(CP.json.slug, 'copper-by-spring-air');
+  assert.equal(CP.json.name, 'Copper by Spring Air');
+  assert.equal(CP.json.vendor, 'Spring Air');
+  assert.equal(CP.json.page_path, '/copper-by-spring-air');
+  assert.equal(CP.site.wrapper_class, 'copper-wrapper');
+  assert.ok(CP.template.includes('<div class="copper-wrapper snz-brand snz-brand--copper-by-spring-air">'));
+  assert.deepEqual(CP.json.styles.map((x) => assetUrl(CP, x)), ['/brands/copper-by-spring-air/css/copper.css', '/brands/shared/css/snooze-brand-local.css']);
+  // the one script is the shared snooze-promo.js: the offers are rendered on the server, so the page loads no script
+  assert.deepEqual(CP.json.scripts, ['{shared}js/snooze-promo.js']);
+  assert.deepEqual(brandScripts(CP), []);
+  assert.deepEqual((CP.json.preload_images || []).map((p) => [assetUrl(CP, p.href), p.media]), [
+    ['/brands/copper-by-spring-air/img/hero.webp', '(min-width: 768px)'],
+    ['/brands/copper-by-spring-air/img/hero-mobile.webp', '(max-width: 767px)'],
+  ]);
+  assert.deepEqual(CP.json.promo_images?.default, { file: 'promo.webp', w: 986, h: 804, alt: 'Copper by Spring Air Quilted mattress' });
+  assert.equal(brandPage(CP, LOC).url, `${SITE}/copper-by-spring-air`);
+  const files = [...CP.template.matchAll(/\{\{brand_base\}\}img\/([\w.-]+)/g)].map((m) => m[1]).concat(Object.values(CP.json.promo_images || {}).map((i) => i.file), 'og-image.jpg');
+  for (const f of files) assert.ok(existsSync(new URL(`../public/brands/copper-by-spring-air/img/${f}`, import.meta.url)), f);
+  assert.ok(!existsSync(new URL('../public/brands/copper-by-spring-air/js', import.meta.url)), 'no js folder');
+  assert.ok(!existsSync(new URL('../public/brands/copper-by-spring-air/img/_source', import.meta.url)), 'the photo originals are not shipped');
+});
+
+test('Copper pillow photos: Spring Air\'s photos at 800×600, not the package placeholders', () => {
+  // the package's labelled placeholders ("PLACEHOLDER: Copper … Pillow photo (springair.com)"), by SHA-256
+  const PLACEHOLDERS: Record<string, string> = {
+    'pillow-standard.webp': 'c92a2a35ec6702c5d123f79449e9179cdacb5a60777c11a2072d5a99e5ac5bb7',
+    'pillow-contour.webp': '6f73f86590df0d02379807daffa25a53743fbceb564be5fe1d1d5c599226e68e',
+  };
+  for (const [file, placeholder] of Object.entries(PLACEHOLDERS)) {
+    const b = readFileSync(new URL(`../public/brands/copper-by-spring-air/img/${file}`, import.meta.url));
+    assert.notEqual(createHash('sha256').update(b).digest('hex'), placeholder, file);
+    assert.deepEqual(webpSize(b), [800, 600], file);
+    assert.ok(!b.toString('latin1').toUpperCase().includes('PLACEHOLDER'), file);
+    assert.ok(b.length > 20000, `${file}: a photo, not the flat placeholder art`);
+  }
+});
+
+test('Copper SEO (COPPER.md step 5): title, H1 in the bar under the hero, description, canonical, OG image, H2/H3 outline, JSON-LD; one H1', () => {
+  const m = brandPageMetadata(CP, LOC);
+  assert.equal(m.title, 'Copper by Spring Air Mattresses in McAllen, TX | Snooze Mattress');
+  assert.equal(String(m.title).length, 64);
+  assert.equal(m.description, 'Try Copper by Spring Air Smooth Top, Quilted and Euro Top mattresses and Copper pillows at Snooze Mattress in McAllen. Get a free Dream Mapping fitting.');
+  assert.equal(String(m.description).length, 152);
+  assert.deepEqual(m.alternates, { canonical: `${SITE}/copper-by-spring-air` });
+  assert.deepEqual(m.openGraph?.images, [{ url: `${SITE}/brands/copper-by-spring-air/img/og-image.jpg`, width: 1200, height: 630 }]);
+  const { promos, tiles } = brandOffers(CP.json, 'mcallen', feed('v2-example'), '2026-11-24');
+  const faq = brandFaq(CP.json, LOC, tiles);
+  const html = renderBrandBody({ brand: CP.json, template: CP.template, partials: PARTIALS, location: LOC, promos, tiles, faq });
+  assert.equal(html.match(/<h1\b/g)?.length, 1);
+  const bar = html.slice(html.indexOf('<div class="cp-hero__bar">'), html.indexOf('</section>'));
+  assert.ok(bar.includes('<h1 class="snz-h1">Copper by Spring Air Mattresses in McAllen, TX</h1>'), 'the H1 is in the bar under the hero');
+  assert.ok(!/\{\{|\{city\}|\{state\}|\{brand\}/.test(html));
+  assert.ok(!html.includes('<h2></h2>'));
+  const h2s = [...html.matchAll(/<h2[^>]*>(.*?)<\/h2>/g)].map((x) => x[1].replace(/<[^>]+>/g, '').trim());
+  assert.deepEqual(h2s, ['Try Copper by Spring Air in McAllen', 'Save up to $1,000 on Copper by Spring Air mattresses', 'What makes Copper different', 'Copper by Spring Air mattresses', 'Complete it with a Copper pillow', 'Why Buy Copper by Spring Air at Snooze Mattress in McAllen', 'Copper by Spring Air in McAllen: Common Questions']);
+  const h3s = [...html.matchAll(/<h3[^>]*>(.*?)<\/h3>/g)].map((x) => x[1].replace(/<[^>]+>/g, '').replace(/&reg;|&trade;/g, '').replace(/\s+/g, ' ').trim());
+  assert.deepEqual(h3s.slice(0, 9), ['Copper-infused NatuVerex cover', 'Copper-infused memory foam', 'Zoned hybrid support', 'Inside a Copper hybrid', 'Copper Hybrid Smooth Top', 'Copper Hybrid Quilted', 'Copper Hybrid Euro Top', 'Copper Standard Pillow', 'Copper Contour Pillow']);
+  const ld = brandPageJsonLd(CP, LOC, faq);
+  assert.deepEqual(ld.map((n) => n['@type']), ['WebPage', 'BreadcrumbList', 'FAQPage']);
+  assert.deepEqual(ld[0].about, [{ '@type': 'Brand', name: 'Copper by Spring Air' }, { '@id': `${SITE}/#store` }]);
+  assert.equal((ld[2].mainEntity as unknown[]).length, (html.match(/<details/g) || []).length, 'FAQPage = the visible FAQ');
+  assert.ok(!/"(Review|Product|Offer|AggregateRating)"/.test(JSON.stringify(ld)), 'no Review, Product or Offer schema');
+});
+
+test('Copper content rules (COPPER.md, verified, not edited): no prices or adjustable bases in the product text, the copper claims credited to Spring Air, the disclaimer', () => {
+  const text = visibleText(CP.template);
+  assert.ok(!text.includes('$'), 'no prices');
+  assert.ok(!/adjustable/i.test(CP.template), 'no adjustable-base mention');
+  assert.ok(text.includes('According to Spring Air, NatuVerex&trade; copper fabrics use a minimum of 30% copper yarn content, providing anti-inflammatory, antiviral and anti-bacterial properties'));
+  assert.ok(!text.includes('98%'), 'the unsourced "kills 98% of bacteria" line is left out');
+  assert.ok(text.includes('Product descriptions and claims about copper are Spring Air&rsquo;s. Copper by Spring Air mattresses and pillows are not intended to diagnose, treat or cure any condition.'));
+});
+
+test('Copper offers: BF26-COPPER in November with the default picture (promo.webp), an empty slot on December 20 (example feed)', () => {
+  const nov = brandOffers(CP.json, 'mcallen', feed('v2-example'), '2026-11-24').promos;
+  assert.deepEqual(nov.map((b) => b.block), ['BF26-COPPER']);
+  const html = Promo.renderPromotionsHTML(nov, { imageBase: '/brands/copper-by-spring-air/img/', images: CP.json.promo_images });
+  assert.ok(html.includes('<img src="/brands/copper-by-spring-air/img/promo.webp" width="986" height="804" loading="lazy" alt="Copper by Spring Air Quilted mattress">'));
+  assert.ok(!html.includes('{brand}') && !html.includes('<h2></h2>'));
+  assert.deepEqual(brandOffers(CP.json, 'mcallen', feed('v2-example'), '2026-12-20').promos, []);
+});
+
+test('King Koil body: byte for byte the package previews mcallen-king-koil.html (Nov 24: BF26-KINGKOIL) and -dec20.html (Dec 20: NY26-KINGKOIL)', () => {
+  assert.equal(lf(ourBody('king-koil', feed('v2-example'), '2026-11-24')), previewBody(lf(fixture('king-koil.preview.fixture.html'))));
+  assert.equal(lf(ourBody('king-koil', feed('v2-example'), '2026-12-20')), previewBody(lf(fixture('king-koil-dec20.preview.fixture.html'))));
+});
+
+test('King Koil: brand.json as delivered (feed vendor "King Koil"), wrapper, assets in brand.json order, the hero preloaded per breakpoint, every image present', () => {
+  assert.equal(KK.json.slug, 'king-koil');
+  assert.equal(KK.json.name, 'King Koil');
+  assert.equal(KK.json.vendor, 'King Koil');
+  assert.equal(KK.json.page_path, '/king-koil');
+  assert.equal(KK.site.wrapper_class, 'kk-wrapper');
+  assert.ok(KK.template.includes('<div class="kk-wrapper snz-brand snz-brand--king-koil">'));
+  assert.deepEqual(KK.json.styles.map((x) => assetUrl(KK, x)), ['/brands/king-koil/css/king-koil.css', '/brands/shared/css/snooze-brand-local.css']);
+  assert.deepEqual(KK.json.scripts, ['{shared}js/snooze-promo.js']);
+  assert.deepEqual(brandScripts(KK), []);
+  assert.deepEqual((KK.json.preload_images || []).map((p) => [assetUrl(KK, p.href), p.media]), [
+    ['/brands/king-koil/img/hero.webp', '(min-width: 768px)'],
+    ['/brands/king-koil/img/hero-mobile.webp', '(max-width: 767px)'],
+  ]);
+  assert.deepEqual(KK.json.promo_images?.default, { file: 'promo.webp', w: 986, h: 804, alt: 'King Koil FLOWT mattress' });
+  assert.equal(brandPage(KK, LOC).url, `${SITE}/king-koil`);
+  const files = [...KK.template.matchAll(/\{\{brand_base\}\}img\/([\w.-]+)/g)].map((m) => m[1]).concat(Object.values(KK.json.promo_images || {}).map((i) => i.file), 'og-image.jpg');
+  for (const f of files) assert.ok(existsSync(new URL(`../public/brands/king-koil/img/${f}`, import.meta.url)), f);
+  assert.ok(!existsSync(new URL('../public/brands/king-koil/js', import.meta.url)), 'no js folder');
+});
+
+test('King Koil jump links: the two cards go to #flowt and #handcrafted; the vendor 80px margin plus the site\'s scroll padding clears the 84px sticky header', () => {
+  assert.match(KK.template, /<a class="kk-pick__card" href="#flowt">/);
+  assert.match(KK.template, /<a class="kk-pick__card" href="#handcrafted">/);
+  assert.match(KK.template, /<section class="kk-flowt" id="flowt"/);
+  assert.match(KK.template, /<section class="kk-hc" id="handcrafted"/);
+  const vendor = readFileSync(new URL('../public/brands/king-koil/css/king-koil.css', import.meta.url), 'utf8');
+  assert.ok(vendor.includes('.kk-wrapper .kk-flowt, .kk-wrapper .kk-hc { padding: 72px 0; scroll-margin-top: 80px; }'), 'the vendor file is unchanged');
+  // html { scroll-padding-top: 96px } (80px at 1024px and below) adds to the section's margin: 176px (160px) from the top,
+  // below the scrolled header (84px; 69px at 768px and below). So no override of ours (measured, November 24, 2026).
+  const site = readFileSync(new URL('../overrides/global.css', import.meta.url), 'utf8').replace(/\r\n/g, '\n');
+  assert.match(site, /html \{[^}]*scroll-padding-top: 96px;[^}]*\}/);
+  assert.match(site, /@media \(max-width: 1024px\) \{\n  html \{ scroll-padding-top: 80px; \}/);
+  const ours = readFileSync(new URL('../components/brand-pages/king-koil/fonts.module.css', import.meta.url), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
+  assert.ok(!ours.includes('scroll-margin'), 'no override');
+});
+
+test('King Koil SEO (KING-KOIL.md step 5): title, H1 in the bar under the hero, description, canonical, OG image, H2/H3 outline, JSON-LD; one H1', () => {
+  const m = brandPageMetadata(KK, LOC);
+  assert.equal(m.title, 'King Koil Mattresses in McAllen, TX | Snooze Mattress');
+  assert.equal(String(m.title).length, 53);
+  assert.equal(m.description, 'Try King Koil FLOWT Nova and Snooze Handcrafted Preston, Paisley and Parker mattresses at Snooze Mattress in McAllen. Get a free Dream Mapping fitting.');
+  assert.equal(String(m.description).length, 151);
+  assert.deepEqual(m.alternates, { canonical: `${SITE}/king-koil` });
+  assert.deepEqual(m.openGraph?.images, [{ url: `${SITE}/brands/king-koil/img/og-image.jpg`, width: 1200, height: 630 }]);
+  const { promos, tiles } = brandOffers(KK.json, 'mcallen', feed('v2-example'), '2026-11-24');
+  const faq = brandFaq(KK.json, LOC, tiles);
+  const html = renderBrandBody({ brand: KK.json, template: KK.template, partials: PARTIALS, location: LOC, promos, tiles, faq });
+  assert.equal(html.match(/<h1\b/g)?.length, 1);
+  const bar = html.slice(html.indexOf('<div class="kk-hero__bar">'), html.indexOf('</section>'));
+  assert.ok(bar.includes('<h1 class="snz-h1">King Koil Mattresses in McAllen, TX</h1>'), 'the H1 is in the bar under the hero');
+  assert.ok(!/\{\{|\{city\}|\{state\}|\{brand\}/.test(html));
+  assert.ok(!html.includes('<h2></h2>'));
+  const h2s = [...html.matchAll(/<h2[^>]*>(.*?)<\/h2>/g)].map((x) => x[1].replace(/<[^>]+>/g, '').trim());
+  assert.deepEqual(h2s, ['Try King Koil in McAllen', 'Save up to $300 on FLOWT and Handcrafted by King Koil mattresses', 'Two ways to sleep on King Koil', 'FLOWT by King Koil', 'Snooze Handcrafted by King Koil', 'Why Buy King Koil at Snooze Mattress in McAllen', 'King Koil in McAllen: Common Questions']);
+  const h3s = [...html.matchAll(/<h3[^>]*>(.*?)<\/h3>/g)].map((x) => x[1].replace(/<[^>]+>/g, '').replace(/&reg;|&trade;/g, '').replace(/\s+/g, ' ').trim());
+  assert.deepEqual(h3s.slice(0, 9), ['Free airflow', 'Progressive spiral design', 'Adaptive cooling', 'FLOWT Nova HypurGel Hybrid', 'What every Snooze Handcrafted mattress shares', 'Preston', 'Paisley', 'Parker', 'Look for the Snooze Handcrafted label']);
+  const ld = brandPageJsonLd(KK, LOC, faq);
+  assert.deepEqual(ld.map((n) => n['@type']), ['WebPage', 'BreadcrumbList', 'FAQPage']);
+  assert.deepEqual(ld[0].about, [{ '@type': 'Brand', name: 'King Koil' }, { '@id': `${SITE}/#store` }]);
+  assert.equal((ld[2].mainEntity as unknown[]).length, (html.match(/<details/g) || []).length, 'FAQPage = the visible FAQ');
+  assert.ok(!/"(Review|Product|Offer|AggregateRating)"/.test(JSON.stringify(ld)), 'no Review, Product or Offer schema');
+});
+
+test('King Koil content rules (KING-KOIL.md, verified, not edited): no prices or adjustable bases in the product text, "made by King Koil for Snooze Mattress"', () => {
+  const text = visibleText(KK.template);
+  assert.ok(!text.includes('$'), 'no prices');
+  assert.ok(!/adjustable/i.test(text), 'no adjustable-base mention in the text (one image alt describes the photo: "… on an adjustable base")');
+  assert.ok(text.includes('Snooze Handcrafted mattresses are made by King Koil for Snooze Mattress.'));
+  assert.ok(text.includes('minimal partner disturbance') && !/zero partner disturbance/i.test(text));
+  assert.ok(!/Blue Nightfall|Midnight Blue|Pacific/.test(text), 'only the models on the order form');
+});
+
+test('King Koil offers: BF26-KINGKOIL in November with the default picture (promo.webp), NY26-KINGKOIL from December 15 (example feed)', () => {
+  const nov = brandOffers(KK.json, 'mcallen', feed('v2-example'), '2026-11-24').promos;
+  assert.deepEqual(nov.map((b) => b.block), ['BF26-KINGKOIL']);
+  const html = Promo.renderPromotionsHTML(nov, { imageBase: '/brands/king-koil/img/', images: KK.json.promo_images });
+  assert.ok(html.includes('<img src="/brands/king-koil/img/promo.webp" width="986" height="804" loading="lazy" alt="King Koil FLOWT mattress">'));
+  assert.ok(!html.includes('{brand}') && !html.includes('<h2></h2>'));
+  assert.deepEqual(brandOffers(KK.json, 'mcallen', feed('v2-example'), '2026-12-20').promos.map((b) => b.block), ['NY26-KINGKOIL']);
+});
+
 test('body: one H1, every token filled, production paths, the promo slot empty when nothing is live', () => {
   const { promos, tiles } = brandOffers(TP.json, 'mcallen', feed('sheet-current'), '2026-11-23');
   const html = renderBrandBody({ brand: TP.json, template: TP.template, partials: PARTIALS, location: LOC, promos, tiles, faq: brandFaq(TP.json, LOC, tiles) });
@@ -418,14 +604,14 @@ test('local FAQ: the package questions and answers word for word, with their lin
 test('every brand key has a page at /<key> in the location config (the language switch and GA4 rely on it)', async () => {
   const { BRAND_PAGE_PATHS, LIVE_BRANDS } = await import('../lib/brand-pages/brand-list.ts');
   for (const b of LIVE_BRANDS) assert.equal(BRAND_PAGE_LOCATION.brand_pages[b.key]?.page_path, b.path, b.key);
-  assert.deepEqual(BRAND_PAGE_PATHS, ['/tempur-pedic', '/beautyrest', '/serta', '/sealy', '/stearns-foster']);
+  assert.deepEqual(BRAND_PAGE_PATHS, ['/tempur-pedic', '/beautyrest', '/serta', '/sealy', '/stearns-foster', '/copper-by-spring-air', '/king-koil']);
 });
 
 test('llms.txt: the hand-written guide plus a "Brand pages" section from the registry; nothing cut off', async () => {
   const { buildLlmsTxt, llmsBrandPagesSection } = await import('../lib/brand-pages/llms.ts');
   const base = readFileSync(new URL('../lib/llms.txt', import.meta.url), 'utf8');
   const out = buildLlmsTxt(base, LOC);
-  const section = '## Brand pages\n- [Tempur-Pedic at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/tempur-pedic)\n- [Beautyrest at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/beautyrest)\n- [Serta at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/serta)\n- [Sealy at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/sealy)\n- [Stearns & Foster at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/stearns-foster)';
+  const section = '## Brand pages\n- [Tempur-Pedic at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/tempur-pedic)\n- [Beautyrest at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/beautyrest)\n- [Serta at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/serta)\n- [Sealy at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/sealy)\n- [Stearns & Foster at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/stearns-foster)\n- [Copper by Spring Air at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/copper-by-spring-air)\n- [King Koil at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/king-koil)';
   assert.equal(llmsBrandPagesSection(LOC), section);
   assert.ok(out.includes(`\n\n${section}\n\n## Financing and offers\n`));
   assert.ok(!out.includes('{{'));
@@ -441,8 +627,8 @@ test('llms.txt: the hand-written guide plus a "Brand pages" section from the reg
 
 test('brand list (lib/brand-pages/brand-list.ts): name, path, order, live; only live brands are linked, in order', async () => {
   const { BRAND_LIST, LIVE_BRANDS, ALL_BRAND_PATHS } = await import('../lib/brand-pages/brand-list.ts');
-  assert.deepEqual(BRAND_LIST.map((b) => [b.name, b.path, b.order, b.live]), [['Tempur-Pedic', '/tempur-pedic', 1, true], ['Beautyrest', '/beautyrest', 2, true], ['Serta', '/serta', 3, true], ['Sealy', '/sealy', 4, true], ['Stearns & Foster', '/stearns-foster', 5, true]]);
-  assert.deepEqual(LIVE_BRANDS.map((b) => b.name), ['Tempur-Pedic', 'Beautyrest', 'Serta', 'Sealy', 'Stearns & Foster']);
+  assert.deepEqual(BRAND_LIST.map((b) => [b.name, b.path, b.order, b.live]), [['Tempur-Pedic', '/tempur-pedic', 1, true], ['Beautyrest', '/beautyrest', 2, true], ['Serta', '/serta', 3, true], ['Sealy', '/sealy', 4, true], ['Stearns & Foster', '/stearns-foster', 5, true], ['Copper by Spring Air', '/copper-by-spring-air', 6, true], ['King Koil', '/king-koil', 7, true]]);
+  assert.deepEqual(LIVE_BRANDS.map((b) => b.name), ['Tempur-Pedic', 'Beautyrest', 'Serta', 'Sealy', 'Stearns & Foster', 'Copper by Spring Air', 'King Koil']);
   // every live brand is built: a brand.json with the same name and path, and a store entry at its path
   for (const b of LIVE_BRANDS) {
     assert.ok(BRANDS[b.key], b.key);
@@ -451,5 +637,5 @@ test('brand list (lib/brand-pages/brand-list.ts): name, path, order, live; only 
     assert.equal(BRAND_PAGE_LOCATION.brand_pages[b.key]?.page_path, b.path);
   }
   assert.deepEqual(new Set(BRAND_LIST.map((b) => b.order)).size, BRAND_LIST.length, 'orders are unique');
-  assert.deepEqual(ALL_BRAND_PATHS, ['/tempur-pedic', '/beautyrest', '/serta', '/sealy', '/stearns-foster']);
+  assert.deepEqual(ALL_BRAND_PATHS, ['/tempur-pedic', '/beautyrest', '/serta', '/sealy', '/stearns-foster', '/copper-by-spring-air', '/king-koil']);
 });

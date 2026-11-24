@@ -4,11 +4,11 @@
      live /clearance page (lib/clearance.ts: the published sheet at CLEARANCE_URL, location "McAllen", not hidden, inside
      the 30-day listing window), minus anything sold (no SOLD-ribbon items) or out of stock, mapped to the shape
      snooze-sales.js wants. Any error → [] (the section and its H2 hide).
-   - withLiveBrandLinks(feed): a copy of the feed whose brands[].brand_page_url is kept only for brand pages that are
+   - withLiveBrandLinks(feed): a copy of the feed whose brands[].brand_page_url is kept only when it is a brand page
      live on this site (lib/brand-pages/brand-list.ts); the other brand cards then show "Try {Brand} in store" →
      booking, the renderer's own fallback. */
 import { getClearance, isVisible, SETTINGS, type ClearanceSettings, type Listing } from '../clearance.ts';
-import { LIVE_BRANDS } from '../brand-pages/brand-list.ts';
+import { BRAND_PAGE_PATHS } from '../brand-pages/brand-list.ts';
 
 export type SalesClearanceItem = {
   id: string;
@@ -63,8 +63,12 @@ export async function getClearanceItems(): Promise<SalesClearanceItem[]> {
 
 type FeedWithBrands = { brands?: { brand: string; brand_page_url?: string }[] };
 
-/** A copy of the feed with brand page links only for the brand pages live on this site. */
+/** A copy of the feed with brand page links only for the brand pages live on this site: a row keeps its brand_page_url
+    when that URL is a live brand page's path. Matched by path, not by name: the feed's row for Copper by Spring Air is
+    "Spring Air" (the vendor; display_name "Copper by Spring Air"), so its card links once the Brands tab sets
+    /copper-by-spring-air. */
 export function withLiveBrandLinks<F extends FeedWithBrands>(feed: F): F {
-  const live = new Set<string>(LIVE_BRANDS.map((b) => b.name));
-  return { ...feed, brands: (feed.brands || []).map((b) => ({ ...b, brand_page_url: live.has(b.brand) ? b.brand_page_url : '' })) };
+  const live = new Set<string>(BRAND_PAGE_PATHS);
+  const isLive = (url?: string) => !!url && live.has(url.replace(/(.)\/$/, '$1'));
+  return { ...feed, brands: (feed.brands || []).map((b) => ({ ...b, brand_page_url: isLive(b.brand_page_url) ? b.brand_page_url : '' })) };
 }

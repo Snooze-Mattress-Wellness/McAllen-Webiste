@@ -1,0 +1,15 @@
+/* king-koil.css (copied unchanged) names its fonts in two variables on the wrapper:
+     --kk-display: "Marcellus", "Trajan Pro", Georgia, serif;
+     --kk-sans: "Mulish", Helvetica, Arial, sans-serif;
+   next/font serves the faces under its own family names (components/brand-pages/king-koil/font.ts; Mulish is Serta's
+   instance, --font-serta), so the two variables point at those, with the same fallbacks. The outer div carries this
+   class; the selector is more specific than the vendor's ".kk-wrapper" rule, whatever the load order.
+
+   No jump-link override: KING-KOIL.md step 4 gives #flowt / #handcrafted scroll-margin-top: 80px for a sticky header.
+   This site's header is 84px once scrolled (69px at 768px and below), but the site already sets
+   html { scroll-padding-top: 96px } (80px at 1024px and below; overrides/global.css), which the browser adds to the
+   section's margin: the sections land 176px (160px) from the top, clear of the header. */
+.fonts :global(.kk-wrapper) {
+  --kk-display: var(--font-kk-display), "Trajan Pro", Georgia, serif;
+  --kk-sans: var(--font-serta), Helvetica, Arial, sans-serif;
+}
