@@ -32,6 +32,12 @@
     }
   ],
   "promo_images": {
+    "default": {
+      "file": "icomfort.webp",
+      "w": 493,
+      "h": 402,
+      "alt": "Serta iComfort mattress"
+    },
     "icomfort": {
       "file": "icomfort.webp",
       "w": 493,

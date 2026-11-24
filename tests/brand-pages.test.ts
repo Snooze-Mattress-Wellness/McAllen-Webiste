@@ -97,7 +97,9 @@ test('Beautyrest: brand.json as delivered, wrapper, assets in brand.json order, 
 test('Beautyrest SEO (BEAUTYREST.md step 6): title, H1 in the hero, description, canonical, OG image, H2s; one H1', () => {
   const m = brandPageMetadata(BR, LOC);
   assert.equal(m.title, 'Beautyrest Mattresses in McAllen, TX | Snooze Mattress');
-  assert.equal(m.description, 'Try Beautyrest Black, Beautyrest World Class, Beautyrest and Beauty Sleep mattresses at Snooze Mattress in McAllen. Get a free Dream Mapping fitting for your body.');
+  // Travis's brand-page fixes of 2026-11-23: shortened to 152 characters for McAllen
+  assert.equal(m.description, 'Try Beautyrest Black, World Class, Beautyrest and Beauty Sleep mattresses at Snooze Mattress in McAllen. Get a free Dream Mapping fitting for your body.');
+  assert.equal(String(m.description).length, 152);
   assert.deepEqual(m.alternates, { canonical: `${SITE}/beautyrest` });
   assert.equal(m.openGraph?.description, 'Try Beautyrest in McAllen and get a free Dream Mapping fitting to find the right fit for your body.');
   assert.deepEqual(m.openGraph?.images, [{ url: `${SITE}/brands/beautyrest/img/og-image.jpg`, width: 1200, height: 630 }]);
@@ -129,9 +131,12 @@ test('Beautyrest hero video: the loader is on exactly when the video file is in 
   assert.equal(existsSync(new URL('../public/brands/beautyrest/video/beautyrest.mp4', import.meta.url)), BEAUTYREST_VIDEO);
 });
 
-test('Serta body: byte for byte the package previews mcallen-serta.html (Nov 23) and -dec20.html (Dec 20)', () => {
-  assert.equal(lf(ourBody('serta', feed('v2-example'), '2026-11-23')), previewBody(lf(fixture('serta.preview.fixture.html'))));
-  assert.equal(lf(ourBody('serta', feed('v2-example'), '2026-12-20')), previewBody(lf(fixture('serta-dec20.preview.fixture.html'))));
+test('Serta body: the package previews mcallen-serta.html (Nov 23) and -dec20.html (Dec 20)', () => {
+  // brand.json now carries promo_images.default (fixes of 2026-11-23), which the promo slot lists in data-snz-images;
+  // the previews with it come with the shared promo-code fix (next commit), so this commit compares without it
+  const noImages = (x: string) => x.replace(/data-snz-images="[^"]*"/, 'data-snz-images=""');
+  assert.equal(noImages(lf(ourBody('serta', feed('v2-example'), '2026-11-23'))), noImages(previewBody(lf(fixture('serta.preview.fixture.html')))));
+  assert.equal(noImages(lf(ourBody('serta', feed('v2-example'), '2026-12-20'))), noImages(previewBody(lf(fixture('serta-dec20.preview.fixture.html')))));
 });
 
 test('Serta: brand.json as delivered, wrapper, assets in brand.json order, the hero poster preloaded per breakpoint', () => {
@@ -141,6 +146,8 @@ test('Serta: brand.json as delivered, wrapper, assets in brand.json order, the h
   assert.equal(SE.site.wrapper_class, 'serta-wrapper');
   assert.ok(SE.template.includes('<div class="serta-wrapper snz-brand snz-brand--serta">'));
   assert.deepEqual(SE.json.styles.map((x) => assetUrl(SE, x)), ['/brands/serta/css/serta.css', '/brands/shared/css/snooze-brand-local.css']);
+  // Travis's brand-page fixes of 2026-11-23: a default promo image (the iComfort photo) for a block with no image key
+  assert.deepEqual(SE.json.promo_images?.default, { file: 'icomfort.webp', w: 493, h: 402, alt: 'Serta iComfort mattress' });
   assert.deepEqual((SE.json.preload_images || []).map((p) => [assetUrl(SE, p.href), p.media]), [
     ['/brands/serta/img/hero-poster.webp', '(min-width: 768px)'],
     ['/brands/serta/img/hero-poster-mobile.webp', '(max-width: 767px)'],
