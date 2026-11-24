@@ -750,3 +750,28 @@
 .quizRowCta { display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; font-weight: 600; line-height: 1.25; color: #ffb26b; white-space: nowrap; }
 .quizRowCta svg { width: 13px; height: 13px; transition: transform 220ms var(--snz-ease); }
 .quizCard:hover .quizRowCta svg { transform: translateX(3px); }
+/* narrow desktops (1025–1279px; the site's desktop layout starts at 1025px): the panel must fit 100vw - 48px, so the
+   spacing tightens first (column gaps 24 -> 14, padding 26 -> 18, the card 240 -> 200, tiles 112 -> 100) and the
+   headings' tracking eases (0.18em -> 0.12em); the labels, fonts and link sizes are unchanged */
+@media (min-width: 1025px) and (max-width: 1279px) {
+  .panelMega { --mm-gap: 14px; --mm-pad: 18px; --mm-card: 200px; --mm-tile: 100px; --mm-ls: 0.12em; }
+}
+/* Spanish: the two Info headings ("Información de colchones por tamaño / por tipo") are twice the English length, so
+   the Spanish panel is ~180px wider. 1280–1365px: the spacing, card and tiles tighten a little more and the headings'
+   tracking eases, which keeps the panel inside 100vw - 48px. 1025–1279px: the Dream Mapping card drops its image and
+   narrows to a text card (the quiz card loses its icon), the headings go to 10px with minimal tracking, the tiles,
+   gaps and padding narrow, and the product links lose 1px of font size and 2px of icon; every label stays one line. */
+@media (min-width: 1280px) and (max-width: 1365px) {
+  .header[data-locale="es"] .panelMega { --mm-gap: 18px; --mm-pad: 20px; --mm-card: 220px; --mm-tile: 104px; --mm-ls: 0.14em; }
+}
+@media (min-width: 1025px) and (max-width: 1279px) {
+  .header[data-locale="es"] .panelMega { --mm-gap: 12px; --mm-pad: 16px; --mm-card: 150px; --mm-tile: 92px; --mm-ls: 0.03em; }
+  .header[data-locale="es"] .colTitle { font-size: 10px; }
+  .header[data-locale="es"] .productLink { gap: 8px; padding: 5px 8px; }
+  .header[data-locale="es"] .productLink .menuLabel { font-size: 13px; }
+  .header[data-locale="es"] .productLink .menuIcon { width: 30px; height: 30px; }
+  .header[data-locale="es"] .feature img { display: none; }
+  .header[data-locale="es"] .feature { min-height: 0; padding: 16px 14px; }
+  .header[data-locale="es"] .quizCard { grid-template-columns: 1fr; }
+  .header[data-locale="es"] .quizCard .quizRowIcon { display: none; }
+}
