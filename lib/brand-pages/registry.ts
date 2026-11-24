@@ -68,6 +68,16 @@ const SITE: Readonly<Record<BrandKey, BrandSite>> = {
       cta_sections: [['hero', '.cp-hero'], ['visit', '.snz-visit'], ['promo', '.snz-promo'], ['product', '.cp-collections'], ['product', '.cp-pillows'], ['why', '.snz-why'], ['faq', '.snz-faq']],
     },
   },
+  'king-koil': {
+    wrapper_class: 'kk-wrapper',
+    promo_slot: 'king_koil_promo',
+    tracking: {
+      // the brand's buttons (.kk-btn), the hero picture (one link to #visit), the two collection cards (links to #flowt
+      // and #handcrafted), the local and offer buttons (.snz-btn) and the links inside the FAQ answers
+      cta_selector: 'a.kk-btn, a.kk-hero__media, a.kk-pick__card, a.snz-btn, .snz-faq details a',
+      cta_sections: [['hero', '.kk-hero'], ['visit', '.snz-visit'], ['promo', '.snz-promo'], ['product', '.kk-pick'], ['product', '.kk-flowt'], ['product', '.kk-hc'], ['why', '.snz-why'], ['faq', '.snz-faq']],
+    },
+  },
 };
 
 const brand = (key: BrandKey): BrandConfig => ({ key, json: brandJson<BrandJson>(key), template: brandTemplate(key), site: SITE[key] });
@@ -79,6 +89,7 @@ export const BRANDS: Readonly<Record<BrandKey, BrandConfig>> = {
   sealy: brand('sealy'),
   'stearns-foster': brand('stearns-foster'),
   'copper-by-spring-air': brand('copper-by-spring-air'),
+  'king-koil': brand('king-koil'),
 };
 
 export { BRAND_KEYS, BRAND_PAGE_PATHS, LIVE_BRANDS } from './brand-list.ts';
