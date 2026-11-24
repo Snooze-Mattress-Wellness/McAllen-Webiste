@@ -10,7 +10,7 @@ import { alternateHref, localizeHref, splitLocale, ui, MENU_INFO_GROUPS, PRODUCT
 
 type MenuKey = 'products' | 'blog';
 type NavItem = { label: string; href: string; match?: string[]; menu?: MenuKey; noLocale?: boolean }; // noLocale: one URL for both languages (no /es twin)
-type MenuLink = { label: string; href: string; desc: string; icon: keyof typeof ICONS; noLocale?: boolean }; // noLocale: English page linked from both languages
+type MenuLink = { label: string; href: string; desc?: string; icon: keyof typeof ICONS; noLocale?: boolean }; // noLocale: English page linked from both languages; desc: shown in the Blog dropdown only
 
 
 const PRODUCT_HREFS: Record<(typeof PRODUCT_KEYS)[number], { href: string; icon: keyof typeof ICONS }> = {
@@ -281,7 +281,7 @@ export function SiteHeader({ locale = 'en' }: { locale?: Locale }) {
               <span className={styles.menuIcon}><Icon name={p.icon} /></span>
               <span className={styles.menuText}>
                 <span className={styles.menuLabel}>{p.label}</span>
-                <span className={styles.menuDesc}>{p.desc}</span>
+                {p.desc && <span className={styles.menuDesc}>{p.desc}</span>}
               </span>
             </a>
           </li>
