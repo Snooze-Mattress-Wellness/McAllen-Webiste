@@ -1,0 +1,14 @@
+/* snooze-o-pedic.css (copied unchanged) names its font in one variable on the wrapper:
+     --sop-font: "Poppins", -apple-system, "Segoe UI", sans-serif;
+   Poppins is the site's own font, loaded once by the layout with next/font (--font-poppins; the page-wide stack is
+   --font-poppins-stack, overrides/global.css), so the variable points at that stack: no second Poppins, no Google
+   Fonts link. The outer div carries this class; the selector is more specific than the vendor's ".sop-wrapper" rule,
+   whatever the load order.
+
+   No jump-link override: the hero button and the comfort-scale links go to #models (vendor scroll-margin-top 80px)
+   and the model rows (90px); the site's html { scroll-padding-top: 96px } (80px at 1024px and below) adds to those,
+   so the targets land 176px / 186px (160px / 170px) from the top, clear of the scrolled header (84px; 69px at 768px
+   and below). */
+.fonts :global(.sop-wrapper) {
+  --sop-font: var(--font-poppins-stack);
+}

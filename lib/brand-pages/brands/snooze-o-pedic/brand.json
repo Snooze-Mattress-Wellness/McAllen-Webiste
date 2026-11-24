@@ -1,0 +1,41 @@
+{
+  "slug": "snooze-o-pedic",
+  "name": "Snooze-o-Pedic",
+  "vendor": "Snooze-o-Pedic",
+  "page_path": "/snooze-o-pedic",
+  "title": "Snooze-o-Pedic Mattresses in {city}, {state} | Snooze Mattress",
+  "h1": "Snooze-o-Pedic Mattresses in {city}, {state}",
+  "description": "Try all five Snooze-o-Pedic mattresses, from Renew Extra Firm to Thrive Plush, at Snooze Mattress in {city}. Get a free Dream Mapping fitting.",
+  "og_description": "Try all five Snooze-o-Pedic mattresses in {city} and get a free Dream Mapping fitting to find the right fit for your body.",
+  "carries": "all five Snooze-o-Pedic mattresses: Renew Extra Firm, Ease Firm, Calm Plush Euro Top, Balance Plush Euro Top and Thrive Plush",
+  "visit_intro": "Five comfort levels are easy to read about and hard to choose between online.",
+  "try_items": "every Snooze-o-Pedic, from Renew Extra Firm to Thrive Plush",
+  "fit_tail": ", from extra firm to plush",
+  "faq_right_for_me": "It depends on your body and how you sleep. Dream Mapping, our pressure mapping technology, shows where your body needs support. Then your Sleep Coach helps you compare the Snooze-o-Pedic Renew (Extra Firm), Ease (Firm), Calm and Balance (Plush Euro Top) and Thrive (Plush).",
+  "font_url": "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap",
+  "styles": [
+    "{brand}css/snooze-o-pedic.css",
+    "{shared}css/snooze-brand-local.css"
+  ],
+  "scripts": [
+    "{shared}js/snooze-promo.js"
+  ],
+  "preload_images": [
+    {
+      "href": "{brand}img/hero.webp",
+      "media": "(min-width: 768px)"
+    },
+    {
+      "href": "{brand}img/hero-mobile.webp",
+      "media": "(max-width: 767px)"
+    }
+  ],
+  "promo_images": {
+    "default": {
+      "file": "promo.webp",
+      "w": 986,
+      "h": 804,
+      "alt": "Snooze-o-Pedic Thrive mattress layers"
+    }
+  }
+}

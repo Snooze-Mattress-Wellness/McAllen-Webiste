@@ -25,6 +25,7 @@ const SF = BRANDS['stearns-foster'];
 const SY = BRANDS.sealy;
 const CP = BRANDS['copper-by-spring-air'];
 const KK = BRANDS['king-koil'];
+const SOP = BRANDS['snooze-o-pedic'];
 const SITE = 'https://mcallen.snoozemattresscompany.com';
 const LOC: BrandLocation = { ...BRAND_PAGE_LOCATION, schema_ids: { organization: `${SITE}/#organization`, website: `${SITE}/#website`, store: `${SITE}/#store` } };
 const fixture = (name: string) => readFileSync(new URL(`./fixtures/${name}`, import.meta.url), 'utf8');
@@ -48,7 +49,7 @@ const ourBody = (key: keyof typeof BRANDS, f: PromoFeed, today: string, l: Brand
 };
 
 test('registry: Tempur-Pedic from its brand.json, vendor spelled as in the feed, assets under /brands/tempur-pedic/', () => {
-  assert.deepEqual(BRAND_KEYS, ['tempur-pedic', 'beautyrest', 'serta', 'sealy', 'stearns-foster', 'copper-by-spring-air', 'king-koil']);
+  assert.deepEqual(BRAND_KEYS, ['tempur-pedic', 'beautyrest', 'serta', 'sealy', 'stearns-foster', 'copper-by-spring-air', 'king-koil', 'snooze-o-pedic']);
   assert.equal(TP.json.slug, 'tempur-pedic');
   assert.equal(TP.json.vendor, 'Tempur-Pedic');
   assert.equal(TP.json.page_path, '/tempur-pedic');
@@ -495,6 +496,96 @@ test('King Koil offers: BF26-KINGKOIL in November with the default picture (prom
   assert.deepEqual(brandOffers(KK.json, 'mcallen', feed('v2-example'), '2026-12-20').promos.map((b) => b.block), ['NY26-KINGKOIL']);
 });
 
+test('Snooze-o-Pedic body: byte for byte the package preview mcallen-snooze-o-pedic.html (example feed: no offer, the four always-on tiles)', () => {
+  assert.equal(lf(ourBody('snooze-o-pedic', feed('v2-example'), '2026-11-24')), previewBody(lf(fixture('snooze-o-pedic.preview.fixture.html'))));
+});
+
+test('Snooze-o-Pedic: brand.json as delivered (feed vendor "Snooze-o-Pedic"), wrapper, assets in brand.json order, the hero preloaded per breakpoint, every image present, the Sales logo', () => {
+  assert.equal(SOP.json.slug, 'snooze-o-pedic');
+  assert.equal(SOP.json.name, 'Snooze-o-Pedic');
+  assert.equal(SOP.json.vendor, 'Snooze-o-Pedic');
+  assert.equal(SOP.json.page_path, '/snooze-o-pedic');
+  assert.equal(SOP.site.wrapper_class, 'sop-wrapper');
+  assert.ok(SOP.template.includes('<div class="sop-wrapper snz-brand snz-brand--snooze-o-pedic">'));
+  assert.deepEqual(SOP.json.styles.map((x) => assetUrl(SOP, x)), ['/brands/snooze-o-pedic/css/snooze-o-pedic.css', '/brands/shared/css/snooze-brand-local.css']);
+  assert.deepEqual(SOP.json.scripts, ['{shared}js/snooze-promo.js']);
+  assert.deepEqual(brandScripts(SOP), []);
+  assert.deepEqual((SOP.json.preload_images || []).map((p) => [assetUrl(SOP, p.href), p.media]), [
+    ['/brands/snooze-o-pedic/img/hero.webp', '(min-width: 768px)'],
+    ['/brands/snooze-o-pedic/img/hero-mobile.webp', '(max-width: 767px)'],
+  ]);
+  assert.deepEqual(SOP.json.promo_images?.default, { file: 'promo.webp', w: 986, h: 804, alt: 'Snooze-o-Pedic Thrive mattress layers' });
+  assert.equal(brandPage(SOP, LOC).url, `${SITE}/snooze-o-pedic`);
+  const files = [...SOP.template.matchAll(/\{\{brand_base\}\}img\/([\w.-]+)/g)].map((m) => m[1]).concat(Object.values(SOP.json.promo_images || {}).map((i) => i.file), 'og-image.jpg');
+  assert.deepEqual(files.filter((f) => /^(renew|ease|calm|balance|thrive)\.webp$/.test(f)), ['renew.webp', 'ease.webp', 'calm.webp', 'balance.webp', 'thrive.webp'], 'the five layer renders, firmest to softest');
+  for (const f of files) assert.ok(existsSync(new URL(`../public/brands/snooze-o-pedic/img/${f}`, import.meta.url)), f);
+  assert.ok(!existsSync(new URL('../public/brands/snooze-o-pedic/js', import.meta.url)), 'no js folder');
+  assert.ok(existsSync(new URL('../public/brands/logos/snooze-o-pedic.png', import.meta.url)), 'the Sales page / menu logo');
+});
+
+test('Snooze-o-Pedic jump links: the hero button and the five comfort-scale links go to #models and the model rows; the vendor scroll margins plus the site\'s scroll padding clear the 84px header', () => {
+  assert.match(SOP.template, /<a href="#models" class="sop-btn sop-btn--orange">See all five mattresses<\/a>/);
+  for (const id of ['renew', 'ease', 'calm', 'balance', 'thrive']) {
+    assert.match(SOP.template, new RegExp(`<li><a href="#${id}">`), id);
+    assert.match(SOP.template, new RegExp(`<article class="sop-row( sop-row--flip)?" id="${id}">`), id);
+  }
+  assert.match(SOP.template, /<section class="sop-models" id="models"/);
+  const vendor = readFileSync(new URL('../public/brands/snooze-o-pedic/css/snooze-o-pedic.css', import.meta.url), 'utf8');
+  assert.ok(vendor.includes('.sop-wrapper .sop-models { padding: 24px 0 64px; scroll-margin-top: 80px; }'), 'the vendor file is unchanged');
+  assert.ok(/\.sop-wrapper \.sop-row \{[^}]*scroll-margin-top: 90px;/.test(vendor), 'the vendor file is unchanged');
+  // html { scroll-padding-top: 96px } (80px at 1024px and below, overrides/global.css) adds to the margin: a model row
+  // lands 186px (170px) from the top, #models 176px (160px), below the scrolled header (84px; 69px at 768px and below)
+  const site = readFileSync(new URL('../overrides/global.css', import.meta.url), 'utf8').replace(/\r\n/g, '\n');
+  assert.match(site, /html \{[^}]*scroll-padding-top: 96px;[^}]*\}/);
+  assert.ok(96 + 80 > 84 && 80 + 80 > 69);
+  const ours = readFileSync(new URL('../components/brand-pages/snooze-o-pedic/fonts.module.css', import.meta.url), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
+  assert.ok(!ours.includes('scroll-margin'), 'no override');
+});
+
+test('Snooze-o-Pedic SEO (SNOOZE-O-PEDIC.md step 5): title, H1 in the bar under the hero, description, canonical, OG image, H2/H3 outline, JSON-LD; one H1', () => {
+  const m = brandPageMetadata(SOP, LOC);
+  assert.equal(m.title, 'Snooze-o-Pedic Mattresses in McAllen, TX | Snooze Mattress');
+  assert.equal(String(m.title).length, 58);
+  assert.equal(m.description, 'Try all five Snooze-o-Pedic mattresses, from Renew Extra Firm to Thrive Plush, at Snooze Mattress in McAllen. Get a free Dream Mapping fitting.');
+  assert.equal(String(m.description).length, 143);
+  assert.deepEqual(m.alternates, { canonical: `${SITE}/snooze-o-pedic` });
+  assert.deepEqual(m.openGraph?.images, [{ url: `${SITE}/brands/snooze-o-pedic/img/og-image.jpg`, width: 1200, height: 630 }]);
+  const { promos, tiles } = brandOffers(SOP.json, 'mcallen', feed('v2-example'), '2026-11-24');
+  const faq = brandFaq(SOP.json, LOC, tiles);
+  const html = renderBrandBody({ brand: SOP.json, template: SOP.template, partials: PARTIALS, location: LOC, promos, tiles, faq });
+  assert.equal(html.match(/<h1\b/g)?.length, 1);
+  const bar = html.slice(html.indexOf('<div class="sop-hero__bar">'), html.indexOf('</section>'));
+  assert.ok(bar.includes('<h1 class="snz-h1">Snooze-o-Pedic Mattresses in McAllen, TX</h1>'), 'the H1 is in the bar under the hero');
+  assert.ok(!/\{\{|\{city\}|\{state\}|\{brand\}/.test(html));
+  assert.ok(!html.includes('<h2></h2>'));
+  const h2s = [...html.matchAll(/<h2[^>]*>(.*?)<\/h2>/g)].map((x) => x[1].replace(/<[^>]+>/g, '').trim());
+  assert.deepEqual(h2s, ['Try Snooze-o-Pedic in McAllen', 'Find your feel', 'What every Snooze-o-Pedic shares', 'The Snooze-o-Pedic lineup', 'Why Buy Snooze-o-Pedic at Snooze Mattress in McAllen', 'Snooze-o-Pedic in McAllen: Common Questions']);
+  const h3s = [...html.matchAll(/<h3[^>]*>(.*?)<\/h3>/g)].map((x) => x[1].replace(/<[^>]+>/g, '').replace(/&reg;|&trade;|&Prime;/g, '').replace(/\s+/g, ' ').trim());
+  assert.deepEqual(h3s.slice(0, 9), ['HD quilt foam', 'Comfort-lock HD comfort foam', '8 coil support', 'HD base support foam', 'Snooze-o-Pedic Renew', 'Snooze-o-Pedic Ease', 'Snooze-o-Pedic Calm', 'Snooze-o-Pedic Balance', 'Snooze-o-Pedic Thrive']);
+  const ld = brandPageJsonLd(SOP, LOC, faq);
+  assert.deepEqual(ld.map((n) => n['@type']), ['WebPage', 'BreadcrumbList', 'FAQPage']);
+  assert.deepEqual(ld[0].about, [{ '@type': 'Brand', name: 'Snooze-o-Pedic' }, { '@id': `${SITE}/#store` }]);
+  assert.equal((ld[2].mainEntity as unknown[]).length, (html.match(/<details/g) || []).length, 'FAQPage = the visible FAQ');
+  assert.ok(!/"(Review|Product|Offer|AggregateRating)"/.test(JSON.stringify(ld)), 'no Review, Product or Offer schema');
+});
+
+test('Snooze-o-Pedic content rules (SNOOZE-O-PEDIC.md, verified, not edited): no prices, the USA note with its qualifier, the height and illustration notes', () => {
+  const text = visibleText(SOP.template);
+  assert.ok(!text.includes('$'), 'no prices');
+  assert.ok(text.includes('Designed &amp; built in the USA*'));
+  assert.ok(text.includes('*Designed and built in the USA using domestically and globally sourced materials.'));
+  assert.ok(text.includes('Overall heights are plus or minus &frac12;&Prime;. Layer images are for illustrative purposes only.'));
+  assert.ok(text.includes('layer images are for illustrative purposes only'));
+});
+
+test('Snooze-o-Pedic offers: none in the example feed (empty promo slot), the four always-on tiles; the vendor spelled exactly as the feed needs it', () => {
+  const { promos, tiles } = brandOffers(SOP.json, 'mcallen', feed('v2-example'), '2026-11-24');
+  assert.deepEqual(promos, []);
+  assert.equal(tiles.length, 4);
+  assert.equal(Promo.renderPromotionsHTML(promos, { imageBase: '/brands/snooze-o-pedic/img/', images: SOP.json.promo_images }), '');
+  assert.equal(SOP.json.vendor, 'Snooze-o-Pedic');
+});
+
 test('body: one H1, every token filled, production paths, the promo slot empty when nothing is live', () => {
   const { promos, tiles } = brandOffers(TP.json, 'mcallen', feed('sheet-current'), '2026-11-23');
   const html = renderBrandBody({ brand: TP.json, template: TP.template, partials: PARTIALS, location: LOC, promos, tiles, faq: brandFaq(TP.json, LOC, tiles) });
@@ -604,14 +695,14 @@ test('local FAQ: the package questions and answers word for word, with their lin
 test('every brand key has a page at /<key> in the location config (the language switch and GA4 rely on it)', async () => {
   const { BRAND_PAGE_PATHS, LIVE_BRANDS } = await import('../lib/brand-pages/brand-list.ts');
   for (const b of LIVE_BRANDS) assert.equal(BRAND_PAGE_LOCATION.brand_pages[b.key]?.page_path, b.path, b.key);
-  assert.deepEqual(BRAND_PAGE_PATHS, ['/tempur-pedic', '/beautyrest', '/serta', '/sealy', '/stearns-foster', '/copper-by-spring-air', '/king-koil']);
+  assert.deepEqual(BRAND_PAGE_PATHS, ['/tempur-pedic', '/beautyrest', '/serta', '/sealy', '/stearns-foster', '/copper-by-spring-air', '/king-koil', '/snooze-o-pedic']);
 });
 
 test('llms.txt: the hand-written guide plus a "Brand pages" section from the registry; nothing cut off', async () => {
   const { buildLlmsTxt, llmsBrandPagesSection } = await import('../lib/brand-pages/llms.ts');
   const base = readFileSync(new URL('../lib/llms.txt', import.meta.url), 'utf8');
   const out = buildLlmsTxt(base, LOC);
-  const section = '## Brand pages\n- [Tempur-Pedic at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/tempur-pedic)\n- [Beautyrest at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/beautyrest)\n- [Serta at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/serta)\n- [Sealy at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/sealy)\n- [Stearns & Foster at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/stearns-foster)\n- [Copper by Spring Air at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/copper-by-spring-air)\n- [King Koil at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/king-koil)';
+  const section = '## Brand pages\n- [Tempur-Pedic at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/tempur-pedic)\n- [Beautyrest at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/beautyrest)\n- [Serta at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/serta)\n- [Sealy at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/sealy)\n- [Stearns & Foster at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/stearns-foster)\n- [Copper by Spring Air at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/copper-by-spring-air)\n- [King Koil at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/king-koil)\n- [Snooze-o-Pedic at Snooze Mattress + Wellness McAllen](https://mcallen.snoozemattresscompany.com/snooze-o-pedic)';
   assert.equal(llmsBrandPagesSection(LOC), section);
   assert.ok(out.includes(`\n\n${section}\n\n## Financing and offers\n`));
   assert.ok(!out.includes('{{'));
@@ -627,8 +718,8 @@ test('llms.txt: the hand-written guide plus a "Brand pages" section from the reg
 
 test('brand list (lib/brand-pages/brand-list.ts): name, path, order, live; only live brands are linked, in order', async () => {
   const { BRAND_LIST, LIVE_BRANDS, ALL_BRAND_PATHS } = await import('../lib/brand-pages/brand-list.ts');
-  assert.deepEqual(BRAND_LIST.map((b) => [b.name, b.path, b.order, b.live]), [['Tempur-Pedic', '/tempur-pedic', 1, true], ['Beautyrest', '/beautyrest', 2, true], ['Serta', '/serta', 3, true], ['Sealy', '/sealy', 4, true], ['Stearns & Foster', '/stearns-foster', 5, true], ['Copper by Spring Air', '/copper-by-spring-air', 6, true], ['King Koil', '/king-koil', 7, true]]);
-  assert.deepEqual(LIVE_BRANDS.map((b) => b.name), ['Tempur-Pedic', 'Beautyrest', 'Serta', 'Sealy', 'Stearns & Foster', 'Copper by Spring Air', 'King Koil']);
+  assert.deepEqual(BRAND_LIST.map((b) => [b.name, b.path, b.order, b.live]), [['Tempur-Pedic', '/tempur-pedic', 1, true], ['Beautyrest', '/beautyrest', 2, true], ['Serta', '/serta', 3, true], ['Sealy', '/sealy', 4, true], ['Stearns & Foster', '/stearns-foster', 5, true], ['Copper by Spring Air', '/copper-by-spring-air', 6, true], ['King Koil', '/king-koil', 7, true], ['Snooze-o-Pedic', '/snooze-o-pedic', 8, true]]);
+  assert.deepEqual(LIVE_BRANDS.map((b) => b.name), ['Tempur-Pedic', 'Beautyrest', 'Serta', 'Sealy', 'Stearns & Foster', 'Copper by Spring Air', 'King Koil', 'Snooze-o-Pedic']);
   // every live brand is built: a brand.json with the same name and path, and a store entry at its path
   for (const b of LIVE_BRANDS) {
     assert.ok(BRANDS[b.key], b.key);
@@ -637,5 +728,5 @@ test('brand list (lib/brand-pages/brand-list.ts): name, path, order, live; only 
     assert.equal(BRAND_PAGE_LOCATION.brand_pages[b.key]?.page_path, b.path);
   }
   assert.deepEqual(new Set(BRAND_LIST.map((b) => b.order)).size, BRAND_LIST.length, 'orders are unique');
-  assert.deepEqual(ALL_BRAND_PATHS, ['/tempur-pedic', '/beautyrest', '/serta', '/sealy', '/stearns-foster', '/copper-by-spring-air', '/king-koil']);
+  assert.deepEqual(ALL_BRAND_PATHS, ['/tempur-pedic', '/beautyrest', '/serta', '/sealy', '/stearns-foster', '/copper-by-spring-air', '/king-koil', '/snooze-o-pedic']);
 });
