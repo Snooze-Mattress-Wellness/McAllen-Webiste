@@ -14,6 +14,7 @@ export const BRAND_LIST = [
   { key: 'serta', name: 'Serta', path: '/serta', order: 3, live: true },
   { key: 'sealy', name: 'Sealy', path: '/sealy', order: 4, live: true },
   { key: 'stearns-foster', name: 'Stearns & Foster', path: '/stearns-foster', order: 5, live: true },
+  { key: 'copper-by-spring-air', name: 'Copper by Spring Air', path: '/copper-by-spring-air', order: 6, live: true },
 ] as const satisfies readonly BrandListEntry[];
 
 type LiveEntry = Extract<(typeof BRAND_LIST)[number], { live: true }>;
@@ -24,7 +25,7 @@ export type BrandKey = LiveEntry['key'];
 /** The live brand pages, in menu order (the "Our Brands" group, the footer, llms.txt). */
 export const LIVE_BRANDS: readonly LiveEntry[] = BRAND_LIST.filter((b): b is LiveEntry => b.live).sort((a, b) => a.order - b.order);
 export const BRAND_KEYS: readonly BrandKey[] = LIVE_BRANDS.map((b) => b.key);
-/** ['/tempur-pedic', '/beautyrest', '/serta', '/sealy', '/stearns-foster'] */
+/** ['/tempur-pedic', '/beautyrest', '/serta', '/sealy', '/stearns-foster', '/copper-by-spring-air'] */
 export const BRAND_PAGE_PATHS: readonly string[] = LIVE_BRANDS.map((b) => b.path);
 /** Every listed brand page's path, live or planned (POST /api/revalidate accepts these). */
 export const ALL_BRAND_PATHS: readonly string[] = BRAND_LIST.map((b) => b.path);

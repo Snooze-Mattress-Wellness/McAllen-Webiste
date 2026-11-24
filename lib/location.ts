@@ -122,5 +122,6 @@ export const BRAND_PAGE_LOCATION = {
     serta: { page_path: '/serta', asset_base: '/brands/serta/' },
     sealy: { page_path: '/sealy', asset_base: '/brands/sealy/' },
     'stearns-foster': { page_path: '/stearns-foster', asset_base: '/brands/stearns-foster/' },
+    'copper-by-spring-air': { page_path: '/copper-by-spring-air', asset_base: '/brands/copper-by-spring-air/' },
   },
 } satisfies Omit<BrandLocation, 'schema_ids' | 'site_icon'>;

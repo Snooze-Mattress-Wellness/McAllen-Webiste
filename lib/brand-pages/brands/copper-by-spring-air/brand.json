@@ -1,0 +1,53 @@
+{
+  "slug": "copper-by-spring-air",
+  "name": "Copper by Spring Air",
+  "vendor": "Spring Air",
+  "page_path": "/copper-by-spring-air",
+  "title": "Copper by Spring Air Mattresses in {city}, {state} | Snooze Mattress",
+  "h1": "Copper by Spring Air Mattresses in {city}, {state}",
+  "description": "Try Copper by Spring Air Smooth Top, Quilted and Euro Top mattresses and Copper pillows at Snooze Mattress in {city}. Get a free Dream Mapping fitting.",
+  "og_description": "Try Copper by Spring Air in {city} and get a free Dream Mapping fitting to find the right fit for your body.",
+  "carries": "Copper by Spring Air Smooth Top, Quilted and Euro Top hybrid mattresses and Copper pillows",
+  "visit_intro": "Reading about copper-infused comfort is one thing. Feeling how it supports your body is another.",
+  "try_items": "Copper by Spring Air Smooth Top, Quilted and Euro Top mattresses",
+  "fit_tail": ", from Smooth Top to Euro Top, in a firm, medium or plush feel",
+  "faq_right_for_me": "It depends on your body and how you sleep. Dream Mapping, our pressure mapping technology, shows where your body needs support. Then your Sleep Coach helps you compare the Copper Smooth Top, Quilted and Euro Top in a firm, medium or plush feel, and pick the Copper pillow that fits how you sleep.",
+  "font_url": "https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&family=Mulish:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap",
+  "styles": [
+    "{brand}css/copper.css",
+    "{shared}css/snooze-brand-local.css"
+  ],
+  "scripts": [
+    "{shared}js/snooze-promo.js"
+  ],
+  "preload_images": [
+    {
+      "href": "{brand}img/hero.webp",
+      "media": "(min-width: 768px)"
+    },
+    {
+      "href": "{brand}img/hero-mobile.webp",
+      "media": "(max-width: 767px)"
+    }
+  ],
+  "promo_images": {
+    "default": {
+      "file": "promo.webp",
+      "w": 986,
+      "h": 804,
+      "alt": "Copper by Spring Air Quilted mattress"
+    },
+    "copper": {
+      "file": "promo.webp",
+      "w": 986,
+      "h": 804,
+      "alt": "Copper by Spring Air Quilted mattress"
+    },
+    "pillow": {
+      "file": "pillow-standard.webp",
+      "w": 800,
+      "h": 600,
+      "alt": "Copper by Spring Air Standard Pillow"
+    }
+  }
+}

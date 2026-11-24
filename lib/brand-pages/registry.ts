@@ -58,6 +58,16 @@ const SITE: Readonly<Record<BrandKey, BrandSite>> = {
       cta_sections: [['hero', '.se-hero'], ['visit', '.snz-visit'], ['promo', '.snz-promo'], ['product', '.br-collections'], ['product', '.br-adjust'], ['why', '.snz-why'], ['faq', '.snz-faq']],
     },
   },
+  'copper-by-spring-air': {
+    wrapper_class: 'copper-wrapper',
+    promo_slot: 'copper_promo',
+    tracking: {
+      // the brand's buttons (.cp-btn), the hero picture (one link to #visit), the local and offer buttons (.snz-btn) and
+      // the links inside the FAQ answers
+      cta_selector: 'a.cp-btn, a.cp-hero__media, a.snz-btn, .snz-faq details a',
+      cta_sections: [['hero', '.cp-hero'], ['visit', '.snz-visit'], ['promo', '.snz-promo'], ['product', '.cp-collections'], ['product', '.cp-pillows'], ['why', '.snz-why'], ['faq', '.snz-faq']],
+    },
+  },
 };
 
 const brand = (key: BrandKey): BrandConfig => ({ key, json: brandJson<BrandJson>(key), template: brandTemplate(key), site: SITE[key] });
@@ -68,6 +78,7 @@ export const BRANDS: Readonly<Record<BrandKey, BrandConfig>> = {
   serta: brand('serta'),
   sealy: brand('sealy'),
   'stearns-foster': brand('stearns-foster'),
+  'copper-by-spring-air': brand('copper-by-spring-air'),
 };
 
 export { BRAND_KEYS, BRAND_PAGE_PATHS, LIVE_BRANDS } from './brand-list.ts';

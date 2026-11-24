@@ -1,0 +1,10 @@
+/* copper.css (copied unchanged) names its fonts in two variables on the wrapper:
+     --cp-serif: "Lora", Georgia, "Times New Roman", serif;
+     --cp-sans: "Mulish", Helvetica, Arial, sans-serif;
+   next/font serves the faces under its own family names (components/brand-pages/copper-by-spring-air/font.ts; Mulish is
+   Serta's instance, --font-serta), so the two variables point at those, with the same fallbacks. The outer div carries
+   this class; the selector is more specific than the vendor's ".copper-wrapper" rule, whatever the load order. */
+.fonts :global(.copper-wrapper) {
+  --cp-serif: var(--font-cp-serif), Georgia, "Times New Roman", serif;
+  --cp-sans: var(--font-serta), Helvetica, Arial, sans-serif;
+}
