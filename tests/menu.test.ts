@@ -59,9 +59,15 @@ test('Products column: heading "Products" / "Productos"; the eight products keep
   assert.deepEqual(PRODUCT_KEYS.map((k) => ui('en').products[k].label), ['Mattresses', 'Adjustable Mattress Bases', 'Massage Chairs', 'Pillows', 'Mattress Protectors', 'Premium Sheets', 'Sleep Recliner', 'At-Home Sleep Test Kit']);
   assert.deepEqual(PRODUCT_KEYS.map((k) => ui('es').products[k].label), ['Colchones', 'Bases Ajustables', 'Sillas de Masaje', 'Almohadas', 'Protectores de Colchón', 'Sábanas Premium', 'Sillón Reclinable', 'Kit de Prueba de Sueño en Casa']);
   for (const locale of ['en', 'es'] as const) for (const k of PRODUCT_KEYS) assert.ok(ui(locale).products[k].desc, `${locale} ${k}: desc kept`);
-  // the nav item itself is not renamed
-  assert.equal(ui('en').nav.products, 'Our Products');
-  assert.equal(ui('es').nav.products, 'Productos');
+  // the nav item (client request, November 25, 2026): "Products & Brands" / "Productos y marcas"; "About" / "Nosotros"
+  assert.equal(ui('en').nav.products, 'Products & Brands');
+  assert.equal(ui('es').nav.products, 'Productos y marcas');
+  assert.equal(ui('en').nav.about, 'About');
+  assert.equal(ui('es').nav.about, 'Nosotros');
+  // the other nav labels and the footer's product heading are unchanged
+  assert.deepEqual([ui('en').nav.home, ui('en').nav.financing, ui('en').nav.sales, ui('en').nav.clearance, ui('en').nav.blog, ui('en').nav.quiz], ['Home', 'Financing', 'Sales', 'Clearance', 'Blog', 'Sleep Quiz']);
+  assert.equal(ui('en').footer.products, 'Our Products');
+  assert.equal(ui('es').footer.products, 'Nuestros Productos');
 });
 
 test('Dream Mapping card and Sleep Fit Quiz card: the texts and links of the menu (unchanged)', () => {
