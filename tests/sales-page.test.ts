@@ -7,7 +7,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import Sales from '../lib/snooze/snooze-sales.js';
 import { BRAND_PAGE_LOCATION as LOC } from '../lib/location.ts';
-import { clearanceForSales, clearanceLabel, savingsPct, withLiveBrandLinks } from '../lib/snooze/sales-site.ts';
+import { clearanceForSales, clearanceLabel, savingsPct, withLiveBrandLinks, withoutBareProducts } from '../lib/snooze/sales-site.ts';
 import type { Listing } from '../lib/clearance.ts';
 import { LIVE_BRANDS } from '../lib/brand-pages/brand-list.ts';
 
@@ -148,3 +148,70 @@ for (const [file, today, clearance, changes] of [
     assert.equal(previewBody(today, clearance as unknown[]), expected);
   });
 }
+
+/* ---------- JSON-LD: no bare Product (Search Console "Product snippets", November 2026) ---------- */
+type Node = Record<string, any>;
+const typesIn = (v: unknown, acc: string[] = []): string[] => {
+  if (Array.isArray(v)) v.forEach((x) => typesIn(x, acc));
+  else if (v && typeof v === 'object') { const t = (v as Node)['@type']; if (t) acc.push(...(Array.isArray(t) ? t : [t])); Object.values(v).forEach((x) => typesIn(x, acc)); }
+  return acc;
+};
+const decode = (s: string) => s.replace(/&amp;/g, '&').replace(/&#39;|&#x27;/g, "'").replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+
+for (const today of ['2026-11-21', '2026-12-20']) {
+  test(`sales JSON-LD (${today}): no Product anywhere; the ItemList keeps one Offer per visible offer, same names and dates; the other nodes unchanged`, () => {
+    const m = Sales.buildSalesModel(withLiveBrandLinks(FEED), LOC, { today, clearance: [] });
+    assert.ok(m.offers.length > 0, 'the example feed has offers on this date');
+    const raw = Sales.salesJsonLd(m);
+    // the shared code's output: one bare Product (name + brand, no offers/review/aggregateRating) per Offer
+    assert.equal(typesIn(raw).filter((t) => t === 'Product').length, m.offers.length);
+    const clean = withoutBareProducts(raw);
+    assert.ok(!JSON.stringify(clean).includes('"Product"'), 'no Product type anywhere');
+    assert.equal(clean['@context'], 'https://schema.org');
+    assert.equal(clean['@graph'].length, raw['@graph'].length);
+    // WebPage, BreadcrumbList, FAQPage: untouched
+    for (const i of [0, 1, 2]) assert.deepEqual(clean['@graph'][i], raw['@graph'][i]);
+    assert.deepEqual(clean['@graph'].map((n: Node) => n['@type']), ['WebPage', 'BreadcrumbList', 'FAQPage', 'ItemList']);
+    const list = clean['@graph'][3];
+    assert.equal(list['@id'], raw['@graph'][3]['@id']);
+    assert.equal(list.name, raw['@graph'][3].name);
+    assert.equal(list.itemListElement.length, m.offers.length, 'one Offer per offer');
+    const html = decode(Sales.renderSalesHTML(m, { assetBase: '/brands/' }));
+    list.itemListElement.forEach((li: Node, i: number) => {
+      const before = raw['@graph'][3].itemListElement[i];
+      assert.equal(li['@type'], 'ListItem');
+      assert.equal(li.position, i + 1);
+      assert.equal(li.item['@type'], 'Offer');
+      assert.ok(!('itemOffered' in li.item), 'no itemOffered');
+      // name, description, validFrom, validThrough, seller: exactly as the shared code wrote them
+      const { itemOffered, ...rest } = before.item;
+      assert.equal(itemOffered['@type'], 'Product');
+      assert.deepEqual(li.item, rest);
+      assert.equal(li.item.name, m.offers[i].text);
+      assert.equal(li.item.validFrom, m.offers[i].start);
+      assert.equal(li.item.validThrough, m.offers[i].end);
+      assert.deepEqual(li.item.seller, { '@id': `${LOC.site_url}/#store` });
+      assert.ok(html.includes(li.item.name), `"${li.item.name}" is on the page`);
+    });
+  });
+}
+
+test('withoutBareProducts: a no-op without bare Products; keeps a Product that has offers, review or aggregateRating; drops one in an array or with an @type list', () => {
+  // no offers on this date: no ItemList, nothing to remove
+  const quiet = Sales.salesJsonLd(Sales.buildSalesModel(withLiveBrandLinks(FEED), LOC, { today: '2027-02-01', clearance: [] }));
+  assert.deepEqual(withoutBareProducts(quiet), quiet);
+  // if the shared code stops emitting the Product: unchanged
+  const offerOnly = { '@context': 'https://schema.org', '@graph': [{ '@type': 'ItemList', itemListElement: [{ '@type': 'ListItem', position: 1, item: { '@type': 'Offer', name: 'A' } }] }] };
+  assert.deepEqual(withoutBareProducts(offerOnly), offerOnly);
+  // a Product Google can use stays
+  for (const key of ['offers', 'review', 'aggregateRating']) {
+    const ok = { '@type': 'Offer', itemOffered: { '@type': 'Product', name: 'P', [key]: { '@type': 'Thing' } } };
+    assert.deepEqual(withoutBareProducts(ok), ok, key);
+  }
+  // bare ones go, wherever they are
+  assert.deepEqual(withoutBareProducts({ '@graph': [{ '@type': ['Product', 'Thing'], name: 'P' }, { '@type': 'WebPage' }] }), { '@graph': [{ '@type': 'WebPage' }] });
+  // the input is not modified
+  const input = { '@type': 'Offer', name: 'A', itemOffered: { '@type': 'Product', name: 'P' } };
+  assert.deepEqual(withoutBareProducts(input), { '@type': 'Offer', name: 'A' });
+  assert.deepEqual(input.itemOffered, { '@type': 'Product', name: 'P' });
+});
