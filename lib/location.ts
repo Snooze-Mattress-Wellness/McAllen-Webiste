@@ -22,10 +22,11 @@ export const LOCATION = {
      Place ID below (November 3, 2026) */
   geo: { latitude: 26.2746879, longitude: -98.2189774 },
   social: {
-    facebook: 'https://www.facebook.com/p/Snooze-Mattress-Wellness-61575812121380/',
+    facebook: 'https://www.facebook.com/SnoozeMattressNorthMcAllen', // the store's own page (client request, November 27, 2026)
     instagram: 'https://www.instagram.com/snoozemcallen',
     youtube: 'https://www.youtube.com/@SnoozeMcAllen',
     linkedin: 'https://www.linkedin.com/company/snooze-mattress-mcallen',
+    tiktok: 'https://www.tiktok.com/@snoozemattress_rgv', // added November 27, 2026 (client request)
   },
   /* Google Maps: the query is the business name + the exact NAP, so the map and the directions link resolve to the
      store's own listing (SEO audit, October 2026 — section 6b; scripts/brand-nap.mjs writes the same URLs into the

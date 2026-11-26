@@ -30,7 +30,7 @@ export const NEW = {
   phoneDigits: '9565865646',
   phoneIntl: '+1 956-586-5646',
   email: 'northmcallen@snoozemattresscompany.com',
-  facebook: 'https://www.facebook.com/p/Snooze-Mattress-Wellness-61575812121380/',
+  facebook: 'https://www.facebook.com/SnoozeMattressNorthMcAllen',
   instagram: 'https://www.instagram.com/snoozemcallen',
   youtube: 'https://www.youtube.com/@SnoozeMcAllen',
   mapsQuery: '7913+N+10th+St,+Suite+130,+McAllen,+TX+78504',

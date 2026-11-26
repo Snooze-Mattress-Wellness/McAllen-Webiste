@@ -17,7 +17,7 @@ const NEW = {
   phone: '(956) 586-5646',
   tel: 'tel:+19565865646',
   email: 'northmcallen@snoozemattresscompany.com',
-  fb: 'https://www.facebook.com/p/Snooze-Mattress-Wellness-61575812121380/',
+  fb: 'https://www.facebook.com/SnoozeMattressNorthMcAllen',
   ig: 'https://www.instagram.com/snoozemcallen',
   yt: 'https://www.youtube.com/@SnoozeMcAllen',
   mapsQ: '7913+North+10th+Street,+Suite+130,+McAllen,+TX+78504',

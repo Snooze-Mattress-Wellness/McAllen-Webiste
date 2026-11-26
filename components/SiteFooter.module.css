@@ -158,3 +158,12 @@
 .copy { display: flex; flex-direction: column; gap: 3px; }
 .madeWith { display: inline-flex; align-items: center; gap: 5px; font-size: 0.78rem; color: var(--muted); }
 .madeWith svg { width: 12px; height: 12px; color: var(--orange); }
+/* Five social icons (TikTok added November 27, 2026) need 308px at 52px + 12px gaps; on desktop the brand column is
+   302.6px wide from 1220px up and ~252px at 1025px. Desktop only: the gap is 10px (the five 52px icons fit from
+   1220px up) and, where the column is narrower (1025–1219px), the icons shrink together and stay square. The row
+   spans its column and each icon is a 52px flex basis with no minimum, so the row never widens the footer's grid
+   column (the other columns keep their widths). Tablet and phone (one or two columns) have the room and are unchanged. */
+@media (min-width: 1025px) {
+  .social { gap: 10px; width: 100%; }
+  .social a { flex: 0 1 52px; width: auto; min-width: 0; height: auto; aspect-ratio: 1 / 1; }
+}
