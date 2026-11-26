@@ -7,8 +7,6 @@ import { readFileSync } from 'node:fs';
 import { LOCATION } from '../lib/location.ts';
 import { ui } from '../lib/i18n.ts';
 
-const OLD_FB = 'https://www.facebook.com/p/Snooze-Mattress-Wellness-61575812121380/';
-
 test('social profiles: the new Facebook page and TikTok; the others unchanged, in order', () => {
   assert.deepEqual(LOCATION.social, {
     facebook: 'https://www.facebook.com/SnoozeMattressNorthMcAllen',
@@ -24,7 +22,7 @@ test('structured data: both sameAs lists name every profile from the config (Tik
   const src = readFileSync(new URL('../lib/schema.ts', import.meta.url), 'utf8');
   assert.ok(src.includes('sameAs: [L.social.facebook, L.social.instagram, L.social.youtube, L.social.linkedin, L.social.tiktok],'), 'Organization');
   assert.ok(src.includes('sameAs: [L.social.facebook, L.social.instagram, L.social.youtube, L.social.linkedin, L.social.tiktok, L.gbpUrl],'), 'the store');
-  assert.ok(!src.includes(OLD_FB));
+  assert.ok(!/facebook\.com\/p\//.test(src), 'no hard-coded profile URL (the old /p/ page link): sameAs reads the config');
 });
 
 test('footer: the TikTok icon after LinkedIn, new tab, its accessible name in both languages', () => {
